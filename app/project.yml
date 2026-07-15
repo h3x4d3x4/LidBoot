@@ -1,0 +1,67 @@
+name: LidBoot
+
+options:
+  bundleIdPrefix: com.lidboot
+  createIntermediateGroups: true
+  deploymentTarget:
+    macOS: "15.0"
+  generateEmptyDirectories: true
+
+# ── Local Swift Package ──────────────────────────────────────────────────────
+# Package.swift in this directory defines LidBootCore (the NVRAM logic, unit
+# tested with `swift test` independently of the app target).
+packages:
+  LidBoot:
+    path: .
+
+targets:
+  LidBoot:
+    type: application
+    platform: macOS
+    # macOS 15 (Sequoia) is the floor because BootPreference does not exist
+    # before it — a lower target would only let the app launch and immediately
+    # disable itself.
+    deploymentTarget: "15.0"
+
+    sources:
+      - path: App
+        excludes:
+          - Info.plist
+
+    dependencies:
+      - package: LidBoot
+        product: LidBootCore
+
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.lidboot.LidBoot
+        MARKETING_VERSION: "0.1.0"
+        CURRENT_PROJECT_VERSION: "1"
+        SWIFT_VERSION: "5.9"
+        MACOSX_DEPLOYMENT_TARGET: "15.0"
+        INFOPLIST_FILE: App/Info.plist
+        CODE_SIGN_ENTITLEMENTS: LidBoot.entitlements
+        CODE_SIGN_STYLE: Automatic
+        DEVELOPMENT_TEAM: 632VXL3W66
+        ENABLE_HARDENED_RUNTIME: YES
+        # Must stay NO: the sandbox blocks both the IO registry read and the
+        # privileged nvram write. See LidBoot.entitlements.
+        ENABLE_APP_SANDBOX: NO
+        SWIFT_STRICT_CONCURRENCY: complete
+
+schemes:
+  LidBoot:
+    build:
+      targets:
+        LidBoot: all
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets: []
+    profile:
+      config: Release
+    analyze:
+      config: Debug
+    archive:
+      config: Release

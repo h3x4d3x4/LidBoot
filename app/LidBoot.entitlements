@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!--
+	  App Sandbox is deliberately OFF and cannot be enabled.
+
+	  The sandbox blocks both halves of what this app does:
+	    * reading BootPreference from the IO registry, and
+	    * running `nvram` as root via `do shell script`.
+
+	  This is why LidBoot is distributed with Developer ID + notarization rather
+	  than through the Mac App Store. Nothing else is requested — no network,
+	  no file access, no Apple Events to other apps.
+	-->
+	<key>com.apple.security.app-sandbox</key>
+	<false/>
+</dict>
+</plist>
