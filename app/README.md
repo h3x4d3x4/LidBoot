@@ -228,12 +228,18 @@ Same split as Grid Push.
 
 ---
 
+## License
+
+[MIT](../LICENSE). Sparkle is MIT-licensed.
+
+---
+
 <div align="center">
 
 Designed and built by [Hexadexa](https://hexadexa.io) ·
 [andrei@hexadexa.dev](mailto:andrei@hexadexa.dev) ·
 [Ko-fi](https://ko-fi.com/hexadexa)
 
-Copyright © 2026 Hexadexa. All rights reserved.
+Copyright © 2026 Hexadexa.
 
 </div>

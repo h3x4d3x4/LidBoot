@@ -77,11 +77,16 @@ Reads need no privileges. Writes ask macOS for a one-shot authorisation, so
 committed.
 
 ```sh
+brew install xcodegen         # once
 cd app
 xcodegen generate
 swift test                    # 35 tests, no root, under a second
 open LidBoot.xcodeproj
 ```
+
+`swift test` needs no signing. To build and run the app itself, change
+`DEVELOPMENT_TEAM` in `app/project.yml` to your own team (or clear it and use
+ad-hoc signing locally).
 
 See [`app/README.md`](app/README.md) for the release pipeline, notarization and
 Sparkle setup, and [`app/docs/STATUS.md`](app/docs/STATUS.md) for current state.
@@ -94,6 +99,22 @@ Sparkle setup, and [`app/docs/STATUS.md`](app/docs/STATUS.md) for current state.
 | [**LidBoot-Releases**](https://github.com/h3x4d3x4/LidBoot-Releases) | Public: signed DMGs and the Sparkle appcast. |
 | **LidBoot-site** | The [lidboot.hexadexa.io](https://lidboot.hexadexa.io) landing page. |
 
+## Contributing & support
+
+Lid Boot is a small utility, maintained as time permits. Bug reports are
+welcome — include the output of **Settings › About › Copy Diagnostics**. Small,
+focused PRs are welcome too; anything touching the NVRAM path needs a matching
+test, and the safety rules above are non-negotiable.
+
+**Security:** for anything security-relevant, email
+[andrei@hexadexa.dev](mailto:andrei@hexadexa.dev) instead of opening a public
+issue.
+
+## License
+
+[MIT](LICENSE).
+
 ---
 
-Built by [Hexadexa](https://hexadexa.io). Not affiliated with Apple Inc.
+Built by [Hexadexa](https://hexadexa.io) · [Ko-fi](https://ko-fi.com/hexadexa) ·
+Not affiliated with Apple Inc.
