@@ -16,14 +16,17 @@ Verified on hardware (MacBookPro18,1, M1 Pro, macOS 26.5.2), not assumed:
 
 **Never run: the physical test.** Shut down → close lid → open → must not start up. Then press a key → must start up. This cannot be automated and is the one thing that proves the product's whole premise. Ask a tester to do this first.
 
+## Done since
+
+- **Notarized.** `dist/LidBoot-0.2.0.dmg` — Apple returned `Accepted`, ticket stapled, and `spctl` now says `accepted — source=Notarized Developer ID` (it said *rejected* before). Used the existing `observio-notary` keychain profile: a notarytool profile is credentials for an Apple ID + team, not for an app, and every Hexadexa app ships under team `632VXL3W66`. `notarize.sh` now tries `hexadexa-notary`, `lidboot-notary`, `observio-notary` in order.
+- **Installed and launched from the DMG** the way a tester would; Gatekeeper accepts it.
+
 ## Open — needs a human
 
-1. **Notarization.** No keychain profile exists yet. Either tell the implementer the profile name other projects use (`NOTARIZE_PROFILE=<name> ./scripts/notarize.sh dist/LidBoot-0.2.0.dmg`) or create one:
-   `xcrun notarytool store-credentials "lidboot-notary" --apple-id "your-apple-id@example.com" --team-id "632VXL3W66" --password "<app-specific-password>"`
-   Until then `spctl` says `rejected — source=Unnotarized Developer ID`, and macOS 15+ removed the Control-click bypass, so testers would have to go through System Settings to launch it. **Don't ship the DMG before this.**
-2. **Public releases repo.** `h3x4d3x4/LidBoot-Releases` doesn't exist. It must be **public** so the app updates without a token (integrity comes from the EdDSA signature, not repo privacy). Not created — that's outward-facing and needs the user's explicit yes.
-3. **Cloudflare redirect.** `lidboot.hexadexa.io/appcast.xml` → `https://raw.githubusercontent.com/h3x4d3x4/LidBoot-Releases/main/appcast.xml` (302), same rule shape as Observio's. **The feed URL is baked into every build**, so until this exists updates silently do nothing. It's a redirect precisely so the backing store can move without shipping a new app.
-4. **Sparkle signing key.** LidBoot reuses the developer's existing key (`g1lZN7…`, the same one Observio uses) — Sparkle's default of one key per developer. Fine, but a compromise would affect every app signed with it. Decide whether LidBoot should get its own.
+1. **Public releases repo.** `h3x4d3x4/LidBoot-Releases` still doesn't exist. It must be **public** so the app updates without a token (integrity is the EdDSA signature, not repo privacy — `Observio-Releases` is public for the same reason). **Not created: creating a public surface needs an explicit yes**, and none has been given. Until it exists, `publish-release.sh` can't run and Sparkle has nothing to fetch.
+2. **Cloudflare redirect.** `lidboot.hexadexa.io/appcast.xml` → `https://raw.githubusercontent.com/h3x4d3x4/LidBoot-Releases/main/appcast.xml` (302), same rule shape as Observio's. **The feed URL is baked into every build**, so until this exists updates silently do nothing. It's a redirect precisely so the backing store can move without shipping a new app.
+3. **Sparkle signing key.** Lid Boot reuses the existing key (`g1lZN7…`, the same one Observio uses) — Sparkle's default of one key per developer. Fine, but a compromise would affect every app signed with it.
+4. **The app inside the DMG isn't stapled** — only the DMG is. Gatekeeper accepts it via an online check, so this only bites a tester whose *first* launch is offline. Fixing it properly means notarizing and stapling the `.app` before packaging, then notarizing the DMG.
 
 ## Decisions worth not re-litigating
 
