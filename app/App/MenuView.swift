@@ -4,6 +4,7 @@ import LidBootCore
 /// The menu bar popover.
 struct MenuView: View {
     @ObservedObject var model: LidBootModel
+    @ObservedObject var updater: UpdaterModel
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -20,7 +21,10 @@ struct MenuView: View {
             Divider().padding(.horizontal, 14)
             footer
         }
-        .frame(width: 320)
+        // 340, not 320: pt-PT strings run ~25% longer than the English and
+        // wrap awkwardly at the narrower width. Still inside the 300-340 range
+        // that comparable menu bar apps use.
+        .frame(width: 340)
         // The popover is rebuilt each time it opens, so this keeps it honest
         // even if NVRAM changed underneath us.
         .onAppear { model.refresh() }
@@ -54,10 +58,15 @@ struct MenuView: View {
     private var header: some View {
         HStack(alignment: .firstTextBaseline, spacing: 8) {
             VStack(alignment: .leading, spacing: 3) {
-                Text("Lid Boot")
-                    .font(.system(size: 14, weight: .semibold))
+                HStack(spacing: 5) {
+                    Text("Lid Boot")
+                        .font(.headline)
+                    if model.unsupported == nil {
+                        HowItWorksButton()
+                    }
+                }
                 Text(model.summary)
-                    .font(.system(size: 11))
+                    .font(.subheadline)
                     .foregroundStyle(.secondary)
                     .fixedSize(horizontal: false, vertical: true)
             }
@@ -71,35 +80,50 @@ struct MenuView: View {
         .padding(.bottom, 11)
     }
 
+    /// Left: the one thing you might want next. Right: a gear holding everything
+    /// else, so the popover isn't a row of competing text buttons.
+    ///
+    /// Quit and Settings live in the gear rather than being dropped: in
+    /// menu-bar-only mode the app is an accessory with no app menu, so this
+    /// popover is the *only* reachable UI. A gear menu keeps them one click away
+    /// without spending the popover's limited surface on them.
     private var footer: some View {
         HStack(spacing: 4) {
-            // Not "Settings…" for this one: the window holds the primary
-            // toggles, Restore Default and the help link, so calling it Settings
-            // tells people there's nothing in there worth opening.
             FooterButton(title: String(localized: "Open Lid Boot…")) {
                 WindowOpener.shared.open()
             }
             .accessibilityHint(String(localized: "Opens the Lid Boot window"))
 
-            // In menu-bar-only mode the app is an accessory: no app menu, so no
-            // Cmd-, and no other route to Settings at all. This is the only one.
-            SettingsLink {
-                Text("Settings…")
-                    .font(.system(size: 11))
-                    .foregroundStyle(.secondary)
-                    .padding(.horizontal, 6)
-                    .padding(.vertical, 3)
-            }
-            .buttonStyle(.plain)
-
             Spacer()
 
-            FooterButton(title: String(localized: "Quit")) {
-                NSApplication.shared.terminate(nil)
+            Menu {
+                // SettingsLink rather than a Button: it's the only thing that
+                // reliably opens the Settings scene from an accessory app.
+                SettingsLink { Label("Settings…", systemImage: "gearshape") }
+                Button {
+                    updater.checkForUpdates()
+                } label: {
+                    Label("Check for Updates…", systemImage: "arrow.down.circle")
+                }
+                .disabled(!updater.canCheck)
+                Divider()
+                Button {
+                    NSApplication.shared.terminate(nil)
+                } label: {
+                    Label("Quit Lid Boot", systemImage: "power")
+                }
+                .keyboardShortcut("q")
+            } label: {
+                Image(systemName: "gearshape")
+                    .foregroundStyle(.secondary)
             }
-            .keyboardShortcut("q")
+            .menuStyle(.borderlessButton)
+            .menuIndicator(.hidden)
+            .fixedSize()
+            .help(String(localized: "More options"))
+            .accessibilityLabel(String(localized: "More options"))
         }
-        .padding(.horizontal, 10)
+        .padding(.horizontal, 12)
         .padding(.vertical, 9)
     }
 }
@@ -115,12 +139,12 @@ private struct FooterButton: View {
     var body: some View {
         Button(action: action) {
             Text(title)
-                .font(.system(size: 11))
+                .font(.subheadline)
                 .foregroundStyle(isHovering ? .primary : .secondary)
                 .padding(.horizontal, 6)
                 .padding(.vertical, 3)
                 .background {
-                    RoundedRectangle(cornerRadius: 5, style: .continuous)
+                    RoundedRectangle(cornerRadius: 6, style: .continuous)
                         .fill(Color.primary.opacity(isHovering ? 0.08 : 0))
                 }
         }

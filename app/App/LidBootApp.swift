@@ -7,6 +7,7 @@ struct LidBootApp: App {
     @StateObject private var model = LidBootModel()
     @StateObject private var updater = UpdaterModel()
     @AppStorage(AppMode.defaultsKey) private var mode: AppMode = .both
+    @AppStorage(AppAppearance.defaultsKey) private var appearance: AppAppearance = .system
 
     var body: some Scene {
         Window("Lid Boot", id: WindowID.main) {
@@ -16,6 +17,7 @@ struct LidBootApp: App {
                 // because a closed SwiftUI Window has no NSWindow to unhide.
                 .windowOpener()
                 .refreshOnActivate(model)
+                .preferredColorScheme(appearance.colorScheme)
         }
         .windowResizability(.contentSize)
         // The view draws its own title, so the chrome would just repeat it.
@@ -49,10 +51,12 @@ struct LidBootApp: App {
 
         Settings {
             SettingsView(model: model, mode: $mode, updater: updater)
+                .preferredColorScheme(appearance.colorScheme)
         }
 
         MenuBarExtra(isInserted: menuBarInsertion) {
-            MenuView(model: model)
+            MenuView(model: model, updater: updater)
+                .preferredColorScheme(appearance.colorScheme)
         } label: {
             // The auth prompt steals focus and dismisses the popover, so after a
             // change the popover's own feedback is painted on a view that no
@@ -98,8 +102,18 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     /// making the Dock icon correct at launch — LSUIElement is statically true
     /// and we promote from it at runtime.
     func applicationWillFinishLaunching(_ notification: Notification) {
-        MainActor.assumeIsolated { AppMode.current.applyActivationPolicy() }
+        MainActor.assumeIsolated {
+            AppMode.current.applyActivationPolicy()
+            // Before the first frame, or you get a flash of the wrong appearance.
+            AppAppearance.current.apply()
+        }
     }
+
+    // NB: there is no programmatic way to open the Settings scene here.
+    // `NSApp.sendAction(Selector(("showSettingsWindow:")))` — and the older
+    // `showPreferencesWindow:` — both no-op against a SwiftUI `Settings` scene
+    // (tried, measured, deleted). `SettingsLink` is the only reliable route,
+    // which is exactly why the popover's gear menu uses one.
 
     /// Clicking the Dock icon, or relaunching from Finder, must always surface
     /// something. In menu-bar-only mode there may be no visible status item at

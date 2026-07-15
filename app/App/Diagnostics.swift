@@ -67,7 +67,7 @@ struct ReportProblemView: View {
                 .controlSize(.small)
             }
             Text("Diagnostics include your Mac model, macOS version and the current setting. Nothing personal.")
-                .font(.system(size: 10.5))
+                .font(.caption)
                 .foregroundStyle(.tertiary)
                 .fixedSize(horizontal: false, vertical: true)
         }

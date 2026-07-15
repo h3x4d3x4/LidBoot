@@ -14,20 +14,20 @@ struct UnsupportedView: View {
     var body: some View {
         VStack(spacing: 10) {
             Image(systemName: "laptopcomputer.slash")
-                .font(.system(size: compact ? 22 : 28, weight: .light))
+                .font((compact ? Font.title : Font.largeTitle).weight(.light))
                 .foregroundStyle(.secondary)
 
             Text("Lid Boot can't help this Mac")
-                .font(.system(size: compact ? 12.5 : 14, weight: .semibold))
+                .font(compact ? Font.headline : Font.title3.weight(.semibold))
 
             Text(reason.explanation)
-                .font(.system(size: 11))
+                .font(.subheadline)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
                 .fixedSize(horizontal: false, vertical: true)
 
             Link("Apple's documentation", destination: AppLinks.appleSupport)
-                .font(.system(size: 11))
+                .font(.subheadline)
         }
         .frame(maxWidth: .infinity)
         .padding(.vertical, compact ? 14 : 22)

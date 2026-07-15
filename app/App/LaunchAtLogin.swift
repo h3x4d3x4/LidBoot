@@ -59,12 +59,12 @@ struct LaunchAtLoginToggle: View {
         VStack(alignment: .leading, spacing: 5) {
             Toggle(isOn: Binding(get: { model.isEnabled }, set: { model.set($0) })) {
                 VStack(alignment: .leading, spacing: 1) {
-                    Text("Open at login").font(.system(size: 12))
+                    Text("Open at login").font(.callout)
                     // Be honest: the setting lives in NVRAM and holds whether or
                     // not this app ever runs. Launch at login buys quick access
                     // and nothing else — don't imply it's doing the work.
                     Text("Just for quick access — your setting holds either way")
-                        .font(.system(size: 10.5))
+                        .font(.subheadline)
                         .foregroundStyle(.secondary)
                         // Translations run longer than the English; let it wrap
                         // rather than truncate mid-word.

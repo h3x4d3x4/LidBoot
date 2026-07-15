@@ -25,7 +25,9 @@ struct MainWindowView: View {
         .padding(.top, 30)
         .padding([.horizontal, .bottom], 20)
         .frame(width: 380)
-        .background(.background)
+        // Deliberately no background: macOS 26 draws window chrome in Liquid
+        // Glass and adapts it to the wallpaper and appearance. Painting an
+        // opaque colour over it is the loudest "this app is from 2023" tell.
         .animation(.easeInOut(duration: 0.2), value: model.errorMessage)
         .onAppear { model.refresh() }
     }
@@ -35,7 +37,7 @@ struct MainWindowView: View {
         BootToggles(model: model)
             .padding(6)
             .background {
-                RoundedRectangle(cornerRadius: 10, style: .continuous)
+                RoundedRectangle(cornerRadius: 12, style: .continuous)
                     .fill(.quaternary.opacity(0.5))
             }
 
@@ -70,13 +72,18 @@ struct MainWindowView: View {
                 .shadow(color: Palette.lid[0].opacity(0.35), radius: 8, y: 3)
 
             VStack(alignment: .leading, spacing: 3) {
-                Text("Lid Boot")
-                    .font(.system(size: 17, weight: .semibold))
+                HStack(spacing: 6) {
+                    Text("Lid Boot")
+                        .font(.title2.weight(.semibold))
+                    if model.unsupported == nil {
+                        HowItWorksButton()
+                    }
+                }
                 // On an unsupported Mac the panel below carries the explanation;
                 // repeating it here just says the same sentence twice.
                 if model.unsupported == nil {
                     Text(model.summary)
-                        .font(.system(size: 11.5))
+                        .font(.subheadline)
                         .foregroundStyle(.secondary)
                         .fixedSize(horizontal: false, vertical: true)
                         .contentTransition(.opacity)
@@ -126,7 +133,7 @@ struct MainWindowView: View {
     private var footer: some View {
         HStack {
             Text("Version \(Bundle.appVersion)", comment: "Footer version label")
-                .font(.system(size: 10.5))
+                .font(.caption)
                 .foregroundStyle(.tertiary)
             Spacer()
             // The unsupported panel already offers this link; two of them on one
@@ -136,10 +143,10 @@ struct MainWindowView: View {
                     HStack(spacing: 3) {
                         Text("Apple's documentation")
                         Image(systemName: "arrow.up.right.square")
-                            .font(.system(size: 9))
+                            .font(.caption2)
                     }
                 }
-                .font(.system(size: 10.5))
+                .font(.caption)
                 .help(AppLinks.appleSupport.absoluteString)
             }
         }

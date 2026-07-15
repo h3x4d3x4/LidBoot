@@ -14,7 +14,7 @@ struct ModePicker: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
             Text("Show Lid Boot in")
-                .font(.system(size: 11, weight: .medium))
+                .font(.subheadline.weight(.medium))
                 .foregroundStyle(.secondary)
 
             Picker("Show Lid Boot in", selection: pickerBinding) {

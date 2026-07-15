@@ -74,9 +74,9 @@ struct SettingRow: View {
             IconTile(symbol: symbol, tint: tint, enabled: enabled)
 
             VStack(alignment: .leading, spacing: 1) {
-                Text(title).font(.system(size: 12, weight: .medium))
+                Text(title).font(.headline)
                 Text(caption)
-                    .font(.system(size: 10.5))
+                    .font(.subheadline)
                     .foregroundStyle(.secondary)
                     // Captions swap as the switch flips; fade rather than snap.
                     .contentTransition(.opacity)
@@ -93,7 +93,7 @@ struct SettingRow: View {
                     .disabled(!enabled)
             } else {
                 Text(verbatim: "—")
-                    .font(.system(size: 13, weight: .medium))
+                    .font(.body.weight(.medium))
                     .foregroundStyle(.tertiary)
                     .frame(width: 28)
             }
@@ -101,7 +101,7 @@ struct SettingRow: View {
         .padding(.horizontal, 6)
         .padding(.vertical, 7)
         .background {
-            RoundedRectangle(cornerRadius: 7, style: .continuous)
+            RoundedRectangle(cornerRadius: 8, style: .continuous)
                 .fill(Color.primary.opacity(isHovering && enabled ? 0.06 : 0))
         }
         .contentShape(Rectangle())
@@ -136,6 +136,10 @@ struct IconTile: View {
             .frame(width: size, height: size)
             .overlay {
                 Image(systemName: symbol)
+                    // The one deliberate hard-coded size in the app: this is a
+                    // decorative glyph scaled to the tile it sits in, not text.
+                    // A semantic text style would resize with the user's
+                    // preferences and overflow the fixed-size tile.
                     .font(.system(size: glyph, weight: .medium))
                     .foregroundStyle(.white)
             }
@@ -163,12 +167,12 @@ struct NoticeRow: View {
     var body: some View {
         HStack(alignment: .top, spacing: 7) {
             Image(systemName: symbol)
-                .font(.system(size: 10))
+                .font(.caption)
                 .foregroundStyle(tint)
                 .padding(.top, 1)
                 .accessibilityHidden(true)
             Text(text)
-                .font(.system(size: 11))
+                .font(.subheadline)
                 .foregroundStyle(prominent ? .primary : .secondary)
                 .fixedSize(horizontal: false, vertical: true)
             Spacer(minLength: 0)
@@ -176,27 +180,23 @@ struct NoticeRow: View {
     }
 }
 
-/// The two things people would otherwise discover the hard way.
+/// The one thing people would otherwise discover the hard way.
 ///
-/// Both matter and they're different: the setting only governs a full start-up
-/// (not waking a sleeping Mac), and even then the keyboard still powers it on.
 /// Only worth saying once something is actually suppressed — at factory default
 /// "your Mac still starts up if you press a key" is a non-sequitur, because
 /// everything starts it up.
+///
+/// The other caveat (this only applies from a full shutdown; sleep is
+/// unaffected) moved into the "How this works" popover. It matters, but it's
+/// background rather than a warning, and two permanent grey rows under the
+/// switches read as fine print nobody finishes.
 struct StartupCaveats: View {
     var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            NoticeRow(
-                symbol: "power",
-                text: String(localized: "Applies when your Mac is shut down. Waking it from sleep isn't affected."),
-                tint: .secondary
-            )
-            NoticeRow(
-                symbol: "keyboard",
-                text: String(localized: "Your Mac still starts up if you press a key or touch the trackpad."),
-                tint: .secondary
-            )
-        }
+        NoticeRow(
+            symbol: "keyboard",
+            text: String(localized: "Your Mac still starts up if you press a key or touch the trackpad."),
+            tint: .secondary
+        )
     }
 }
 

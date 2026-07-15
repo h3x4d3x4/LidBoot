@@ -57,13 +57,13 @@ struct UpdatesSettingsView: View {
                         .disabled(!model.canCheck)
                     if let lastCheck = model.lastCheck {
                         Text("Last checked \(lastCheck.formatted(.relative(presentation: .named)))")
-                            .font(.system(size: 11))
+                            .font(.subheadline)
                             .foregroundStyle(.secondary)
                     }
                 }
             } footer: {
                 Text("Updates are signed and verified before installing.")
-                    .font(.system(size: 10.5))
+                    .font(.caption)
                     .foregroundStyle(.tertiary)
             }
         }

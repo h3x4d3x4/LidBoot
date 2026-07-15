@@ -424,17 +424,6 @@
         }
       }
     },
-    "Applies when your Mac is shut down. Waking it from sleep isn't affected.": {
-      "extractionState": "manual",
-      "localizations": {
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Aplica-se quando o Mac está desligado. Acordá-lo do modo de repouso não é afetado."
-          }
-        }
-      }
-    },
     "Changing either switch asks for your Mac password.": {
       "extractionState": "manual",
       "localizations": {
@@ -754,6 +743,105 @@
           "stringUnit": {
             "state": "translated",
             "value": "O BootPreference está definido para um valor que o Lid Boot não reconhece (0x%@), por isso não o vai alterar."
+          }
+        }
+      }
+    },
+    "Appearance": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aspeto"
+          }
+        }
+      }
+    },
+    "System": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sistema"
+          }
+        }
+      }
+    },
+    "Light": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claro"
+          }
+        }
+      }
+    },
+    "Dark": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escuro"
+          }
+        }
+      }
+    },
+    "How this works": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Como funciona"
+          }
+        }
+      }
+    },
+    "More options": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mais opções"
+          }
+        }
+      }
+    },
+    "Lid Boot changes BootPreference, a start-up setting in your Mac's firmware that Apple documents.": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O Lid Boot altera o BootPreference, uma definição de arranque no firmware do teu Mac que a Apple documenta."
+          }
+        }
+      }
+    },
+    "It survives restarts and updates. Restore Default removes it completely, leaving your Mac exactly as it shipped.": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mantém-se após reinícios e atualizações. Repor predefinição remove-a por completo, deixando o teu Mac exatamente como veio de origem."
+          }
+        }
+      }
+    },
+    "It only applies from a full shutdown. Waking your Mac from sleep is never affected.": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Só se aplica a partir de um encerramento completo. Acordar o Mac do modo de repouso nunca é afetado."
           }
         }
       }
