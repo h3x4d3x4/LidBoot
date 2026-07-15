@@ -34,6 +34,7 @@ struct MainWindowView: View {
             }
 
             Divider()
+            actions
             footer
         }
         // Extra headroom so the title bar's traffic lights don't sit on the header.
@@ -76,6 +77,39 @@ struct MainWindowView: View {
                 StatusDot(isModified: model.isModified)
             }
         }
+    }
+
+    @State private var didCopy = false
+
+    private var actions: some View {
+        HStack(spacing: 8) {
+            Button("Restore Default") {
+                Task { await model.restoreDefault() }
+            }
+            .controlSize(.small)
+            // Nothing to restore when the variable is already absent.
+            .disabled(!model.isModified || !model.controlsEnabled)
+            .help("Removes the setting, returning your Mac to how it shipped")
+
+            Button {
+                NSPasteboard.general.clearContents()
+                NSPasteboard.general.setString(model.terminalCommand, forType: .string)
+                didCopy = true
+                Task {
+                    try? await Task.sleep(for: .seconds(1.6))
+                    didCopy = false
+                }
+            } label: {
+                Label(didCopy ? "Copied" : "Copy Command",
+                      systemImage: didCopy ? "checkmark" : "terminal")
+            }
+            .controlSize(.small)
+            .disabled(model.unsupported != nil)
+            .help(model.terminalCommand)
+
+            Spacer()
+        }
+        .animation(.easeInOut(duration: 0.15), value: didCopy)
     }
 
     private var footer: some View {

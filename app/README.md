@@ -65,6 +65,9 @@ narrow:
 
 ## Build
 
+`project.yml` is the source of truth — the `.xcodeproj` is generated and not
+committed.
+
 ```sh
 xcodegen generate
 open LidBoot.xcodeproj
@@ -77,19 +80,47 @@ xcodegen generate
 xcodebuild -project LidBoot.xcodeproj -scheme LidBoot -configuration Release build
 ```
 
-Run the logic tests (no root, no prompts):
+Run the logic tests (no root, no prompts, under a second):
 
 ```sh
 swift test
 ```
 
+`xcodebuild test` runs the same tests through the app's scheme.
+
+## Release
+
+```sh
+./scripts/build-dmg.sh              # archive, sign, package -> dist/LidBoot-<version>.dmg
+./scripts/notarize.sh dist/LidBoot-<version>.dmg
+```
+
+`build-dmg.sh` refuses to package a build with the hardened runtime missing or
+the sandbox enabled, since the first breaks notarization and the second breaks
+the app.
+
+Notarization needs a one-time keychain profile (interactive — it wants an
+app-specific password from appleid.apple.com):
+
+```sh
+xcrun notarytool store-credentials "lidboot-notary" \
+    --apple-id "you@example.com" --team-id "632VXL3W66" --password "<app-specific-password>"
+```
+
+Notarization isn't optional in practice: macOS 15 removed the Control-click
+Gatekeeper bypass, so an un-notarized build makes users dig through System
+Settings to launch it at all.
+
 ## Layout
 
 ```
-App/                  SwiftUI: menu bar popover, window, app mode
+App/                  SwiftUI: popover, window, app mode, all user-facing strings
 Sources/LidBootCore/  the NVRAM logic, independently testable
-Tests/                the 2x2 mapping, locked down
+Tests/                mapping, decoding, service, error mapping, hardware gate
+scripts/              release: archive -> sign -> DMG -> notarize
 ```
 
-`LidBootCore` has no UI and no privileged code paths beyond the single writer, so
-the interesting logic can be tested without ever prompting for a password.
+`LidBootCore` has no UI, no user-facing strings, and one privileged path behind a
+protocol, so the interesting logic is tested with fakes and never prompts for a
+password. Wording lives in `App/Localization.swift`; `App/Localizable.xcstrings`
+carries en + pt-PT.

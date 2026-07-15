@@ -504,6 +504,50 @@
           }
         }
       }
+    },
+    "Restore Default": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Repor predefinição"
+          }
+        }
+      }
+    },
+    "Removes the setting, returning your Mac to how it shipped": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remove a definição, devolvendo o teu Mac ao estado de origem"
+          }
+        }
+      }
+    },
+    "Copy Command": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copiar comando"
+          }
+        }
+      }
+    },
+    "Copied": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copiado"
+          }
+        }
+      }
     }
   }
 }

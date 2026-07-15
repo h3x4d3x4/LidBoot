@@ -67,6 +67,17 @@ final class LidBootModel: ObservableObject {
         unsupported == nil && refusal == nil && !isApplying
     }
 
+    /// The equivalent Terminal command for the current state — for scripting a
+    /// fleet, or for anyone who wants to see exactly what the app would run.
+    /// Same closed enum the app itself uses, so it can't drift from reality.
+    var terminalCommand: String {
+        "sudo \(NVRAMCommand.command(for: behavior).shellCommand)"
+    }
+
+    func restoreDefault() async {
+        await apply(.factoryDefault)
+    }
+
     private func apply(lidOpen: Bool? = nil, powerConnect: Bool? = nil) async {
         var desired = behavior
         if let lidOpen { desired.startsOnLidOpen = lidOpen }
