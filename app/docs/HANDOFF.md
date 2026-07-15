@@ -1,6 +1,15 @@
 # LidBoot — Audit & Implementation Handoff
 
-**Date:** 2026-07-15 · **State:** v0.1.0 builds, runs, and works end-to-end on the target machine (MacBookPro18,1, M1 Pro, macOS 26.5.2). This document is a full audit of what should improve, written for an implementing agent. Nothing in here is implemented yet.
+> **STATUS: IMPLEMENTED (v0.2.0, 2026-07-15).** Everything in sections A, B and C
+> below has been done, plus a second UX audit on top — see `docs/STATUS.md` for
+> what actually shipped, what's still open, and the findings from the second pass
+> (including a critical hardware-gate bug this document did not catch).
+>
+> **This file is kept as the historical first audit.** Read `docs/STATUS.md`
+> first; treat everything below as the reasoning behind decisions already made,
+> not as a to-do list.
+
+**Date:** 2026-07-15 · **State (at time of writing):** v0.1.0 builds, runs, and works end-to-end on the target machine (MacBookPro18,1, M1 Pro, macOS 26.5.2). This document is a full audit of what should improve, written for an implementing agent.
 
 ## Read this first — context you need
 

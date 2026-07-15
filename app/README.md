@@ -21,13 +21,20 @@ four states. LidBoot shows them as two independent switches:
 Turning both switches back on **deletes** the variable, leaving NVRAM exactly as it
 shipped rather than writing a "default" value over it.
 
-## Important limitation
+## Important limitations
 
-**Your Mac still starts up when you press a key or touch the trackpad.**
+Two, and both matter:
 
+**This only applies when your Mac is shut down.** `BootPreference` governs
+*starting up*, not *waking*. Open the lid on a sleeping Mac and it wakes as
+normal — none of this changes that.
+
+**Even then, pressing a key or touching the trackpad still starts it up.**
 `BootPreference` only suppresses start-up from *opening the lid* and *connecting
-power*. This is firmware behaviour and no app can change it. If you were hoping to
-wipe the keyboard with the lid open without the Mac waking, this won't do that.
+power*. That's firmware behaviour and no app can change it. If you were hoping to
+wipe the keyboard without the Mac coming on, this won't do that.
+
+The app says both of these on screen rather than letting you find out.
 
 ## Requirements
 
@@ -91,9 +98,12 @@ swift test
 ## Release
 
 ```sh
-./scripts/build-dmg.sh              # archive, sign, package -> dist/LidBoot-<version>.dmg
-./scripts/notarize.sh dist/LidBoot-<version>.dmg
+./scripts/build-dmg.sh                              # archive, sign, package -> dist/LidBoot-<version>.dmg
+./scripts/notarize.sh dist/LidBoot-<version>.dmg    # notarize + staple
+./scripts/publish-release.sh <version> <build>      # EdDSA-sign, publish, update the appcast
 ```
+
+`publish-release.sh --dry-run` signs and prints the appcast without publishing.
 
 `build-dmg.sh` refuses to package a build with the hardened runtime missing or
 the sandbox enabled, since the first breaks notarization and the second breaks
@@ -110,6 +120,19 @@ xcrun notarytool store-credentials "lidboot-notary" \
 Notarization isn't optional in practice: macOS 15 removed the Control-click
 Gatekeeper bypass, so an un-notarized build makes users dig through System
 Settings to launch it at all.
+
+## Updates
+
+Sparkle, on the same model as Observio: built, signed and notarized locally, then
+the DMG and `appcast.xml` are published to a **public** releases repo. The app
+needs no token, because integrity comes from the EdDSA signature (`SUPublicEDKey`
+in Info.plist) rather than from the feed being private.
+
+The feed URL baked into the app is `https://lidboot.hexadexa.io/appcast.xml`, a
+Cloudflare redirect to the raw public feed — deliberately, so the backing store
+can move without shipping a new build.
+
+See `docs/STATUS.md` for what still needs setting up.
 
 ## Layout
 

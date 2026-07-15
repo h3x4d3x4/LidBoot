@@ -483,17 +483,6 @@
         }
       }
     },
-    "BootPreference is set to a value LidBoot doesn't recognise (0x%@), so it won't change it.": {
-      "extractionState": "manual",
-      "localizations": {
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "O BootPreference está definido para um valor que o LidBoot não reconhece (0x%@), por isso não o vai alterar."
-          }
-        }
-      }
-    },
     "BootPreference holds a value LidBoot can't read, so it won't change it.": {
       "extractionState": "manual",
       "localizations": {
@@ -754,6 +743,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Abre a janela do LidBoot"
+          }
+        }
+      }
+    },
+    "BootPreference is set to a value LidBoot doesn't recognize (0x%@), so it won't change it.": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O BootPreference está definido para um valor que o LidBoot não reconhece (0x%@), por isso não o vai alterar."
           }
         }
       }

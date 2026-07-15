@@ -57,7 +57,7 @@ extension BootPreferenceState {
             return nil
         case .unrecognized(let byte):
             let hex = String(format: "%02X", byte)
-            return String(localized: "BootPreference is set to a value LidBoot doesn't recognise (0x\(hex)), so it won't change it.")
+            return String(localized: "BootPreference is set to a value LidBoot doesn't recognize (0x\(hex)), so it won't change it.")
         case .unreadable:
             return String(localized: "BootPreference holds a value LidBoot can't read, so it won't change it.")
         }
