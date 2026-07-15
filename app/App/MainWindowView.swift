@@ -61,15 +61,11 @@ struct MainWindowView: View {
 
     private var header: some View {
         HStack(spacing: 12) {
-            IconTile(symbol: "laptopcomputer", tint: Palette.lid, size: 42, corner: 11, glyph: 19)
-                .overlay {
-                    // Soft glow ring — the one flourish that lifts the header
-                    // out of "system settings pane" territory.
-                    RoundedRectangle(cornerRadius: 11, style: .continuous)
-                        .stroke(Palette.lid[0].opacity(0.35), lineWidth: 3)
-                        .blur(radius: 4)
-                }
-                .shadow(color: Palette.lid[0].opacity(0.35), radius: 8, y: 3)
+            // The real icon rather than a tile imitating it. The glow ring and
+            // shadow that used to sit here are gone: the ring traced a square
+            // that no longer matches the icon's padded squircle, and the icon
+            // brings its own shadow.
+            AppIconImage(size: 52)
 
             VStack(alignment: .leading, spacing: 3) {
                 HStack(spacing: 6) {

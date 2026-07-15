@@ -1,4 +1,5 @@
 import SwiftUI
+import AppKit
 import LidBootCore
 
 /// The two toggles. Shared verbatim between the menu bar popover and the window
@@ -51,8 +52,42 @@ struct BootToggles: View {
 }
 
 enum Palette {
-    static let lid = [Color(red: 0.36, green: 0.55, blue: 1.0), Color(red: 0.55, green: 0.40, blue: 1.0)]
+    /// The app icon's stroke gradient — violet at the lid tip, blue at the base —
+    /// shifted darker.
+    ///
+    /// The icon's literal hues (#9488FF, #779CFF) are tuned for its own dark
+    /// slab and only reach 2.9:1 and 2.6:1 behind a white glyph, under the 3:1
+    /// that graphics need. These hold the hue exactly and clear it (3.7:1 and
+    /// 3.3:1), so the tiles echo the icon without going mushy.
+    static let lid = [Color(red: 0.494, green: 0.439, blue: 1.0), Color(red: 0.361, green: 0.529, blue: 1.0)]
+
+    /// Deliberately still amber→red, though the new icon dropped red entirely:
+    /// pure amber cannot carry a white glyph at any lightness (2.5:1 at its
+    /// darkest), and the red end is the only part of this tile that clears 3:1.
+    /// Brand purity here would cost legibility. Revisit with a dark glyph.
     static let power = [Color(red: 1.0, green: 0.68, blue: 0.25), Color(red: 1.0, green: 0.42, blue: 0.38)]
+}
+
+/// The app icon itself, read from the bundle.
+///
+/// Two places used to hand-draw an approximation of it — a gradient tile with a
+/// `laptopcomputer` symbol, which is exactly what the old icon looked like. When
+/// the icon was redesigned they kept the old artwork, so the app went on showing
+/// its previous logo inside its own window and About box. Reading the real icon
+/// means that can't drift again.
+struct AppIconImage: View {
+    var size: CGFloat
+
+    var body: some View {
+        Image(nsImage: NSApplication.shared.applicationIconImage)
+            .resizable()
+            .interpolation(.high)
+            // The asset carries ~20% padding and a baked shadow, so the visible
+            // squircle is 80% of the frame — size up to match, and don't add a
+            // second shadow on top of the one that's already in the pixels.
+            .frame(width: size, height: size)
+            .accessibilityHidden(true)
+    }
 }
 
 struct SettingRow: View {

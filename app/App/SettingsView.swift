@@ -59,8 +59,11 @@ struct AboutView: View {
         VStack(spacing: 0) {
             Spacer().frame(height: 24)
 
-            IconTile(symbol: "laptopcomputer", tint: Palette.lid, size: 84, corner: 19, glyph: 38)
-                .shadow(color: Palette.lid[0].opacity(0.3), radius: 12, y: 4)
+            // The real icon, not a tile imitating it — an About box showing a
+            // hand-drawn stand-in for the app's own icon is the one place that
+            // can't be allowed to drift. Sized to 104 so the squircle lands at
+            // ~84pt after the asset's baked padding; its shadow is in the pixels.
+            AppIconImage(size: 104)
                 // The one decorative flourish in the app: a soft colour wash
                 // behind the hero tile only. Gradients stay jewelry — confined
                 // to small shapes — rather than becoming wallpaper, which is
