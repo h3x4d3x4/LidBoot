@@ -1,0 +1,509 @@
+{
+  "sourceLanguage": "en",
+  "version": "1.0",
+  "strings": {
+    "LidBoot": {
+      "extractionState": "manual",
+      "shouldTranslate": false
+    },
+    "Opening the lid": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ao abrir a tampa"
+          }
+        }
+      }
+    },
+    "Wakes straight to the login screen": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vai direto para o ecrã de início de sessão"
+          }
+        }
+      }
+    },
+    "Stays off until you press a key": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fica desligado até carregares numa tecla"
+          }
+        }
+      }
+    },
+    "Connecting power": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ao ligar à corrente"
+          }
+        }
+      }
+    },
+    "Plugging in starts your Mac": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ligar a ficha arranca o Mac"
+          }
+        }
+      }
+    },
+    "Plugging in just charges it": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ligar a ficha apenas carrega a bateria"
+          }
+        }
+      }
+    },
+    "Start up when opening the lid": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Arrancar ao abrir a tampa"
+          }
+        }
+      }
+    },
+    "Start up when connecting power": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Arrancar ao ligar à corrente"
+          }
+        }
+      }
+    },
+    "Changing this asks for your password": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alterar isto pede a tua palavra-passe"
+          }
+        }
+      }
+    },
+    "On. %@": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ligado. %@"
+          }
+        }
+      }
+    },
+    "Off. %@": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desligado. %@"
+          }
+        }
+      }
+    },
+    "Start-up is limited": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Arranque automático limitado"
+          }
+        }
+      }
+    },
+    "Default start-up behaviour": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comportamento de arranque predefinido"
+          }
+        }
+      }
+    },
+    "Opens the LidBoot window": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abre a janela do LidBoot"
+          }
+        }
+      }
+    },
+    "Your Mac still starts up if you press a key or touch the trackpad.": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O teu Mac continua a arrancar se carregares numa tecla ou tocares no trackpad."
+          }
+        }
+      }
+    },
+    "Starts up when you open the lid or connect power.": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Arranca ao abrir a tampa ou ao ligar à corrente."
+          }
+        }
+      }
+    },
+    "Won't start up when you open the lid.": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não arranca ao abrir a tampa."
+          }
+        }
+      }
+    },
+    "Won't start up when you connect power.": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não arranca ao ligar à corrente."
+          }
+        }
+      }
+    },
+    "Won't start up on its own at all.": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não arranca sozinho de todo."
+          }
+        }
+      }
+    },
+    "Show LidBoot in": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar o LidBoot em"
+          }
+        }
+      }
+    },
+    "Menu Bar": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Barra de menus"
+          }
+        }
+      }
+    },
+    "Dock": {
+      "extractionState": "manual",
+      "shouldTranslate": false
+    },
+    "Both": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ambos"
+          }
+        }
+      }
+    },
+    "Hide the Dock icon?": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ocultar o ícone da Dock?"
+          }
+        }
+      }
+    },
+    "Cancel": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cancelar"
+          }
+        }
+      }
+    },
+    "Use Menu Bar Only": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usar apenas a barra de menus"
+          }
+        }
+      }
+    },
+    "LidBoot will only be reachable from its menu bar icon. If your menu bar is full, macOS may not have room to show it — this is common on Macs with a notch.\n\nIf you can't find the icon, open LidBoot again from Finder or Launchpad and this window will come back.": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O LidBoot só ficará acessível pelo ícone na barra de menus. Se a tua barra de menus estiver cheia, o macOS pode não ter espaço para o mostrar — o que é comum em Macs com notch.\n\nSe não encontrares o ícone, abre o LidBoot outra vez a partir do Finder ou do Launchpad e esta janela reaparece."
+          }
+        }
+      }
+    },
+    "Open at login": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abrir ao iniciar sessão"
+          }
+        }
+      }
+    },
+    "Just for quick access — your setting holds either way": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apenas para acesso rápido — a definição mantém-se"
+          }
+        }
+      }
+    },
+    "Needs approval in System Settings › Login Items. Click to open.": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Precisa de aprovação em Definições do Sistema › Itens de Início. Clica para abrir."
+          }
+        }
+      }
+    },
+    "Couldn't change this setting.": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não foi possível alterar esta definição."
+          }
+        }
+      }
+    },
+    "Version %@": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Versão %@"
+          }
+        }
+      }
+    },
+    "How this works": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Como funciona"
+          }
+        }
+      }
+    },
+    "Settings…": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Definições…"
+          }
+        }
+      }
+    },
+    "Quit": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sair"
+          }
+        }
+      }
+    },
+    "Cancelled.": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cancelado."
+          }
+        }
+      }
+    },
+    "macOS couldn't verify your password, so nothing changed.": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O macOS não conseguiu verificar a tua palavra-passe, por isso nada mudou."
+          }
+        }
+      }
+    },
+    "macOS wouldn't show the authorisation prompt, so nothing changed.": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O macOS não mostrou o pedido de autorização, por isso nada mudou."
+          }
+        }
+      }
+    },
+    "Couldn't prepare the system command.": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não foi possível preparar o comando do sistema."
+          }
+        }
+      }
+    },
+    "The system refused the change (%lld).": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O sistema recusou a alteração (%lld)."
+          }
+        }
+      }
+    },
+    "The setting didn't stick. Your Mac is unchanged.": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A definição não ficou aplicada. O teu Mac está inalterado."
+          }
+        }
+      }
+    },
+    "Something set BootPreference to an unrecognised value (0x%@). LidBoot won't change it.": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Algo definiu o BootPreference para um valor não reconhecido (0x%@). O LidBoot não o vai alterar."
+          }
+        }
+      }
+    },
+    "BootPreference holds a value LidBoot doesn't understand (%@). LidBoot won't change it.": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O BootPreference tem um valor que o LidBoot não compreende (%@). O LidBoot não o vai alterar."
+          }
+        }
+      }
+    },
+    "This setting only exists on Apple silicon Macs. Intel Macs use a different, riskier method that LidBoot won't touch.": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esta definição só existe em Macs com Apple silicon. Os Macs Intel usam um método diferente e mais arriscado, que o LidBoot não toca."
+          }
+        }
+      }
+    },
+    "This setting needs macOS 15 (Sequoia) or later. You're on %@.": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esta definição precisa do macOS 15 (Sequoia) ou posterior. Estás no %@."
+          }
+        }
+      }
+    },
+    "This setting only applies to Mac laptops with a lid. This Mac is a %@.": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esta definição só se aplica a portáteis Mac com tampa. Este Mac é um %@."
+          }
+        }
+      }
+    }
+  }
+}

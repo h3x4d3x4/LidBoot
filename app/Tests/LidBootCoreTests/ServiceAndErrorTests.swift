@@ -132,17 +132,6 @@ final class AppleScriptErrorMapperTests: XCTestCase {
         XCTAssertEqual(AppleScriptErrorMapper.map(code: -1, message: "boom"),
                        .scriptFailed(code: -1, message: "boom"))
     }
-
-    func testEveryErrorHasNonEmptyUserMessage() {
-        let errors: [NVRAMWriteError] = [
-            .cancelled, .authorizationDenied, .interactionNotAllowed, .couldNotCompileScript,
-            .scriptFailed(code: -1, message: "x"),
-            .verificationFailed(expected: .factoryDefault)
-        ]
-        for error in errors {
-            XCTAssertFalse(error.userMessage.isEmpty, "\(error) has no user-facing message")
-        }
-    }
 }
 
 // MARK: - System support
@@ -181,14 +170,5 @@ final class SystemSupportTests: XCTestCase {
         // An Intel Mac on macOS 14 should say "Intel", not "old macOS".
         XCTAssertEqual(SystemSupport.check(probe: probe(appleSilicon: false, osAtLeast: false)),
                        .notAppleSilicon)
-    }
-
-    func testEveryUnsupportedReasonExplainsItself() {
-        let reasons: [SystemSupport.Unsupported] = [
-            .notAppleSilicon, .osTooOld(current: "14.0"), .notALaptop(model: "Macmini9,1")
-        ]
-        for reason in reasons {
-            XCTAssertFalse(reason.explanation.isEmpty)
-        }
     }
 }

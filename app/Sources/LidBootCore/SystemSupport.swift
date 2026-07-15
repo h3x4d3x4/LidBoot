@@ -41,21 +41,12 @@ public struct SystemProbe: Sendable {
 /// (`AutoBoot`) with different semantics, and guessing here risks an
 /// unbootable machine.
 public enum SystemSupport {
+    /// Why this Mac can't use the setting. Wording lives in the app layer
+    /// (App/Localization.swift) — this module stays presentation-free.
     public enum Unsupported: Equatable, Sendable {
         case notAppleSilicon
         case osTooOld(current: String)
         case notALaptop(model: String)
-
-        public var explanation: String {
-            switch self {
-            case .notAppleSilicon:
-                return "This setting only exists on Apple silicon Macs. Intel Macs use a different, riskier method that LidBoot won't touch."
-            case .osTooOld(let current):
-                return "This setting needs macOS 15 (Sequoia) or later. You're on \(current)."
-            case .notALaptop(let model):
-                return "This setting only applies to Mac laptops with a lid. This Mac is a \(model)."
-            }
-        }
     }
 
     /// The macOS version that introduced `BootPreference`.
@@ -82,7 +73,10 @@ enum Sysctl {
         guard sysctlbyname(name, nil, &size, nil, 0) == 0, size > 0 else { return nil }
         var buffer = [CChar](repeating: 0, count: size)
         guard sysctlbyname(name, &buffer, &size, nil, 0) == 0 else { return nil }
-        return String(cString: buffer)
+        // sysctl returns a null-terminated string; drop the terminator before
+        // decoding (String(cString:) is deprecated in Swift 6).
+        let bytes = buffer.prefix { $0 != 0 }.map { UInt8(bitPattern: $0) }
+        return String(decoding: bytes, as: UTF8.self)
     }
 
     static func int(_ name: String) -> Int? {

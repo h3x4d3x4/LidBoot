@@ -8,26 +8,28 @@ struct BootToggles: View {
 
     var body: some View {
         VStack(spacing: 2) {
+            // These are Strings handed to Text(_: String), which does no lookup,
+            // so they must be localised here rather than at the Text call.
             SettingRow(
                 symbol: "laptopcomputer",
                 tint: Palette.lid,
-                title: "Opening the lid",
+                title: String(localized: "Opening the lid"),
                 // Say what happens, not just what the switch is set to.
                 caption: model.displayed.startsOnLidOpen
-                    ? "Wakes straight to the login screen"
-                    : "Stays off until you press a key",
-                accessibilityLabel: "Start up when opening the lid",
+                    ? String(localized: "Wakes straight to the login screen")
+                    : String(localized: "Stays off until you press a key"),
+                accessibilityLabel: String(localized: "Start up when opening the lid"),
                 isOn: model.lidOpen,
                 enabled: model.controlsEnabled
             )
             SettingRow(
                 symbol: "bolt.fill",
                 tint: Palette.power,
-                title: "Connecting power",
+                title: String(localized: "Connecting power"),
                 caption: model.displayed.startsOnPowerConnect
-                    ? "Plugging in starts your Mac"
-                    : "Plugging in just charges it",
-                accessibilityLabel: "Start up when connecting power",
+                    ? String(localized: "Plugging in starts your Mac")
+                    : String(localized: "Plugging in just charges it"),
+                accessibilityLabel: String(localized: "Start up when connecting power"),
                 isOn: model.powerConnect,
                 enabled: model.controlsEnabled
             )
@@ -86,9 +88,9 @@ struct SettingRow: View {
         // unlabelled toggle and the title/caption are read separately.
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(accessibilityLabel)
-        .accessibilityValue(isOn ? "On. \(caption)" : "Off. \(caption)")
+        .accessibilityValue(isOn ? String(localized: "On. \(caption)") : String(localized: "Off. \(caption)"))
         .accessibilityAddTraits(.isToggle)
-        .accessibilityHint(enabled ? "Changing this asks for your password" : "")
+        .accessibilityHint(enabled ? String(localized: "Changing this asks for your password") : "")
     }
 }
 
@@ -150,7 +152,7 @@ struct KeyboardCaveat: View {
     var body: some View {
         NoticeRow(
             symbol: "info.circle",
-            text: "Your Mac still starts up if you press a key or touch the trackpad.",
+            text: String(localized: "Your Mac still starts up if you press a key or touch the trackpad."),
             tint: .secondary
         )
     }
@@ -166,7 +168,11 @@ struct StatusDot: View {
             .fill(isModified ? Color.green : Color.secondary.opacity(0.35))
             .frame(width: 7, height: 7)
             .accessibilityElement()
-            .accessibilityLabel(isModified ? "Start-up is limited" : "Default start-up behaviour")
-            .help(isModified ? "Start-up is limited" : "Default behaviour")
+            .accessibilityLabel(isModified
+                ? String(localized: "Start-up is limited")
+                : String(localized: "Default start-up behaviour"))
+            .help(isModified
+                ? String(localized: "Start-up is limited")
+                : String(localized: "Default start-up behaviour"))
     }
 }

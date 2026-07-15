@@ -80,7 +80,7 @@ struct MainWindowView: View {
 
     private var footer: some View {
         HStack {
-            Text("Version \(Bundle.appVersion)")
+            Text("Version \(Bundle.appVersion)", comment: "Footer version label")
                 .font(.system(size: 10.5))
                 .foregroundStyle(.tertiary)
             Spacer()

@@ -13,11 +13,12 @@ enum AppMode: String, CaseIterable, Identifiable {
 
     var id: String { rawValue }
 
+    /// Localised: this is handed to Text(_: String), which does no lookup.
     var label: String {
         switch self {
-        case .menuBar: return "Menu Bar"
-        case .dock: return "Dock"
-        case .both: return "Both"
+        case .menuBar: return String(localized: "Menu Bar")
+        case .dock: return String(localized: "Dock")
+        case .both: return String(localized: "Both")
         }
     }
 

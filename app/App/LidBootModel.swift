@@ -36,14 +36,12 @@ final class LidBootModel: ObservableObject {
     /// whenever the app becomes active and never show a stale toggle.
     func refresh() {
         guard unsupported == nil else { return }
-        switch service.read() {
-        case .known(let value):
-            behavior = value
+        let state = service.read()
+        if let behavior = state.behavior {
+            self.behavior = behavior
             refusal = nil
-        case .unrecognized(let byte):
-            refusal = "Something set BootPreference to an unrecognised value (0x\(String(format: "%02X", byte))). LidBoot won't change it."
-        case .unreadable(let reason):
-            refusal = "BootPreference holds a value LidBoot doesn't understand (\(reason)). LidBoot won't change it."
+        } else {
+            refusal = state.refusalMessage
         }
     }
 
@@ -52,12 +50,7 @@ final class LidBootModel: ObservableObject {
     var summary: String {
         if let unsupported { return unsupported.explanation }
         if let refusal { return refusal }
-        switch (behavior.startsOnLidOpen, behavior.startsOnPowerConnect) {
-        case (true, true): return "Starts up when you open the lid or connect power."
-        case (false, true): return "Won't start up when you open the lid."
-        case (true, false): return "Won't start up when you connect power."
-        case (false, false): return "Won't start up on its own at all."
-        }
+        return behavior.summary
     }
 
     var lidOpen: Binding<Bool> {

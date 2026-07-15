@@ -42,7 +42,7 @@ final class LaunchAtLoginModel: ObservableObject {
             }
         } catch {
             Self.log.error("launch at login \(enabled ? "register" : "unregister") failed: \(error.localizedDescription, privacy: .public)")
-            errorMessage = "Couldn't change this setting."
+            errorMessage = String(localized: "Couldn't change this setting.")
         }
         refresh()
     }
@@ -60,9 +60,15 @@ struct LaunchAtLoginToggle: View {
             Toggle(isOn: Binding(get: { model.isEnabled }, set: { model.set($0) })) {
                 VStack(alignment: .leading, spacing: 1) {
                     Text("Open at login").font(.system(size: 12))
-                    Text("Keeps your choice active without opening LidBoot")
+                    // Be honest: the setting lives in NVRAM and holds whether or
+                    // not this app ever runs. Launch at login buys quick access
+                    // and nothing else — don't imply it's doing the work.
+                    Text("Just for quick access — your setting holds either way")
                         .font(.system(size: 10.5))
                         .foregroundStyle(.secondary)
+                        // Translations run longer than the English; let it wrap
+                        // rather than truncate mid-word.
+                        .fixedSize(horizontal: false, vertical: true)
                 }
             }
             .toggleStyle(.switch)
@@ -73,7 +79,7 @@ struct LaunchAtLoginToggle: View {
                     model.openLoginItemsSettings()
                 } label: {
                     NoticeRow(symbol: "exclamationmark.circle",
-                              text: "Needs approval in System Settings › Login Items. Click to open.",
+                              text: String(localized: "Needs approval in System Settings › Login Items. Click to open."),
                               tint: .orange)
                 }
                 .buttonStyle(.plain)

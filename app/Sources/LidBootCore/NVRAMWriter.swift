@@ -15,25 +15,8 @@ public enum NVRAMWriteError: Error, Equatable {
     case verificationFailed(expected: BootBehavior)
 }
 
-extension NVRAMWriteError {
-    public var userMessage: String {
-        switch self {
-        case .cancelled:
-            return "Cancelled."
-        case .authorizationDenied:
-            return "macOS couldn't verify your password, so nothing changed."
-        case .interactionNotAllowed:
-            return "macOS wouldn't show the authorisation prompt, so nothing changed."
-        case .couldNotCompileScript:
-            return "Couldn't prepare the system command."
-        case .scriptFailed(let code, let message):
-            let detail = message.isEmpty ? "" : " \(message)"
-            return "The system refused the change (\(code)).\(detail)"
-        case .verificationFailed:
-            return "The setting didn't stick. Your Mac is unchanged."
-        }
-    }
-}
+// Deliberately no user-facing text here: this module is the NVRAM logic, and
+// wording/localisation belongs to the app layer. See App/Localization.swift.
 
 /// Runs one fixed `nvram` command as root.
 public protocol NVRAMWriting: Sendable {

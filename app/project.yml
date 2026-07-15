@@ -6,6 +6,13 @@ options:
   deploymentTarget:
     macOS: "15.0"
   generateEmptyDirectories: true
+  developmentLanguage: en
+
+# en is the source language; pt-PT ships translated (App/Localizable.xcstrings).
+knownRegions:
+  - en
+  - pt-PT
+  - Base
 
 # ── Local Swift Package ──────────────────────────────────────────────────────
 # Package.swift in this directory defines LidBootCore (the NVRAM logic, unit
@@ -37,7 +44,7 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: com.lidboot.LidBoot
         MARKETING_VERSION: "0.1.0"
         CURRENT_PROJECT_VERSION: "1"
-        SWIFT_VERSION: "5.9"
+        SWIFT_VERSION: "6.0"
         MACOSX_DEPLOYMENT_TARGET: "15.0"
         INFOPLIST_FILE: App/Info.plist
         CODE_SIGN_ENTITLEMENTS: LidBoot.entitlements
@@ -65,7 +72,7 @@ targets:
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.lidboot.LidBootTests
-        SWIFT_VERSION: "5.9"
+        SWIFT_VERSION: "6.0"
         MACOSX_DEPLOYMENT_TARGET: "15.0"
         GENERATE_INFOPLIST_FILE: YES
         # @testable import needs this; it's the Debug default, but the tests are
