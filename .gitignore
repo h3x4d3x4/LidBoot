@@ -1,0 +1,5 @@
+.DS_Store
+
+# The marketing site lives in its own repo (LidBoot-site) — it was swept into
+# this one by an unrelated commit and scrubbed from history before going public.
+site/
