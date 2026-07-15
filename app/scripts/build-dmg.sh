@@ -63,14 +63,31 @@ APP="${EXPORT_DIR}/LidBoot.app"
 
 echo "▶ Verifying signature and hardened runtime…"
 codesign --verify --deep --strict --verbose=2 "${APP}"
-# The runtime flag is required for notarization; fail early rather than at Apple.
-codesign -d --verbose=2 "${APP}" 2>&1 | grep -q "flags=.*runtime" \
-    || { echo "✗ Hardened runtime missing — notarization would reject this" >&2; exit 1; }
+
+# NB: capture into a variable rather than piping to `grep -q`. Under
+# `set -o pipefail`, grep -q exits at the first match and SIGPIPEs codesign,
+# which fails the pipeline even though the check passed.
+SIGN_INFO=$(codesign -d --verbose=2 "${APP}" 2>&1 || true)
+
+# The runtime flag is required for notarization; fail here rather than at Apple.
+case "${SIGN_INFO}" in
+    *"flags="*"runtime"*) echo "  ✓ hardened runtime" ;;
+    *) echo "✗ Hardened runtime missing — notarization would reject this" >&2; exit 1 ;;
+esac
+
+case "${SIGN_INFO}" in
+    *"Developer ID Application"*) echo "  ✓ Developer ID signed" ;;
+    *) echo "✗ Not Developer ID signed — Gatekeeper would block this" >&2; exit 1 ;;
+esac
+
 # The sandbox must stay OFF or the app cannot read NVRAM at all.
-if codesign -d --entitlements - --xml "${APP}" 2>/dev/null | plutil -convert xml1 -o - - 2>/dev/null | grep -A1 "app-sandbox" | grep -q "<true/>"; then
-    echo "✗ App Sandbox is enabled — LidBoot cannot read or write NVRAM sandboxed" >&2
-    exit 1
-fi
+ENTS=$(codesign -d --entitlements - --xml "${APP}" 2>/dev/null || true)
+case "${ENTS}" in
+    *"app-sandbox"*"<true/>"*)
+        echo "✗ App Sandbox is enabled — LidBoot cannot read or write NVRAM sandboxed" >&2
+        exit 1 ;;
+    *) echo "  ✓ sandbox off (required for NVRAM access)" ;;
+esac
 
 DMG="${DIST_DIR}/LidBoot-${VERSION}.dmg"
 rm -f "${DMG}"
