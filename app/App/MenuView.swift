@@ -4,28 +4,18 @@ import LidBootCore
 /// The menu bar popover.
 struct MenuView: View {
     @ObservedObject var model: LidBootModel
-    @Binding var mode: AppMode
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             header
             Divider().padding(.horizontal, 14)
 
-            BootToggles(model: model)
-                .padding(.vertical, 8)
-                .padding(.horizontal, 8)
-
-            if let errorMessage = model.errorMessage {
-                NoticeRow(symbol: "exclamationmark.triangle.fill", text: errorMessage, tint: .orange)
-                    .padding(.horizontal, 14)
-                    .padding(.bottom, 9)
+            if let unsupported = model.unsupported {
+                UnsupportedView(reason: unsupported, compact: true)
+                    .padding(.horizontal, 8)
+            } else {
+                controls
             }
-
-            Divider().padding(.horizontal, 14)
-
-            KeyboardCaveat()
-                .padding(.horizontal, 14)
-                .padding(.vertical, 9)
 
             Divider().padding(.horizontal, 14)
             footer
@@ -34,6 +24,31 @@ struct MenuView: View {
         // The popover is rebuilt each time it opens, so this keeps it honest
         // even if NVRAM changed underneath us.
         .onAppear { model.refresh() }
+    }
+
+    @ViewBuilder
+    private var controls: some View {
+        BootToggles(model: model)
+            .padding(.vertical, 8)
+            .padding(.horizontal, 8)
+
+        if let errorMessage = model.errorMessage {
+            NoticeRow(symbol: "exclamationmark.triangle.fill", text: errorMessage,
+                      tint: .orange, prominent: true)
+                .padding(.horizontal, 14)
+                .padding(.bottom, 9)
+        }
+
+        Divider().padding(.horizontal, 14)
+
+        VStack(alignment: .leading, spacing: 6) {
+            if model.isModified {
+                StartupCaveats()
+            }
+            PasswordNotice()
+        }
+        .padding(.horizontal, 14)
+        .padding(.vertical, 9)
     }
 
     private var header: some View {
@@ -49,8 +64,6 @@ struct MenuView: View {
             Spacer(minLength: 0)
             if model.isApplying {
                 ProgressView().controlSize(.small)
-            } else if model.unsupported == nil && model.refusal == nil {
-                StatusDot(isModified: model.isModified)
             }
         }
         .padding(.horizontal, 14)
@@ -59,30 +72,60 @@ struct MenuView: View {
     }
 
     private var footer: some View {
-        HStack(spacing: 12) {
-            Button {
+        HStack(spacing: 4) {
+            // Not "Settings…" for this one: the window holds the primary
+            // toggles, Restore Default and the help link, so calling it Settings
+            // tells people there's nothing in there worth opening.
+            FooterButton(title: String(localized: "Open LidBoot…")) {
                 WindowOpener.shared.open()
-            } label: {
+            }
+            .accessibilityHint(String(localized: "Opens the LidBoot window"))
+
+            // In menu-bar-only mode the app is an accessory: no app menu, so no
+            // Cmd-, and no other route to Settings at all. This is the only one.
+            SettingsLink {
                 Text("Settings…")
                     .font(.system(size: 11))
                     .foregroundStyle(.secondary)
+                    .padding(.horizontal, 6)
+                    .padding(.vertical, 3)
             }
             .buttonStyle(.plain)
-            .accessibilityHint("Opens the LidBoot window")
 
             Spacer()
 
-            Button {
+            FooterButton(title: String(localized: "Quit")) {
                 NSApplication.shared.terminate(nil)
-            } label: {
-                Text("Quit")
-                    .font(.system(size: 11))
-                    .foregroundStyle(.secondary)
             }
-            .buttonStyle(.plain)
             .keyboardShortcut("q")
         }
-        .padding(.horizontal, 14)
+        .padding(.horizontal, 10)
         .padding(.vertical, 9)
+    }
+}
+
+/// The rows above get a hover highlight, which teaches "highlight = clickable".
+/// Plain text buttons would then break that lesson on the only two controls that
+/// actually navigate.
+private struct FooterButton: View {
+    let title: String
+    let action: () -> Void
+    @State private var isHovering = false
+
+    var body: some View {
+        Button(action: action) {
+            Text(title)
+                .font(.system(size: 11))
+                .foregroundStyle(isHovering ? .primary : .secondary)
+                .padding(.horizontal, 6)
+                .padding(.vertical, 3)
+                .background {
+                    RoundedRectangle(cornerRadius: 5, style: .continuous)
+                        .fill(Color.primary.opacity(isHovering ? 0.08 : 0))
+                }
+        }
+        .buttonStyle(.plain)
+        .onHover { isHovering = $0 }
+        .animation(.easeOut(duration: 0.12), value: isHovering)
     }
 }

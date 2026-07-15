@@ -2,39 +2,23 @@ import SwiftUI
 import LidBootCore
 
 /// The regular app window, for people who'd rather not live in the menu bar.
-/// Shows exactly the same controls as the popover.
+/// Shows exactly the same controls as the popover, plus the less-used actions.
 struct MainWindowView: View {
     @ObservedObject var model: LidBootModel
-    @Binding var mode: AppMode
-    @StateObject private var launchAtLogin = LaunchAtLoginModel()
+    @State private var didCopy = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 18) {
             header
 
-            BootToggles(model: model)
-                .padding(6)
-                .background {
-                    RoundedRectangle(cornerRadius: 10, style: .continuous)
-                        .fill(.quaternary.opacity(0.5))
-                }
-
-            if let errorMessage = model.errorMessage {
-                NoticeRow(symbol: "exclamationmark.triangle.fill", text: errorMessage, tint: .orange)
-                    .transition(.opacity)
-            }
-
-            KeyboardCaveat()
-
-            Divider()
-
-            VStack(alignment: .leading, spacing: 14) {
-                ModePicker(mode: $mode)
-                LaunchAtLoginToggle(model: launchAtLogin)
+            if let unsupported = model.unsupported {
+                // Nothing below this is actionable on such a Mac, so don't show it.
+                UnsupportedView(reason: unsupported)
+            } else {
+                controls
             }
 
             Divider()
-            actions
             footer
         }
         // Extra headroom so the title bar's traffic lights don't sit on the header.
@@ -44,6 +28,33 @@ struct MainWindowView: View {
         .background(.background)
         .animation(.easeInOut(duration: 0.2), value: model.errorMessage)
         .onAppear { model.refresh() }
+    }
+
+    @ViewBuilder
+    private var controls: some View {
+        BootToggles(model: model)
+            .padding(6)
+            .background {
+                RoundedRectangle(cornerRadius: 10, style: .continuous)
+                    .fill(.quaternary.opacity(0.5))
+            }
+
+        if let errorMessage = model.errorMessage {
+            NoticeRow(symbol: "exclamationmark.triangle.fill", text: errorMessage,
+                      tint: .orange, prominent: true)
+                .transition(.opacity)
+        }
+
+        VStack(alignment: .leading, spacing: 6) {
+            // Only meaningful once something is actually suppressed.
+            if model.isModified {
+                StartupCaveats()
+            }
+            PasswordNotice()
+        }
+
+        Divider()
+        actions
     }
 
     private var header: some View {
@@ -73,13 +84,9 @@ struct MainWindowView: View {
 
             if model.isApplying {
                 ProgressView().controlSize(.small)
-            } else if model.unsupported == nil && model.refusal == nil {
-                StatusDot(isModified: model.isModified)
             }
         }
     }
-
-    @State private var didCopy = false
 
     private var actions: some View {
         HStack(spacing: 8) {
@@ -87,8 +94,7 @@ struct MainWindowView: View {
                 Task { await model.restoreDefault() }
             }
             .controlSize(.small)
-            // Nothing to restore when the variable is already absent.
-            .disabled(!model.isModified || !model.controlsEnabled)
+            .disabled(!model.canRestoreDefault)
             .help("Removes the setting, returning your Mac to how it shipped")
 
             Button {
@@ -100,11 +106,12 @@ struct MainWindowView: View {
                     didCopy = false
                 }
             } label: {
-                Label(didCopy ? "Copied" : "Copy Command",
+                Label(didCopy ? "Copied" : "Copy Terminal Command",
                       systemImage: didCopy ? "checkmark" : "terminal")
             }
             .controlSize(.small)
-            .disabled(model.unsupported != nil)
+            // Mid-write the command would describe the state you're leaving.
+            .disabled(model.unsupported != nil || model.isApplying)
             .help(model.terminalCommand)
 
             Spacer()
@@ -118,8 +125,15 @@ struct MainWindowView: View {
                 .font(.system(size: 10.5))
                 .foregroundStyle(.tertiary)
             Spacer()
-            Link("How this works", destination: URL(string: "https://support.apple.com/120622")!)
-                .font(.system(size: 10.5))
+            Link(destination: AppLinks.appleSupport) {
+                HStack(spacing: 3) {
+                    Text("Apple's documentation")
+                    Image(systemName: "arrow.up.right.square")
+                        .font(.system(size: 9))
+                }
+            }
+            .font(.system(size: 10.5))
+            .help(AppLinks.appleSupport.absoluteString)
         }
     }
 }

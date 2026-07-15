@@ -33,6 +33,27 @@
 	<key>LSUIElement</key>
 	<true/>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2026 André Vidal. All rights reserved.</string>
+	<string>Copyright © 2026 Hexadexa. All rights reserved.</string>
+
+	<!--
+	  Sparkle auto-update, same model as Observio.
+
+	  The feed is a branded URL rather than the raw GitHub one on purpose: it's a
+	  Cloudflare redirect, so where the appcast actually lives can change without
+	  shipping a new build. This URL is baked into every release — getting it
+	  wrong means silently broken updates for everyone already on that build.
+
+	  Integrity is the EdDSA signature below, NOT the transport or repo privacy,
+	  which is why the appcast and DMGs can sit in a public repo while the source
+	  stays private.
+	-->
+	<key>SUFeedURL</key>
+	<string>https://lidboot.hexadexa.io/appcast.xml</string>
+	<key>SUPublicEDKey</key>
+	<string>g1lZN7FLgwSgc3RkOf68sK7MLhSpjwL45aM7NSLs1Ps=</string>
+	<key>SUEnableAutomaticChecks</key>
+	<true/>
+	<key>SUScheduledCheckInterval</key>
+	<integer>86400</integer>
 </dict>
 </plist>

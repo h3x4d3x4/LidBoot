@@ -5,11 +5,12 @@ import AppKit
 struct LidBootApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) private var delegate
     @StateObject private var model = LidBootModel()
+    @StateObject private var updater = UpdaterModel()
     @AppStorage(AppMode.defaultsKey) private var mode: AppMode = .both
 
     var body: some Scene {
         Window("LidBoot", id: WindowID.main) {
-            MainWindowView(model: model, mode: $mode)
+            MainWindowView(model: model)
                 // Gives AppDelegate a way to reopen this window: returning true
                 // from applicationShouldHandleReopen does nothing on its own,
                 // because a closed SwiftUI Window has no NSWindow to unhide.
@@ -25,12 +26,36 @@ struct LidBootApp: App {
         .commands {
             // A single-window utility has no use for a New Window item.
             CommandGroup(replacing: .newItem) {}
+            // In menu-bar-only mode the app is an accessory: no app menu, so no
+            // system Cmd-Q. Without this, a user with the window focused has to
+            // go hunt for the status item — which may not be visible at all.
+            CommandGroup(replacing: .appTermination) {
+                Button("Quit LidBoot") { NSApplication.shared.terminate(nil) }
+                    .keyboardShortcut("q", modifiers: .command)
+            }
+            CommandGroup(replacing: .help) {
+                Link("LidBoot Help", destination: AppLinks.appleSupport)
+            }
+            CommandGroup(after: .appInfo) {
+                Button("Check for Updates…") { updater.checkForUpdates() }
+                    .disabled(!updater.canCheck)
+            }
+        }
+
+        Settings {
+            SettingsView(mode: $mode, updater: updater)
         }
 
         MenuBarExtra(isInserted: menuBarInsertion) {
-            MenuView(model: model, mode: $mode)
+            MenuView(model: model)
         } label: {
-            Image(systemName: model.isModified ? "laptopcomputer.slash" : "laptopcomputer")
+            // The auth prompt steals focus and dismisses the popover, so after a
+            // change the popover's own feedback is painted on a view that no
+            // longer exists. The tooltip/label is then the only way to answer
+            // "which state am I in?" without reopening it.
+            Image(systemName: model.menuBarSymbol)
+                .accessibilityLabel(model.summary)
+                .help(model.summary)
         }
         .menuBarExtraStyle(.window)
     }

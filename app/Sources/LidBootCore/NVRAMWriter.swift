@@ -19,8 +19,12 @@ public enum NVRAMWriteError: Error, Equatable {
 // wording/localisation belongs to the app layer. See App/Localization.swift.
 
 /// Runs one fixed `nvram` command as root.
+///
+/// `prompt` is the sentence shown in the macOS authorisation dialog. It's passed
+/// in rather than hard-coded because it's user-facing text, and wording lives in
+/// the app layer.
 public protocol NVRAMWriting: Sendable {
-    func run(_ command: NVRAMCommand) async throws
+    func run(_ command: NVRAMCommand, prompt: String) async throws
 }
 
 /// Maps AppleScript / Security framework failures onto our error cases.
@@ -64,11 +68,11 @@ public struct AppleScriptNVRAMWriter: NVRAMWriting {
 
     public init() {}
 
-    public func run(_ command: NVRAMCommand) async throws {
+    public func run(_ command: NVRAMCommand, prompt: String) async throws {
         try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
             Self.queue.async {
                 do {
-                    try Self.execute(command)
+                    try Self.execute(command, prompt: prompt)
                     continuation.resume()
                 } catch {
                     continuation.resume(throwing: error)
@@ -77,10 +81,23 @@ public struct AppleScriptNVRAMWriter: NVRAMWriting {
         }
     }
 
-    private static func execute(_ command: NVRAMCommand) throws {
+    /// Strips anything that could break out of the AppleScript string literal.
+    /// The command itself comes from a closed enum, but the prompt is free text
+    /// from the app layer (and from translators), so it gets sanitised.
+    static func escapeForAppleScriptLiteral(_ text: String) -> String {
+        text
+            .replacingOccurrences(of: "\\", with: "\\\\")
+            .replacingOccurrences(of: "\"", with: "\\\"")
+    }
+
+    private static func execute(_ command: NVRAMCommand, prompt: String) throws {
         // `command.shellCommand` comes from a closed enum — never from user
         // input — so there is nothing here to escape or inject.
-        let source = "do shell script \"\(command.shellCommand)\" with administrator privileges"
+        let source = """
+            do shell script "\(command.shellCommand)" \
+            with prompt "\(escapeForAppleScriptLiteral(prompt))" \
+            with administrator privileges
+            """
         log.info("running privileged command: \(command.shellCommand, privacy: .public)")
 
         guard let script = NSAppleScript(source: source) else {

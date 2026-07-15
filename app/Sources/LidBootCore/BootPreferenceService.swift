@@ -25,9 +25,9 @@ public struct BootPreferenceService: Sendable {
     ///
     /// Trust nothing: `nvram` exiting 0 is not proof the value took, so we read
     /// it back and treat any disagreement as a failure.
-    public func apply(_ behavior: BootBehavior) async throws {
+    public func apply(_ behavior: BootBehavior, prompt: String) async throws {
         let command = NVRAMCommand.command(for: behavior)
-        try await writer.run(command)
+        try await writer.run(command, prompt: prompt)
 
         let actual = reader.read()
         guard actual == .known(behavior) else {
@@ -35,5 +35,21 @@ public struct BootPreferenceService: Sendable {
             throw NVRAMWriteError.verificationFailed(expected: behavior)
         }
         Self.log.info("applied and verified: \(String(describing: behavior))")
+    }
+
+    /// Removes the variable outright, whatever it currently holds.
+    ///
+    /// This is the one write that is safe even when we can't parse the current
+    /// value: deleting restores the factory state unconditionally, so it's the
+    /// escape hatch out of an unrecognised/unreadable NVRAM value.
+    public func clear(prompt: String) async throws {
+        try await writer.run(.delete, prompt: prompt)
+
+        let actual = reader.read()
+        guard actual == .known(.factoryDefault) else {
+            Self.log.error("clear failed: read back \(String(describing: actual))")
+            throw NVRAMWriteError.verificationFailed(expected: .factoryDefault)
+        }
+        Self.log.info("cleared BootPreference; back to factory default")
     }
 }

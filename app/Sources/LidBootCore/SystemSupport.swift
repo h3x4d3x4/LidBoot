@@ -1,30 +1,34 @@
 import Foundation
+import IOKit
 
 /// The machine facts LidBoot's support check depends on.
 ///
 /// Injectable so the unsupported branches can be tested — otherwise they'd only
-/// ever run on hardware we don't have.
+/// ever run on hardware we don't have, which is exactly how the old
+/// `hw.model.hasPrefix("MacBook")` check survived: it happened to pass on the
+/// development machine and rejected every newer MacBook.
 public struct SystemProbe: Sendable {
     public var isAppleSilicon: @Sendable () -> Bool
-    public var model: @Sendable () -> String
+    /// Does this Mac physically have a lid?
+    public var hasLid: @Sendable () -> Bool
     public var isOperatingSystemAtLeast: @Sendable (OperatingSystemVersion) -> Bool
     public var osVersionString: @Sendable () -> String
 
     public init(
         isAppleSilicon: @escaping @Sendable () -> Bool,
-        model: @escaping @Sendable () -> String,
+        hasLid: @escaping @Sendable () -> Bool,
         isOperatingSystemAtLeast: @escaping @Sendable (OperatingSystemVersion) -> Bool,
         osVersionString: @escaping @Sendable () -> String
     ) {
         self.isAppleSilicon = isAppleSilicon
-        self.model = model
+        self.hasLid = hasLid
         self.isOperatingSystemAtLeast = isOperatingSystemAtLeast
         self.osVersionString = osVersionString
     }
 
     public static let live = SystemProbe(
         isAppleSilicon: { Sysctl.int("hw.optional.arm64") == 1 },
-        model: { Sysctl.string("hw.model") ?? "" },
+        hasLid: { Hardware.hasClamshell() },
         isOperatingSystemAtLeast: { ProcessInfo.processInfo.isOperatingSystemAtLeast($0) },
         osVersionString: {
             let version = ProcessInfo.processInfo.operatingSystemVersion
@@ -46,7 +50,7 @@ public enum SystemSupport {
     public enum Unsupported: Equatable, Sendable {
         case notAppleSilicon
         case osTooOld(current: String)
-        case notALaptop(model: String)
+        case notALaptop
     }
 
     /// The macOS version that introduced `BootPreference`.
@@ -59,11 +63,33 @@ public enum SystemSupport {
         guard probe.isOperatingSystemAtLeast(minimumOS) else {
             return .osTooOld(current: probe.osVersionString())
         }
-        let model = probe.model()
-        guard model.hasPrefix("MacBook") else {
-            return .notALaptop(model: model.isEmpty ? "desktop Mac" : model)
+        guard probe.hasLid() else {
+            return .notALaptop
         }
         return nil
+    }
+}
+
+enum Hardware {
+    /// True when this Mac has a clamshell (a lid).
+    ///
+    /// Deliberately asks the hardware instead of pattern-matching `hw.model`.
+    /// Apple stopped using "MacBook…" identifiers in 2022 — an M2 Air reports
+    /// `Mac14,2` and an M4 Pro reports `Mac16,x` — so any name-based check
+    /// silently rejects newer laptops and needs updating every autumn.
+    /// `AppleClamshellState` exists only on machines that have a lid.
+    static func hasClamshell() -> Bool {
+        let root = IOServiceGetMatchingService(kIOMainPortDefault, IOServiceMatching("IOPMrootDomain"))
+        guard root != 0 else { return false }
+        defer { IOObjectRelease(root) }
+
+        guard let property = IORegistryEntryCreateCFProperty(
+            root, "AppleClamshellState" as CFString, kCFAllocatorDefault, 0
+        ) else {
+            return false
+        }
+        _ = property.takeRetainedValue()
+        return true
     }
 }
 

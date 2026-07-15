@@ -20,6 +20,12 @@ knownRegions:
 packages:
   LidBoot:
     path: .
+  # Auto-update. Integrity comes from the EdDSA signature (SUPublicEDKey in
+  # Info.plist), not from where the feed is hosted — which is why the appcast
+  # and DMGs can live in a public repo while this one stays private.
+  Sparkle:
+    url: https://github.com/sparkle-project/Sparkle
+    from: 2.6.0
 
 targets:
   LidBoot:
@@ -38,6 +44,8 @@ targets:
     dependencies:
       - package: LidBoot
         product: LidBootCore
+      - package: Sparkle
+        product: Sparkle
 
     settings:
       base:

@@ -29,8 +29,11 @@ actor FakeWriter: NVRAMWriting {
 
     init(throwing error: Error? = nil) { self.errorToThrow = error }
 
-    func run(_ command: NVRAMCommand) async throws {
+    private(set) var prompts: [String] = []
+
+    func run(_ command: NVRAMCommand, prompt: String) async throws {
         commands.append(command)
+        prompts.append(prompt)
         if let errorToThrow { throw errorToThrow }
     }
 }
@@ -43,7 +46,7 @@ final class BootPreferenceServiceTests: XCTestCase {
         let writer = FakeWriter()
         let service = BootPreferenceService(reader: FakeReader(always: .known(.factoryDefault)), writer: writer)
 
-        try await service.apply(.factoryDefault)
+        try await service.apply(.factoryDefault, prompt: "test")
 
         // Must delete, never write a "default" byte over the factory state.
         let commands = await writer.commands
@@ -59,7 +62,7 @@ final class BootPreferenceServiceTests: XCTestCase {
         for (behavior, expected) in cases {
             let writer = FakeWriter()
             let service = BootPreferenceService(reader: FakeReader(always: .known(behavior)), writer: writer)
-            try await service.apply(behavior)
+            try await service.apply(behavior, prompt: "test")
             let commands = await writer.commands
             XCTAssertEqual(commands, [expected], "wrong command for \(behavior)")
         }
@@ -71,7 +74,7 @@ final class BootPreferenceServiceTests: XCTestCase {
         let service = BootPreferenceService(reader: FakeReader(always: .known(.factoryDefault)),
                                             writer: FakeWriter())
         do {
-            try await service.apply(target)
+            try await service.apply(target, prompt: "test")
             XCTFail("a write that didn't take must not be reported as success")
         } catch let error as NVRAMWriteError {
             XCTAssertEqual(error, .verificationFailed(expected: target))
@@ -85,7 +88,7 @@ final class BootPreferenceServiceTests: XCTestCase {
         let service = BootPreferenceService(reader: FakeReader(always: .unrecognized(0x09)),
                                             writer: FakeWriter())
         do {
-            try await service.apply(target)
+            try await service.apply(target, prompt: "test")
             XCTFail("reading back an unrecognised value must fail verification")
         } catch let error as NVRAMWriteError {
             XCTAssertEqual(error, .verificationFailed(expected: target))
@@ -100,7 +103,7 @@ final class BootPreferenceServiceTests: XCTestCase {
         let service = BootPreferenceService(reader: reader, writer: writer)
 
         do {
-            try await service.apply(BootBehavior(startsOnLidOpen: false, startsOnPowerConnect: true))
+            try await service.apply(BootBehavior(startsOnLidOpen: false, startsOnPowerConnect: true), prompt: "test")
             XCTFail("expected cancellation to propagate")
         } catch let error as NVRAMWriteError {
             XCTAssertEqual(error, .cancelled)
@@ -138,11 +141,11 @@ final class AppleScriptErrorMapperTests: XCTestCase {
 
 final class SystemSupportTests: XCTestCase {
     private func probe(appleSilicon: Bool = true,
-                       model: String = "MacBookPro18,1",
+                       hasLid: Bool = true,
                        osAtLeast: Bool = true,
                        osVersion: String = "26.5.2") -> SystemProbe {
         SystemProbe(isAppleSilicon: { appleSilicon },
-                    model: { model },
+                    hasLid: { hasLid },
                     isOperatingSystemAtLeast: { _ in osAtLeast },
                     osVersionString: { osVersion })
     }
@@ -162,8 +165,16 @@ final class SystemSupportTests: XCTestCase {
     }
 
     func testDesktopIsRefused() {
-        XCTAssertEqual(SystemSupport.check(probe: probe(model: "Macmini9,1")),
-                       .notALaptop(model: "Macmini9,1"))
+        XCTAssertEqual(SystemSupport.check(probe: probe(hasLid: false)), .notALaptop)
+    }
+
+    /// Regression: the old check was `hw.model.hasPrefix("MacBook")`, which
+    /// passes on M1 machines (MacBookPro18,1) and rejects every MacBook Apple
+    /// has shipped since 2022 — an M2 Air reports Mac14,2, an M4 Mac16,x.
+    /// Support must depend on having a lid, not on the model string.
+    func testModernMacBooksAreSupported() {
+        // Apple silicon + macOS 15+ + a lid, whatever the marketing name.
+        XCTAssertNil(SystemSupport.check(probe: probe(hasLid: true)))
     }
 
     func testArchitectureIsCheckedBeforeOS() {

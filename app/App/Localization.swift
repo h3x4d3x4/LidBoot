@@ -6,24 +6,30 @@ import LidBootCore
 //
 // `String(localized:)` rather than raw literals, because these are handed to
 // `Text(_: String)`, which does NOT look strings up — by the time SwiftUI sees
-// them they must already be localised.
+// them they must already be localized.
 
 extension NVRAMWriteError {
     var userMessage: String {
         switch self {
         case .cancelled:
-            return String(localized: "Cancelled.")
+            // Unreachable in the UI: the model swallows cancellation rather than
+            // showing an error for "the user changed their mind".
+            return ""
         case .authorizationDenied:
             return String(localized: "macOS couldn't verify your password, so nothing changed.")
         case .interactionNotAllowed:
-            return String(localized: "macOS wouldn't show the authorisation prompt, so nothing changed.")
+            return String(localized: "macOS wouldn't show the authorization prompt, so nothing changed.")
         case .couldNotCompileScript:
             return String(localized: "Couldn't prepare the system command.")
-        case .scriptFailed(let code, let message):
-            let base = String(localized: "The system refused the change (\(code)).")
-            return message.isEmpty ? base : "\(base) \(message)"
+        case .scriptFailed(let code, _):
+            // The raw AppleScript message is English and often unhelpful; it goes
+            // to the log instead of being concatenated onto a translated line.
+            return String(localized: "The system refused the change (\(code)).")
         case .verificationFailed:
-            return String(localized: "The setting didn't stick. Your Mac is unchanged.")
+            // Careful: a failed read-back means the value isn't what we asked
+            // for. It does NOT mean nothing changed — claiming so would be a
+            // guess in exactly the state where we've lost track.
+            return String(localized: "macOS accepted the change, but the setting reads back differently. The switches show what your Mac actually reports.")
         }
     }
 }
@@ -32,11 +38,13 @@ extension SystemSupport.Unsupported {
     var explanation: String {
         switch self {
         case .notAppleSilicon:
-            return String(localized: "This setting only exists on Apple silicon Macs. Intel Macs use a different, riskier method that LidBoot won't touch.")
+            return String(localized: "This setting only exists on Apple silicon Macs. Your Mac uses different firmware that LidBoot doesn't support.")
         case .osTooOld(let current):
             return String(localized: "This setting needs macOS 15 (Sequoia) or later. You're on \(current).")
-        case .notALaptop(let model):
-            return String(localized: "This setting only applies to Mac laptops with a lid. This Mac is a \(model).")
+        case .notALaptop:
+            // No model identifier: "This Mac is a Mac14,12" means nothing to
+            // anyone and reads like a bug.
+            return String(localized: "This setting only applies to Mac laptops with a lid.")
         }
     }
 }
@@ -49,15 +57,19 @@ extension BootPreferenceState {
             return nil
         case .unrecognized(let byte):
             let hex = String(format: "%02X", byte)
-            return String(localized: "Something set BootPreference to an unrecognised value (0x\(hex)). LidBoot won't change it.")
-        case .unreadable(let reason):
-            return String(localized: "BootPreference holds a value LidBoot doesn't understand (\(reason)). LidBoot won't change it.")
+            return String(localized: "BootPreference is set to a value LidBoot doesn't recognise (0x\(hex)), so it won't change it.")
+        case .unreadable:
+            return String(localized: "BootPreference holds a value LidBoot can't read, so it won't change it.")
         }
     }
 }
 
 extension BootBehavior {
     /// One line describing what the Mac will actually do.
+    ///
+    /// "Start up" throughout, never "wake": BootPreference governs powering on
+    /// from a full shutdown. Waking a sleeping Mac is a different thing and is
+    /// not affected by any of this.
     var summary: String {
         switch (startsOnLidOpen, startsOnPowerConnect) {
         case (true, true):
@@ -67,7 +79,7 @@ extension BootBehavior {
         case (true, false):
             return String(localized: "Won't start up when you connect power.")
         case (false, false):
-            return String(localized: "Won't start up on its own at all.")
+            return String(localized: "Won't start up from the lid or from power.")
         }
     }
 }

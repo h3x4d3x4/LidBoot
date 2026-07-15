@@ -9,31 +9,44 @@ struct BootToggles: View {
     var body: some View {
         VStack(spacing: 2) {
             // These are Strings handed to Text(_: String), which does no lookup,
-            // so they must be localised here rather than at the Text call.
+            // so they must be localized here rather than at the Text call.
             SettingRow(
                 symbol: "laptopcomputer",
                 tint: Palette.lid,
                 title: String(localized: "Opening the lid"),
-                // Say what happens, not just what the switch is set to.
-                caption: model.displayed.startsOnLidOpen
-                    ? String(localized: "Wakes straight to the login screen")
-                    : String(localized: "Stays off until you press a key"),
+                // Say what happens, not just what the switch is set to. Never
+                // "wake" — this is about starting up from a full shutdown.
+                caption: caption(
+                    on: String(localized: "Opening the lid starts your Mac"),
+                    off: String(localized: "Opening the lid won't start your Mac"),
+                    value: model.displayed?.startsOnLidOpen
+                ),
                 accessibilityLabel: String(localized: "Start up when opening the lid"),
                 isOn: model.lidOpen,
+                isKnown: model.displayed != nil,
                 enabled: model.controlsEnabled
             )
             SettingRow(
                 symbol: "bolt.fill",
                 tint: Palette.power,
                 title: String(localized: "Connecting power"),
-                caption: model.displayed.startsOnPowerConnect
-                    ? String(localized: "Plugging in starts your Mac")
-                    : String(localized: "Plugging in just charges it"),
+                caption: caption(
+                    on: String(localized: "Plugging in starts your Mac"),
+                    off: String(localized: "Plugging in just charges it"),
+                    value: model.displayed?.startsOnPowerConnect
+                ),
                 accessibilityLabel: String(localized: "Start up when connecting power"),
                 isOn: model.powerConnect,
+                isKnown: model.displayed != nil,
                 enabled: model.controlsEnabled
             )
         }
+    }
+
+    /// Never claims a behaviour we haven't read off the machine.
+    private func caption(on: String, off: String, value: Bool?) -> String {
+        guard let value else { return String(localized: "Unknown") }
+        return value ? on : off
     }
 }
 
@@ -49,6 +62,9 @@ struct SettingRow: View {
     let caption: String
     let accessibilityLabel: String
     @Binding var isOn: Bool
+    /// False when we couldn't read the machine. A switch always looks like it's
+    /// asserting something, so when we don't know we show a dash instead.
+    var isKnown = true
     let enabled: Bool
 
     @State private var isHovering = false
@@ -69,11 +85,18 @@ struct SettingRow: View {
 
             Spacer(minLength: 8)
 
-            Toggle("", isOn: $isOn)
-                .labelsHidden()
-                .toggleStyle(.switch)
-                .controlSize(.small)
-                .disabled(!enabled)
+            if isKnown {
+                Toggle("", isOn: $isOn)
+                    .labelsHidden()
+                    .toggleStyle(.switch)
+                    .controlSize(.small)
+                    .disabled(!enabled)
+            } else {
+                Text(verbatim: "—")
+                    .font(.system(size: 13, weight: .medium))
+                    .foregroundStyle(.tertiary)
+                    .frame(width: 28)
+            }
         }
         .padding(.horizontal, 6)
         .padding(.vertical, 7)
@@ -88,9 +111,13 @@ struct SettingRow: View {
         // unlabelled toggle and the title/caption are read separately.
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(accessibilityLabel)
-        .accessibilityValue(isOn ? String(localized: "On. \(caption)") : String(localized: "Off. \(caption)"))
+        .accessibilityValue(accessibilityValue)
         .accessibilityAddTraits(.isToggle)
-        .accessibilityHint(enabled ? String(localized: "Changing this asks for your password") : "")
+    }
+
+    private var accessibilityValue: String {
+        guard isKnown else { return String(localized: "Unknown") }
+        return isOn ? String(localized: "On. \(caption)") : String(localized: "Off. \(caption)")
     }
 }
 
@@ -130,6 +157,8 @@ struct NoticeRow: View {
     let symbol: String
     let text: String
     let tint: Color
+    /// Errors must not be styled as the least important text on screen.
+    var prominent = false
 
     var body: some View {
         HStack(alignment: .top, spacing: 7) {
@@ -140,39 +169,44 @@ struct NoticeRow: View {
                 .accessibilityHidden(true)
             Text(text)
                 .font(.system(size: 11))
-                .foregroundStyle(.secondary)
+                .foregroundStyle(prominent ? .primary : .secondary)
                 .fixedSize(horizontal: false, vertical: true)
             Spacer(minLength: 0)
         }
     }
 }
 
-/// The limitation users would otherwise discover the hard way.
-struct KeyboardCaveat: View {
+/// The two things people would otherwise discover the hard way.
+///
+/// Both matter and they're different: the setting only governs a full start-up
+/// (not waking a sleeping Mac), and even then the keyboard still powers it on.
+/// Only worth saying once something is actually suppressed — at factory default
+/// "your Mac still starts up if you press a key" is a non-sequitur, because
+/// everything starts it up.
+struct StartupCaveats: View {
     var body: some View {
-        NoticeRow(
-            symbol: "info.circle",
-            text: String(localized: "Your Mac still starts up if you press a key or touch the trackpad."),
-            tint: .secondary
-        )
+        VStack(alignment: .leading, spacing: 6) {
+            NoticeRow(
+                symbol: "power",
+                text: String(localized: "Applies when your Mac is shut down. Waking it from sleep isn't affected."),
+                tint: .secondary
+            )
+            NoticeRow(
+                symbol: "keyboard",
+                text: String(localized: "Your Mac still starts up if you press a key or touch the trackpad."),
+                tint: .secondary
+            )
+        }
     }
 }
 
-/// Green when start-up is limited, grey when the Mac is at its default.
-/// Deliberately not a warning colour: having protection on is the good state.
-struct StatusDot: View {
-    let isModified: Bool
-
+/// Tells people the price of flipping a switch before they flip it.
+struct PasswordNotice: View {
     var body: some View {
-        Circle()
-            .fill(isModified ? Color.green : Color.secondary.opacity(0.35))
-            .frame(width: 7, height: 7)
-            .accessibilityElement()
-            .accessibilityLabel(isModified
-                ? String(localized: "Start-up is limited")
-                : String(localized: "Default start-up behaviour"))
-            .help(isModified
-                ? String(localized: "Start-up is limited")
-                : String(localized: "Default start-up behaviour"))
+        NoticeRow(
+            symbol: "lock",
+            text: String(localized: "Changing either switch asks for your Mac password."),
+            tint: .secondary
+        )
     }
 }

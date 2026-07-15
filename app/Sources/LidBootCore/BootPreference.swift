@@ -57,9 +57,17 @@ public enum BootPreferenceState: Equatable, Sendable {
     case known(BootBehavior)
     /// A single byte Apple doesn't document (e.g. %03).
     case unrecognized(UInt8)
-    /// Present, but not a single byte at all: wrong type, empty, or multi-byte.
-    /// `reason` is for logs and the UI's explanation, not for parsing.
-    case unreadable(reason: String)
+    /// Present, but not a single byte at all.
+    case unreadable(UnreadableReason)
+
+    /// Structured rather than a String: the app layer needs to render this in
+    /// the user's language, and "found __NSCFString" is not a sentence anyone
+    /// should ever be shown.
+    public enum UnreadableReason: Equatable, Sendable {
+        case wrongType
+        case empty
+        case wrongLength(Int)
+    }
 
     /// True when LidBoot must not touch the variable.
     public var isRefused: Bool {
@@ -89,15 +97,15 @@ public enum BootPreferenceDecoder {
         }
 
         guard let data = value as? Data else {
-            return .unreadable(reason: "expected a single byte, found \(type(of: value))")
+            return .unreadable(.wrongType)
         }
 
         guard !data.isEmpty else {
-            return .unreadable(reason: "value is empty")
+            return .unreadable(.empty)
         }
 
         guard data.count == 1, let byte = data.first else {
-            return .unreadable(reason: "expected 1 byte, found \(data.count)")
+            return .unreadable(.wrongLength(data.count))
         }
 
         guard let behavior = BootBehavior(nvramByte: byte) else {
