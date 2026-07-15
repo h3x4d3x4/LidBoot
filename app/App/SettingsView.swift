@@ -91,7 +91,7 @@ struct AboutView: View {
 
             Spacer().frame(height: 14)
 
-            Text("Lid Boot")
+            Text("LidBoot")
                 .font(.title.bold())
             Text("Start-up control for MacBooks")
                 .font(.subheadline)

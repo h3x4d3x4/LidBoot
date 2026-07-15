@@ -10,7 +10,7 @@ struct LidBootApp: App {
     @AppStorage(AppAppearance.defaultsKey) private var appearance: AppAppearance = .system
 
     var body: some Scene {
-        Window("Lid Boot", id: WindowID.main) {
+        Window("LidBoot", id: WindowID.main) {
             MainWindowView(model: model)
                 // Gives AppDelegate a way to reopen this window: returning true
                 // from applicationShouldHandleReopen does nothing on its own,
@@ -37,11 +37,11 @@ struct LidBootApp: App {
             // system Cmd-Q. Without this, a user with the window focused has to
             // go hunt for the status item — which may not be visible at all.
             CommandGroup(replacing: .appTermination) {
-                Button("Quit Lid Boot") { NSApplication.shared.terminate(nil) }
+                Button("Quit LidBoot") { NSApplication.shared.terminate(nil) }
                     .keyboardShortcut("q", modifiers: .command)
             }
             CommandGroup(replacing: .help) {
-                Link("Lid Boot Help", destination: AppLinks.appleSupport)
+                Link("LidBoot Help", destination: AppLinks.appleSupport)
             }
             CommandGroup(after: .appInfo) {
                 Button("Check for Updates…") { updater.checkForUpdates() }
@@ -68,7 +68,7 @@ struct LidBootApp: App {
                 // Also capture openWindow here, not only from the window's own
                 // view: in menu-bar-only mode the window is suppressed at
                 // launch, so it never appears, so it could never register the
-                // opener — leaving "Open Lid Boot…" dead in exactly the mode
+                // opener — leaving "Open LidBoot…" dead in exactly the mode
                 // where it's the documented way back in.
                 .windowOpener()
         }

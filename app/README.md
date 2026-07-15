@@ -1,12 +1,12 @@
 <div align="center">
 
-# Lid Boot
+# LidBoot
 
 **Stop your MacBook starting up on its own.**
 
 A menu bar app and window that control whether your Mac powers on when you open
 the lid or plug in power. macOS has no switch for this — Apple documents an
-`nvram` command instead. Lid Boot is a front end for that command, so you don't
+`nvram` command instead. LidBoot is a front end for that command, so you don't
 have to touch the Terminal.
 
 ![macOS 15+](https://img.shields.io/badge/macOS-15%2B-blue)
@@ -21,7 +21,7 @@ have to touch the Terminal.
 ## What it does
 
 macOS keeps this behaviour in one NVRAM variable, `BootPreference`, which has
-four possible states. Lid Boot shows them as two independent switches:
+four possible states. LidBoot shows them as two independent switches:
 
 | Opening the lid | Connecting power | `BootPreference` |
 | --- | --- | --- |
@@ -54,7 +54,7 @@ to wipe the keyboard without the Mac coming on: this won't do that.
 
 Intel Macs are deliberately unsupported: they use a different variable
 (`AutoBoot`) with different semantics, and guessing wrong there risks an
-unbootable machine. Lid Boot detects unsupported hardware and says so instead of
+unbootable machine. LidBoot detects unsupported hardware and says so instead of
 pretending.
 
 Support is decided by asking the hardware whether it has a lid
@@ -68,7 +68,7 @@ newer laptops and needs updating every autumn.
 **Reading needs nothing.** The current setting is read straight from the IO
 registry, so the switches always show the truth without ever prompting.
 
-**Changing needs root.** Lid Boot asks macOS for a one-shot authorisation
+**Changing needs root.** LidBoot asks macOS for a one-shot authorisation
 (`do shell script … with administrator privileges`), which shows the standard
 password prompt, with a sentence explaining why.
 
@@ -93,7 +93,7 @@ deliberately narrow:
   isn't a documented single byte, the controls disable rather than overwrite a
   state the app doesn't understand. Deleting stays available, because removing
   the variable is safe whatever it holds.
-- **App Sandbox is off** — required for NVRAM access — so Lid Boot is
+- **App Sandbox is off** — required for NVRAM access — so LidBoot is
   distributed with Developer ID + notarization, and can never go to the Mac App
   Store.
 
@@ -223,7 +223,7 @@ fakes and never prompts for a password.
 ## Naming
 
 The product, executable, bundle id and DMG are all `LidBoot` — no spaces, so
-scripts and URLs stay simple. Everything a person reads says **Lid Boot**.
+scripts and URLs stay simple. Everything a person reads says **LidBoot**.
 Same split as Grid Push.
 
 ---

@@ -36,7 +36,7 @@ private struct HowItWorksPopover: View {
 
             VStack(alignment: .leading, spacing: 9) {
                 point("gearshape.2",
-                      String(localized: "Lid Boot changes BootPreference, a start-up setting in your Mac's firmware that Apple documents."))
+                      String(localized: "LidBoot changes BootPreference, a start-up setting in your Mac's firmware that Apple documents."))
                 point("arrow.counterclockwise",
                       String(localized: "It survives restarts and updates. Restore Default removes it completely, leaving your Mac exactly as it shipped."))
                 point("powersleep",

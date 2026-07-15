@@ -622,131 +622,6 @@
         }
       }
     },
-    "Lid Boot": {
-      "extractionState": "manual",
-      "shouldTranslate": false
-    },
-    "Show Lid Boot in": {
-      "extractionState": "manual",
-      "localizations": {
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mostrar o Lid Boot em"
-          }
-        }
-      }
-    },
-    "Lid Boot will only be reachable from its menu bar icon. If your menu bar is full, macOS may not have room to show it — this is common on Macs with a notch.\n\nIf you can't find the icon, open Lid Boot again from Finder or Launchpad and this window will come back.": {
-      "extractionState": "manual",
-      "localizations": {
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "O Lid Boot só ficará acessível pelo ícone na barra de menus. Se a tua barra de menus estiver cheia, o macOS pode não ter espaço para o mostrar — o que é comum em Macs com notch.\n\nSe não encontrares o ícone, abre o Lid Boot outra vez a partir do Finder ou do Launchpad e esta janela reaparece."
-          }
-        }
-      }
-    },
-    "Lid Boot needs your password to change your Mac's start-up setting.": {
-      "extractionState": "manual",
-      "localizations": {
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "O Lid Boot precisa da tua palavra-passe para alterar a definição de arranque do Mac."
-          }
-        }
-      }
-    },
-    "BootPreference holds a value Lid Boot can't read, so it won't change it.": {
-      "extractionState": "manual",
-      "localizations": {
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "O BootPreference tem um valor que o Lid Boot não consegue ler, por isso não o vai alterar."
-          }
-        }
-      }
-    },
-    "This setting only exists on Apple silicon Macs. Your Mac uses different firmware that Lid Boot doesn't support.": {
-      "extractionState": "manual",
-      "localizations": {
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Esta definição só existe em Macs com Apple silicon. O teu Mac usa firmware diferente que o Lid Boot não suporta."
-          }
-        }
-      }
-    },
-    "Lid Boot can't help this Mac": {
-      "extractionState": "manual",
-      "localizations": {
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "O Lid Boot não pode ajudar este Mac"
-          }
-        }
-      }
-    },
-    "Open Lid Boot…": {
-      "extractionState": "manual",
-      "localizations": {
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Abrir o Lid Boot…"
-          }
-        }
-      }
-    },
-    "Quit Lid Boot": {
-      "extractionState": "manual",
-      "localizations": {
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sair do Lid Boot"
-          }
-        }
-      }
-    },
-    "Lid Boot Help": {
-      "extractionState": "manual",
-      "localizations": {
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ajuda do Lid Boot"
-          }
-        }
-      }
-    },
-    "Opens the Lid Boot window": {
-      "extractionState": "manual",
-      "localizations": {
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Abre a janela do Lid Boot"
-          }
-        }
-      }
-    },
-    "BootPreference is set to a value Lid Boot doesn't recognize (0x%@), so it won't change it.": {
-      "extractionState": "manual",
-      "localizations": {
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "O BootPreference está definido para um valor que o Lid Boot não reconhece (0x%@), por isso não o vai alterar."
-          }
-        }
-      }
-    },
     "Appearance": {
       "extractionState": "manual",
       "localizations": {
@@ -813,17 +688,6 @@
         }
       }
     },
-    "Lid Boot changes BootPreference, a start-up setting in your Mac's firmware that Apple documents.": {
-      "extractionState": "manual",
-      "localizations": {
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "O Lid Boot altera o BootPreference, uma definição de arranque no firmware do teu Mac que a Apple documenta."
-          }
-        }
-      }
-    },
     "It survives restarts and updates. Restore Default removes it completely, leaving your Mac exactly as it shipped.": {
       "extractionState": "manual",
       "localizations": {
@@ -842,6 +706,142 @@
           "stringUnit": {
             "state": "translated",
             "value": "Só se aplica a partir de um encerramento completo. Acordar o Mac do modo de repouso nunca é afetado."
+          }
+        }
+      }
+    },
+    "LidBoot": {
+      "extractionState": "manual",
+      "shouldTranslate": false
+    },
+    "Show LidBoot in": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar o LidBoot em"
+          }
+        }
+      }
+    },
+    "LidBoot will only be reachable from its menu bar icon. If your menu bar is full, macOS may not have room to show it — this is common on Macs with a notch.\n\nIf you can't find the icon, open LidBoot again from Finder or Launchpad and this window will come back.": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O LidBoot só ficará acessível pelo ícone na barra de menus. Se a tua barra de menus estiver cheia, o macOS pode não ter espaço para o mostrar — o que é comum em Macs com notch.\n\nSe não encontrares o ícone, abre o LidBoot outra vez a partir do Finder ou do Launchpad e esta janela reaparece."
+          }
+        }
+      }
+    },
+    "LidBoot needs your password to change your Mac's start-up setting.": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O LidBoot precisa da tua palavra-passe para alterar a definição de arranque do Mac."
+          }
+        }
+      }
+    },
+    "BootPreference holds a value LidBoot can't read, so it won't change it.": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O BootPreference tem um valor que o LidBoot não consegue ler, por isso não o vai alterar."
+          }
+        }
+      }
+    },
+    "This setting only exists on Apple silicon Macs. Your Mac uses different firmware that LidBoot doesn't support.": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esta definição só existe em Macs com Apple silicon. O teu Mac usa firmware diferente que o LidBoot não suporta."
+          }
+        }
+      }
+    },
+    "LidBoot can't help this Mac": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O LidBoot não pode ajudar este Mac"
+          }
+        }
+      }
+    },
+    "Open LidBoot…": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abrir o LidBoot…"
+          }
+        }
+      }
+    },
+    "Quit LidBoot": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sair do LidBoot"
+          }
+        }
+      }
+    },
+    "LidBoot Help": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ajuda do LidBoot"
+          }
+        }
+      }
+    },
+    "Opens the LidBoot window": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abre a janela do LidBoot"
+          }
+        }
+      }
+    },
+    "BootPreference is set to a value LidBoot doesn't recognize (0x%@), so it won't change it.": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O BootPreference está definido para um valor que o LidBoot não reconhece (0x%@), por isso não o vai alterar."
+          }
+        }
+      }
+    },
+    "LidBoot changes BootPreference, a start-up setting in your Mac's firmware that Apple documents.": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O LidBoot altera o BootPreference, uma definição de arranque no firmware do teu Mac que a Apple documenta."
           }
         }
       }

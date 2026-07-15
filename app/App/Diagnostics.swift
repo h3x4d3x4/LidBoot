@@ -17,7 +17,7 @@ enum Diagnostics {
         let os = ProcessInfo.processInfo.operatingSystemVersionString
 
         var lines = [
-            "Lid Boot \(version) (\(build))",
+            "LidBoot \(version) (\(build))",
             "macOS: \(os)",
             "Model: \(HardwareInfo.modelIdentifier)",
             "Apple silicon: \(HardwareInfo.isAppleSilicon ? "yes" : "no")",

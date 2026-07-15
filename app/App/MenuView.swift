@@ -59,7 +59,7 @@ struct MenuView: View {
         HStack(alignment: .firstTextBaseline, spacing: 8) {
             VStack(alignment: .leading, spacing: 3) {
                 HStack(spacing: 5) {
-                    Text("Lid Boot")
+                    Text("LidBoot")
                         .font(.headline)
                     if model.unsupported == nil {
                         HowItWorksButton()
@@ -89,10 +89,10 @@ struct MenuView: View {
     /// without spending the popover's limited surface on them.
     private var footer: some View {
         HStack(spacing: 4) {
-            FooterButton(title: String(localized: "Open Lid Boot…")) {
+            FooterButton(title: String(localized: "Open LidBoot…")) {
                 WindowOpener.shared.open()
             }
-            .accessibilityHint(String(localized: "Opens the Lid Boot window"))
+            .accessibilityHint(String(localized: "Opens the LidBoot window"))
 
             Spacer()
 
@@ -110,7 +110,7 @@ struct MenuView: View {
                 Button {
                     NSApplication.shared.terminate(nil)
                 } label: {
-                    Label("Quit Lid Boot", systemImage: "power")
+                    Label("Quit LidBoot", systemImage: "power")
                 }
                 .keyboardShortcut("q")
             } label: {

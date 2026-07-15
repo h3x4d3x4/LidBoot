@@ -17,7 +17,7 @@ struct UnsupportedView: View {
                 .font((compact ? Font.title : Font.largeTitle).weight(.light))
                 .foregroundStyle(.secondary)
 
-            Text("Lid Boot can't help this Mac")
+            Text("LidBoot can't help this Mac")
                 .font(compact ? Font.headline : Font.title3.weight(.semibold))
 
             Text(reason.explanation)

@@ -2,7 +2,7 @@
 
 <img src="app/App/Assets.xcassets/AppIcon.appiconset/icon_256x256.png" width="112" alt="" />
 
-# Lid Boot
+# LidBoot
 
 **Your lid is not a power button.**
 
@@ -18,12 +18,12 @@ Stop your MacBook starting up when you open the lid or connect power.
 
 Shut down your MacBook, then open the lid or plug in the charger — and it starts
 right back up. macOS has no setting to stop it. Apple documents an `nvram`
-command instead. Lid Boot is that command, with two switches.
+command instead. LidBoot is that command, with two switches.
 
 ## What it actually does
 
 macOS keeps this behaviour in a single NVRAM variable, `BootPreference`, which
-has four states. Lid Boot shows them as two independent switches:
+has four states. LidBoot shows them as two independent switches:
 
 | Opening the lid | Connecting power | `BootPreference` |
 | --- | --- | --- |
@@ -52,7 +52,7 @@ Apple silicon MacBook (M1 or later), macOS 15 (Sequoia) or later.
 
 Intel Macs are deliberately unsupported: they use a different variable
 (`AutoBoot`) with different semantics, and guessing wrong risks an unbootable
-machine. Lid Boot detects unsupported hardware and disables itself with an
+machine. LidBoot detects unsupported hardware and disables itself with an
 explanation.
 
 ## Safety
@@ -101,7 +101,7 @@ Sparkle setup, and [`app/docs/STATUS.md`](app/docs/STATUS.md) for current state.
 
 ## Contributing & support
 
-Lid Boot is a small utility, maintained as time permits. Bug reports are
+LidBoot is a small utility, maintained as time permits. Bug reports are
 welcome — include the output of **Settings › About › Copy Diagnostics**. Small,
 focused PRs are welcome too; anything touching the NVRAM path needs a matching
 test, and the safety rules above are non-negotiable.

@@ -13,16 +13,16 @@ struct ModePicker: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
-            Text("Show Lid Boot in")
+            Text("Show LidBoot in")
                 .font(.subheadline.weight(.medium))
                 .foregroundStyle(.secondary)
 
-            Picker("Show Lid Boot in", selection: pickerBinding) {
+            Picker("Show LidBoot in", selection: pickerBinding) {
                 ForEach(AppMode.allCases) { Text($0.label).tag($0) }
             }
             .pickerStyle(.segmented)
             .labelsHidden()
-            .accessibilityLabel("Show Lid Boot in")
+            .accessibilityLabel("Show LidBoot in")
         }
         .alert("Hide the Dock icon?", isPresented: $pendingMenuBarOnly) {
             Button("Cancel", role: .cancel) {}
@@ -32,9 +32,9 @@ struct ModePicker: View {
             }
         } message: {
             Text("""
-                Lid Boot will only be reachable from its menu bar icon. If your menu bar is full, macOS may not have room to show it — this is common on Macs with a notch.
+                LidBoot will only be reachable from its menu bar icon. If your menu bar is full, macOS may not have room to show it — this is common on Macs with a notch.
 
-                If you can't find the icon, open Lid Boot again from Finder or Launchpad and this window will come back.
+                If you can't find the icon, open LidBoot again from Finder or Launchpad and this window will come back.
                 """)
         }
     }

@@ -2,7 +2,7 @@ import AppKit
 import CoreGraphics
 import SwiftUI
 
-// Lid Boot icon, concept 2: "the opening lid".
+// LidBoot icon, concept 2: "the opening lid".
 //
 // Side profile of a MacBook caught mid-open — a base bar and a lid bar hinged
 // at one point, forming a wedge. It's the app's literal subject (the lid, and

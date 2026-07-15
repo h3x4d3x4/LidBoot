@@ -10,15 +10,10 @@
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
-	<!--
-	  Two names on purpose, same split as Grid Push: the product/file/bundle-id
-	  stay "LidBoot" (no spaces — scripts, URLs and the DMG name depend on that),
-	  while everything a person reads says "Lid Boot".
-	-->
+	<!-- One name everywhere — "LidBoot", joined. The spaced "Lid Boot" split
+	     was tried and deliberately reverted; don't reintroduce it. -->
 	<key>CFBundleName</key>
-	<string>Lid Boot</string>
-	<key>CFBundleDisplayName</key>
-	<string>Lid Boot</string>
+	<string>LidBoot</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>

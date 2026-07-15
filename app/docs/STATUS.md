@@ -33,9 +33,9 @@ Verified on hardware (MacBookPro18,1, M1 Pro, macOS 26.5.2), not assumed:
 ## Open — needs a human
 
 1. **The physical test.** Still never run. See above.
-2. **Sparkle signing key.** Lid Boot reuses the existing key (`g1lZN7…`, the same one Observio uses) — Sparkle's default of one key per developer. Fine, but a compromise would affect every app signed with it.
+2. **Sparkle signing key.** LidBoot reuses the existing key (`g1lZN7…`, the same one Observio uses) — Sparkle's default of one key per developer. Fine, but a compromise would affect every app signed with it.
 3. **The app inside the DMG isn't stapled** — only the DMG is. Gatekeeper accepts it via an online check, so this only bites a tester whose *first* launch is offline. Fixing it properly means notarizing and stapling the `.app` before packaging, then notarizing the DMG. Worth doing before a wider beta.
-4. ~~The update path itself is untested.~~ **PROVEN 2026-07-15.** Published 0.3.0 while 0.2.0 was installed; Sparkle fetched the feed, found the update, and showed its "A new version of Lid Boot is available!" alert with the changelog rendered from the appcast's `<description>`. Note `raw.githubusercontent.com` caches for ~5 min after a release, so the feed lags briefly — `publish-release.sh` warns about this and it is not a failure.
+4. ~~The update path itself is untested.~~ **PROVEN 2026-07-15.** Published 0.3.0 while 0.2.0 was installed; Sparkle fetched the feed, found the update, and showed its "A new version of LidBoot is available!" alert with the changelog rendered from the appcast's `<description>`. Note `raw.githubusercontent.com` caches for ~5 min after a release, so the feed lags briefly — `publish-release.sh` warns about this and it is not a failure.
 
 ## Decisions worth not re-litigating
 

@@ -197,7 +197,7 @@ final class LidBootModel: ObservableObject {
     /// Shown in the macOS authorization dialog, so the user learns *why* they're
     /// being asked rather than just seeing "LidBoot wants to make changes."
     static var authPrompt: String {
-        String(localized: "Lid Boot needs your password to change your Mac's start-up setting.")
+        String(localized: "LidBoot needs your password to change your Mac's start-up setting.")
     }
 
     /// A Mac we can't help, or a value we can't read, must not look identical to

@@ -69,7 +69,7 @@ struct MainWindowView: View {
 
             VStack(alignment: .leading, spacing: 3) {
                 HStack(spacing: 6) {
-                    Text("Lid Boot")
+                    Text("LidBoot")
                         .font(.title2.weight(.semibold))
                     if model.unsupported == nil {
                         HowItWorksButton()
