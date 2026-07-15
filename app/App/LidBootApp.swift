@@ -9,7 +9,7 @@ struct LidBootApp: App {
     @AppStorage(AppMode.defaultsKey) private var mode: AppMode = .both
 
     var body: some Scene {
-        Window("LidBoot", id: WindowID.main) {
+        Window("Lid Boot", id: WindowID.main) {
             MainWindowView(model: model)
                 // Gives AppDelegate a way to reopen this window: returning true
                 // from applicationShouldHandleReopen does nothing on its own,
@@ -23,6 +23,11 @@ struct LidBootApp: App {
         // Launch-time only. Runtime mode changes are handled by
         // applyActivationPolicy() — don't try to make this reactive.
         .defaultLaunchBehavior(mode.showsDock ? .presented : .suppressed)
+        // NB: do NOT add .restorationBehavior(.disabled) here. It reads like the
+        // fix for "macOS remembers the window was closed and reopens nothing",
+        // but measured behaviour is that it suppresses the window at launch
+        // entirely — you get a Dock icon and no UI at all. If the restore-closed
+        // case needs fixing, do it via AppDelegate, not here.
         .commands {
             // A single-window utility has no use for a New Window item.
             CommandGroup(replacing: .newItem) {}
@@ -30,11 +35,11 @@ struct LidBootApp: App {
             // system Cmd-Q. Without this, a user with the window focused has to
             // go hunt for the status item — which may not be visible at all.
             CommandGroup(replacing: .appTermination) {
-                Button("Quit LidBoot") { NSApplication.shared.terminate(nil) }
+                Button("Quit Lid Boot") { NSApplication.shared.terminate(nil) }
                     .keyboardShortcut("q", modifiers: .command)
             }
             CommandGroup(replacing: .help) {
-                Link("LidBoot Help", destination: AppLinks.appleSupport)
+                Link("Lid Boot Help", destination: AppLinks.appleSupport)
             }
             CommandGroup(after: .appInfo) {
                 Button("Check for Updates…") { updater.checkForUpdates() }
@@ -43,7 +48,7 @@ struct LidBootApp: App {
         }
 
         Settings {
-            SettingsView(mode: $mode, updater: updater)
+            SettingsView(model: model, mode: $mode, updater: updater)
         }
 
         MenuBarExtra(isInserted: menuBarInsertion) {
@@ -56,6 +61,12 @@ struct LidBootApp: App {
             Image(systemName: model.menuBarSymbol)
                 .accessibilityLabel(model.summary)
                 .help(model.summary)
+                // Also capture openWindow here, not only from the window's own
+                // view: in menu-bar-only mode the window is suppressed at
+                // launch, so it never appears, so it could never register the
+                // opener — leaving "Open Lid Boot…" dead in exactly the mode
+                // where it's the documented way back in.
+                .windowOpener()
         }
         .menuBarExtraStyle(.window)
     }

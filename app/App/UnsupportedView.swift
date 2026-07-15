@@ -17,7 +17,7 @@ struct UnsupportedView: View {
                 .font(.system(size: compact ? 22 : 28, weight: .light))
                 .foregroundStyle(.secondary)
 
-            Text("LidBoot can't help this Mac")
+            Text("Lid Boot can't help this Mac")
                 .font(.system(size: compact ? 12.5 : 14, weight: .semibold))
 
             Text(reason.explanation)
@@ -41,6 +41,6 @@ enum AppLinks {
     static let appleSupport = URL(string: "https://support.apple.com/120622")!
     static let site = URL(string: "https://hexadexa.io")!
     /// hexadexa.dev handles mail; hexadexa.io has no MX by design.
-    static let email = URL(string: "mailto:andrei@hexadexa.dev?subject=LidBoot")!
+    static let email = URL(string: "mailto:andrei@hexadexa.dev?subject=Lid%20Boot")!
     static let koFi = URL(string: "https://ko-fi.com/hexadexa")!
 }

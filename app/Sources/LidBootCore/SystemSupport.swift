@@ -70,6 +70,18 @@ public enum SystemSupport {
     }
 }
 
+/// Machine facts for bug reports.
+///
+/// The model identifier belongs here rather than in the UI: "This Mac is a
+/// Mac14,12" means nothing to a user, but it's the first thing you want in a
+/// report — especially now that support depends on the lid probe rather than
+/// the model string.
+public enum HardwareInfo {
+    public static var modelIdentifier: String { Sysctl.string("hw.model") ?? "unknown" }
+    public static var isAppleSilicon: Bool { Sysctl.int("hw.optional.arm64") == 1 }
+    public static var hasLid: Bool { Hardware.hasClamshell() }
+}
+
 enum Hardware {
     /// True when this Mac has a clamshell (a lid).
     ///

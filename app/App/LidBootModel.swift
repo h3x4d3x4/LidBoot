@@ -30,8 +30,30 @@ final class LidBootModel: ObservableObject {
     init(service: BootPreferenceService = BootPreferenceService(),
          unsupported: SystemSupport.Unsupported? = SystemSupport.check()) {
         self.service = service
-        self.unsupported = unsupported
+        self.unsupported = Self.simulatedUnsupported ?? unsupported
         refresh()
+    }
+
+    /// Debug builds only: lets the unsupported states be seen on a Mac that is,
+    /// in fact, supported. They're the first thing a wrong-hardware user meets
+    /// and are otherwise only reachable through test fakes — so without this
+    /// they ship never having been looked at.
+    ///
+    ///     LidBoot.app/Contents/MacOS/LidBoot -simulateUnsupported notALaptop
+    private static var simulatedUnsupported: SystemSupport.Unsupported? {
+        #if DEBUG
+        let args = ProcessInfo.processInfo.arguments
+        guard let index = args.firstIndex(of: "-simulateUnsupported"),
+              index + 1 < args.count else { return nil }
+        switch args[index + 1] {
+        case "notAppleSilicon": return .notAppleSilicon
+        case "osTooOld": return .osTooOld(current: "14.6.1")
+        case "notALaptop": return .notALaptop
+        default: return nil
+        }
+        #else
+        return nil
+        #endif
     }
 
     /// Read the live machine state. Cheap and unprivileged, so we can do this
@@ -175,7 +197,7 @@ final class LidBootModel: ObservableObject {
     /// Shown in the macOS authorization dialog, so the user learns *why* they're
     /// being asked rather than just seeing "LidBoot wants to make changes."
     static var authPrompt: String {
-        String(localized: "LidBoot needs your password to change your Mac's start-up setting.")
+        String(localized: "Lid Boot needs your password to change your Mac's start-up setting.")
     }
 
     /// A Mac we can't help, or a value we can't read, must not look identical to

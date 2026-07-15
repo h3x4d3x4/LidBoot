@@ -6,6 +6,7 @@ import SwiftUI
 /// Everything you set once and forget (where the app lives, login, updates) moved
 /// here, which is where macOS users look for it anyway.
 struct SettingsView: View {
+    @ObservedObject var model: LidBootModel
     @Binding var mode: AppMode
     @ObservedObject var updater: UpdaterModel
     @StateObject private var launchAtLogin = LaunchAtLoginModel()
@@ -18,7 +19,7 @@ struct SettingsView: View {
             UpdatesSettingsView(model: updater)
                 .tabItem { Label("Updates", systemImage: "arrow.down.circle") }
 
-            AboutView()
+            AboutView(model: model, mode: $mode)
                 .tabItem { Label("About", systemImage: "info.circle") }
         }
         .frame(width: 420)
@@ -44,6 +45,9 @@ struct GeneralSettingsView: View {
 }
 
 struct AboutView: View {
+    @ObservedObject var model: LidBootModel
+    @Binding var mode: AppMode
+
     private let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "0.1"
     private let build = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? "1"
 
@@ -56,7 +60,7 @@ struct AboutView: View {
 
             Spacer().frame(height: 14)
 
-            Text("LidBoot")
+            Text("Lid Boot")
                 .font(.system(size: 22, weight: .bold))
             Text("Start-up control for MacBooks")
                 .font(.subheadline)
@@ -98,6 +102,11 @@ struct AboutView: View {
                 .foregroundStyle(.tertiary)
 
             Spacer().frame(height: 18)
+
+            ReportProblemView(model: model, mode: $mode)
+                .padding(.horizontal, 40)
+
+            Spacer().frame(height: 16)
 
             DisclosureGroup {
                 VStack(alignment: .leading, spacing: 4) {

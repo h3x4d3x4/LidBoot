@@ -82,6 +82,26 @@ public enum BootPreferenceState: Equatable, Sendable {
         guard case .known(let behavior) = self else { return nil }
         return behavior
     }
+
+    /// Exactly what's in NVRAM, for bug reports and logs.
+    ///
+    /// Deliberately English and unlocalized — this goes into a diagnostics
+    /// paste, not onto the screen.
+    public var diagnosticDescription: String {
+        switch self {
+        case .known(let behavior):
+            guard let byte = behavior.nvramByte else { return "not set (factory default)" }
+            return String(format: "%%%02x", byte)
+        case .unrecognized(let byte):
+            return String(format: "undocumented value 0x%02X", byte)
+        case .unreadable(let reason):
+            switch reason {
+            case .wrongType: return "unreadable (not byte data)"
+            case .empty: return "unreadable (empty)"
+            case .wrongLength(let count): return "unreadable (\(count) bytes, expected 1)"
+            }
+        }
+    }
 }
 
 /// Turns a raw IO registry property into a state.

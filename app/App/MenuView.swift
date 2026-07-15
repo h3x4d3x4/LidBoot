@@ -54,7 +54,7 @@ struct MenuView: View {
     private var header: some View {
         HStack(alignment: .firstTextBaseline, spacing: 8) {
             VStack(alignment: .leading, spacing: 3) {
-                Text("LidBoot")
+                Text("Lid Boot")
                     .font(.system(size: 14, weight: .semibold))
                 Text(model.summary)
                     .font(.system(size: 11))
@@ -76,10 +76,10 @@ struct MenuView: View {
             // Not "Settings…" for this one: the window holds the primary
             // toggles, Restore Default and the help link, so calling it Settings
             // tells people there's nothing in there worth opening.
-            FooterButton(title: String(localized: "Open LidBoot…")) {
+            FooterButton(title: String(localized: "Open Lid Boot…")) {
                 WindowOpener.shared.open()
             }
-            .accessibilityHint(String(localized: "Opens the LidBoot window"))
+            .accessibilityHint(String(localized: "Opens the Lid Boot window"))
 
             // In menu-bar-only mode the app is an accessory: no app menu, so no
             // Cmd-, and no other route to Settings at all. This is the only one.

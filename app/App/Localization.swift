@@ -38,7 +38,7 @@ extension SystemSupport.Unsupported {
     var explanation: String {
         switch self {
         case .notAppleSilicon:
-            return String(localized: "This setting only exists on Apple silicon Macs. Your Mac uses different firmware that LidBoot doesn't support.")
+            return String(localized: "This setting only exists on Apple silicon Macs. Your Mac uses different firmware that Lid Boot doesn't support.")
         case .osTooOld(let current):
             return String(localized: "This setting needs macOS 15 (Sequoia) or later. You're on \(current).")
         case .notALaptop:
@@ -57,9 +57,9 @@ extension BootPreferenceState {
             return nil
         case .unrecognized(let byte):
             let hex = String(format: "%02X", byte)
-            return String(localized: "BootPreference is set to a value LidBoot doesn't recognize (0x\(hex)), so it won't change it.")
+            return String(localized: "BootPreference is set to a value Lid Boot doesn't recognize (0x\(hex)), so it won't change it.")
         case .unreadable:
-            return String(localized: "BootPreference holds a value LidBoot can't read, so it won't change it.")
+            return String(localized: "BootPreference holds a value Lid Boot can't read, so it won't change it.")
         }
     }
 }

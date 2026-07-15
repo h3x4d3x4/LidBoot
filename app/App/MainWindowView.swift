@@ -70,14 +70,18 @@ struct MainWindowView: View {
                 .shadow(color: Palette.lid[0].opacity(0.35), radius: 8, y: 3)
 
             VStack(alignment: .leading, spacing: 3) {
-                Text("LidBoot")
+                Text("Lid Boot")
                     .font(.system(size: 17, weight: .semibold))
-                Text(model.summary)
-                    .font(.system(size: 11.5))
-                    .foregroundStyle(.secondary)
-                    .fixedSize(horizontal: false, vertical: true)
-                    .contentTransition(.opacity)
-                    .animation(.easeInOut(duration: 0.2), value: model.summary)
+                // On an unsupported Mac the panel below carries the explanation;
+                // repeating it here just says the same sentence twice.
+                if model.unsupported == nil {
+                    Text(model.summary)
+                        .font(.system(size: 11.5))
+                        .foregroundStyle(.secondary)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .contentTransition(.opacity)
+                        .animation(.easeInOut(duration: 0.2), value: model.summary)
+                }
             }
 
             Spacer(minLength: 0)
@@ -125,15 +129,19 @@ struct MainWindowView: View {
                 .font(.system(size: 10.5))
                 .foregroundStyle(.tertiary)
             Spacer()
-            Link(destination: AppLinks.appleSupport) {
-                HStack(spacing: 3) {
-                    Text("Apple's documentation")
-                    Image(systemName: "arrow.up.right.square")
-                        .font(.system(size: 9))
+            // The unsupported panel already offers this link; two of them on one
+            // small window is noise.
+            if model.unsupported == nil {
+                Link(destination: AppLinks.appleSupport) {
+                    HStack(spacing: 3) {
+                        Text("Apple's documentation")
+                        Image(systemName: "arrow.up.right.square")
+                            .font(.system(size: 9))
+                    }
                 }
+                .font(.system(size: 10.5))
+                .help(AppLinks.appleSupport.absoluteString)
             }
-            .font(.system(size: 10.5))
-            .help(AppLinks.appleSupport.absoluteString)
         }
     }
 }
