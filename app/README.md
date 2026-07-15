@@ -183,15 +183,21 @@ this repo (private) ──build, sign, notarize locally──► publish-release
          public repo Release assets                        public repo appcast.xml
          (LidBoot-<version>.dmg)                           (the canonical feed)
                      ▲                                                 ▲
-                     │                        https://lidboot.hexadexa.io/appcast.xml
-                     │                        (Cloudflare redirect → raw public repo)
+                     │                  raw.githubusercontent.com/…/appcast.xml
+                     │                  (the app reads this directly)
                 app downloads here (public, no auth)
 ```
 
+Releases: [LidBoot-Releases](https://github.com/h3x4d3x4/LidBoot-Releases)
+
 The app needs no token, because integrity comes from the EdDSA signature
-(`SUPublicEDKey` in Info.plist) rather than from the feed being private. The
-feed URL is a branded redirect on purpose: it's baked into every build, so the
-backing store can move without shipping a new app.
+(`SUPublicEDKey` in Info.plist) rather than from the feed being private.
+
+The feed URL is baked into every build, so the releases repo name is effectively
+permanent — renaming or removing it breaks updates for every shipped copy, and
+the only fix is handing users a new DMG. Putting a redirect in front (e.g.
+`lidboot.hexadexa.io/appcast.xml`) is what would buy the ability to move hosts
+later; that's its only purpose.
 
 ## Layout
 

@@ -21,12 +21,21 @@ Verified on hardware (MacBookPro18,1, M1 Pro, macOS 26.5.2), not assumed:
 - **Notarized.** `dist/LidBoot-0.2.0.dmg` — Apple returned `Accepted`, ticket stapled, and `spctl` now says `accepted — source=Notarized Developer ID` (it said *rejected* before). Used the existing `observio-notary` keychain profile: a notarytool profile is credentials for an Apple ID + team, not for an app, and every Hexadexa app ships under team `632VXL3W66`. `notarize.sh` now tries `hexadexa-notary`, `lidboot-notary`, `observio-notary` in order.
 - **Installed and launched from the DMG** the way a tester would; Gatekeeper accepts it.
 
+## Shipped — 0.2.0 is live
+
+- **Public releases repo:** `h3x4d3x4/LidBoot-Releases` (created with the user's explicit consent). Holds only the appcast and DMGs; no source.
+- **Release:** https://github.com/h3x4d3x4/LidBoot-Releases/releases/tag/v0.2.0
+- **Feed (baked into the app):** `https://raw.githubusercontent.com/h3x4d3x4/LidBoot-Releases/main/appcast.xml`
+- Verified end to end, not assumed: downloaded the DMG from the public URL with no auth, the feed's `length` matches the real file, the EdDSA signature **verifies** against it, a **tampered copy fails** verification, and Gatekeeper on the quarantined download reports `accepted — source=Notarized Developer ID`.
+
+**Feed URL decision:** points straight at raw.githubusercontent.com rather than through `lidboot.hexadexa.io`. The user chose this deliberately — one less moving part. The cost: **the feed URL is baked into every build**, so `LidBoot-Releases` is now effectively a permanent name. Renaming or deleting it breaks updates for every shipped copy, with no remote fix — the only recourse is handing users a new DMG. A redirect in front is what would buy the ability to move hosts later; that is its only purpose.
+
 ## Open — needs a human
 
-1. **Public releases repo.** `h3x4d3x4/LidBoot-Releases` still doesn't exist. It must be **public** so the app updates without a token (integrity is the EdDSA signature, not repo privacy — `Observio-Releases` is public for the same reason). **Not created: creating a public surface needs an explicit yes**, and none has been given. Until it exists, `publish-release.sh` can't run and Sparkle has nothing to fetch.
-2. **Cloudflare redirect.** `lidboot.hexadexa.io/appcast.xml` → `https://raw.githubusercontent.com/h3x4d3x4/LidBoot-Releases/main/appcast.xml` (302), same rule shape as Observio's. **The feed URL is baked into every build**, so until this exists updates silently do nothing. It's a redirect precisely so the backing store can move without shipping a new app.
-3. **Sparkle signing key.** Lid Boot reuses the existing key (`g1lZN7…`, the same one Observio uses) — Sparkle's default of one key per developer. Fine, but a compromise would affect every app signed with it.
-4. **The app inside the DMG isn't stapled** — only the DMG is. Gatekeeper accepts it via an online check, so this only bites a tester whose *first* launch is offline. Fixing it properly means notarizing and stapling the `.app` before packaging, then notarizing the DMG.
+1. **The physical test.** Still never run. See above.
+2. **Sparkle signing key.** Lid Boot reuses the existing key (`g1lZN7…`, the same one Observio uses) — Sparkle's default of one key per developer. Fine, but a compromise would affect every app signed with it.
+3. **The app inside the DMG isn't stapled** — only the DMG is. Gatekeeper accepts it via an online check, so this only bites a tester whose *first* launch is offline. Fixing it properly means notarizing and stapling the `.app` before packaging, then notarizing the DMG. Worth doing before a wider beta.
+4. **The update path itself is untested.** The feed is verified and parses, but nobody has watched Sparkle actually *find* an update — that needs a 0.2.1 to exist. Test it on the next release rather than assuming.
 
 ## Decisions worth not re-litigating
 

@@ -45,17 +45,19 @@
 	<!--
 	  Sparkle auto-update, same model as Observio.
 
-	  The feed is a branded URL rather than the raw GitHub one on purpose: it's a
-	  Cloudflare redirect, so where the appcast actually lives can change without
-	  shipping a new build. This URL is baked into every release — getting it
-	  wrong means silently broken updates for everyone already on that build.
+	  Points straight at the public releases repo — no redirect in front of it.
+	  Trade-off to know: this URL is baked into every build, so the repo name is
+	  effectively permanent. If LidBoot-Releases is ever renamed or removed,
+	  already-shipped builds lose updates and the only fix is handing users a new
+	  DMG. Putting a redirect (e.g. lidboot.hexadexa.io/appcast.xml) in front is
+	  what buys the ability to move the host later; that's the only reason for it.
 
 	  Integrity is the EdDSA signature below, NOT the transport or repo privacy,
 	  which is why the appcast and DMGs can sit in a public repo while the source
 	  stays private.
 	-->
 	<key>SUFeedURL</key>
-	<string>https://lidboot.hexadexa.io/appcast.xml</string>
+	<string>https://raw.githubusercontent.com/h3x4d3x4/LidBoot-Releases/main/appcast.xml</string>
 	<key>SUPublicEDKey</key>
 	<string>g1lZN7FLgwSgc3RkOf68sK7MLhSpjwL45aM7NSLs1Ps=</string>
 	<key>SUEnableAutomaticChecks</key>

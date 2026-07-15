@@ -15,8 +15,8 @@
 #            public repo Release assets                        public repo appcast.xml
 #            (LidBoot-<version>.dmg)                           (the canonical feed)
 #                        ▲                                                 ▲
-#                        │                        https://lidboot.hexadexa.io/appcast.xml
-#                        │                        (Cloudflare redirect → raw public repo)
+#                        │                    raw.githubusercontent.com/.../appcast.xml
+#                        │                    (the app reads this URL directly)
 #                   app downloads here (public, no auth)
 #
 # The app needs no token: integrity comes from the EdDSA signature
@@ -95,7 +95,7 @@ cat > "${APPCAST}" <<XML
 <rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle">
     <channel>
         <title>LidBoot</title>
-        <link>https://lidboot.hexadexa.io/appcast.xml</link>
+        <link>https://raw.githubusercontent.com/h3x4d3x4/LidBoot-Releases/main/appcast.xml</link>
         <description>Updates for LidBoot</description>
         <language>en</language>
 $(cat "${ITEM_FILE}")
@@ -142,14 +142,11 @@ curl -fsSL "https://raw.githubusercontent.com/${RELEASES_REPO}/main/appcast.xml"
     && echo "  ✓ raw feed serves ${VERSION}" \
     || echo "  ⚠ raw feed doesn't show ${VERSION} yet (GitHub caching — retry shortly)"
 
-if curl -fsSL "https://lidboot.hexadexa.io/appcast.xml" 2>/dev/null | grep -q "${VERSION}"; then
-    echo "  ✓ lidboot.hexadexa.io serves ${VERSION}"
-else
-    echo "  ⚠ lidboot.hexadexa.io isn't serving the feed yet."
-    echo "    The app has this URL baked in, so updates stay broken until the"
-    echo "    Cloudflare redirect exists:"
-    echo "      Hostname = lidboot.hexadexa.io AND URI Path = /appcast.xml"
-    echo "      → 302 https://raw.githubusercontent.com/${RELEASES_REPO}/main/appcast.xml"
+# The feed the app actually reads is the raw URL above — no redirect in front.
+FEED_IN_APP=$(/usr/libexec/PlistBuddy -c "Print :SUFeedURL" App/Info.plist 2>/dev/null || echo "")
+echo "  feed baked into the app: ${FEED_IN_APP}"
+if [[ "${FEED_IN_APP}" != *"${RELEASES_REPO}"* ]]; then
+    echo "  ⚠ the app's SUFeedURL doesn't point at ${RELEASES_REPO} — updates would not arrive" >&2
 fi
 
 echo
