@@ -111,11 +111,13 @@ final class BootPreferenceTests: XCTestCase {
     func testReadingCurrentMachineDoesNotRequirePrivileges() {
         // Must not prompt, must not crash, must return something sane.
         // (Value depends on machine state, so we only assert it's well-formed.)
-        switch NVRAMReader.read() {
+        switch SystemNVRAMReader().read() {
         case .known:
             break
         case .unrecognized(let byte):
             XCTFail("machine has an undocumented BootPreference value: \(byte)")
+        case .unreadable(let reason):
+            XCTFail("machine's BootPreference is unreadable: \(reason)")
         }
     }
 }

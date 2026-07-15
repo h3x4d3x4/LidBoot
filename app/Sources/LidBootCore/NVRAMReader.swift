@@ -1,42 +1,36 @@
 import Foundation
 import IOKit
 
-/// Reads `BootPreference` straight out of the IO registry.
+/// Reads the current `BootPreference` state.
 ///
-/// This needs no privileges at all — only writing NVRAM requires root — so the
-/// menu can always show the true current state without ever prompting.
-public enum NVRAMReader {
+/// Reading needs no privileges at all — only writing NVRAM requires root — so
+/// the UI can always show the truth without ever prompting.
+public protocol NVRAMReading: Sendable {
+    func read() -> BootPreferenceState
+}
+
+/// The real thing: reads straight out of the IO registry.
+public struct SystemNVRAMReader: NVRAMReading {
     private static let optionsPath = "IODeviceTree:/options"
     private static let variableName = "BootPreference"
 
-    public static func read() -> BootPreferenceState {
+    public init() {}
+
+    public func read() -> BootPreferenceState {
+        BootPreferenceDecoder.decode(Self.rawProperty())
+    }
+
+    /// The raw IO registry property, or nil when the variable is absent.
+    private static func rawProperty() -> Any? {
         let entry = IORegistryEntryFromPath(kIOMainPortDefault, optionsPath)
-        guard entry != MACH_PORT_NULL else {
-            // No options node at all: nothing has been set, so we're at default.
-            return .known(.factoryDefault)
-        }
+        guard entry != MACH_PORT_NULL else { return nil }
         defer { IOObjectRelease(entry) }
 
         guard let property = IORegistryEntryCreateCFProperty(
             entry, variableName as CFString, kCFAllocatorDefault, 0
         ) else {
-            // Variable absent == factory default (starts on both lid and power).
-            return .known(.factoryDefault)
+            return nil
         }
-
-        let value = property.takeRetainedValue()
-
-        // nvram stores this as a single raw byte of CFData.
-        guard let data = value as? Data, let byte = data.first, data.count == 1 else {
-            if let data = value as? Data, let byte = data.first {
-                return .unrecognized(byte)
-            }
-            return .known(.factoryDefault)
-        }
-
-        guard let behavior = BootBehavior(nvramByte: byte) else {
-            return .unrecognized(byte)
-        }
-        return .known(behavior)
+        return property.takeRetainedValue()
     }
 }

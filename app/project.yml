@@ -48,17 +48,44 @@ targets:
         # privileged nvram write. See LidBoot.entitlements.
         ENABLE_APP_SANDBOX: NO
         SWIFT_STRICT_CONCURRENCY: complete
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+
+  # A native test target over the same sources as the SwiftPM test target.
+  # `swift test` is the fast path, but without this the Xcode scheme has nothing
+  # to run and `xcodebuild test` reports success while testing nothing at all.
+  LidBootTests:
+    type: bundle.unit-test
+    platform: macOS
+    deploymentTarget: "15.0"
+    sources:
+      - path: Tests/LidBootCoreTests
+    dependencies:
+      - package: LidBoot
+        product: LidBootCore
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.lidboot.LidBootTests
+        SWIFT_VERSION: "5.9"
+        MACOSX_DEPLOYMENT_TARGET: "15.0"
+        GENERATE_INFOPLIST_FILE: YES
+        # @testable import needs this; it's the Debug default, but the tests are
+        # only ever run in Debug so make it explicit.
+        ENABLE_TESTABILITY: YES
 
 schemes:
   LidBoot:
     build:
       targets:
         LidBoot: all
+        LidBootTests: [test]
     run:
       config: Debug
     test:
       config: Debug
-      targets: []
+      # Must not be empty: an empty list makes `xcodebuild test` report success
+      # while running nothing at all.
+      targets:
+        - LidBootTests
     profile:
       config: Release
     analyze:

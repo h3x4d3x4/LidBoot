@@ -3,81 +3,105 @@ import LidBootCore
 
 @MainActor
 final class LidBootModel: ObservableObject {
+    /// What the machine actually reports.
     @Published private(set) var behavior: BootBehavior = .factoryDefault
-    @Published private(set) var unrecognizedByte: UInt8?
+    /// What the user just asked for, while the write is still in flight.
+    ///
+    /// Without this the Toggle would flip, immediately snap back (the getter
+    /// still returns the old machine state), then flip forward again when the
+    /// write lands. Showing the pending value keeps the switch under the user's
+    /// finger until we know the answer.
+    @Published private(set) var pending: BootBehavior?
+    /// Set when NVRAM holds something we refuse to interpret.
+    @Published private(set) var refusal: String?
     @Published private(set) var errorMessage: String?
     @Published private(set) var isApplying = false
+
+    /// The state the UI should draw.
+    var displayed: BootBehavior { pending ?? behavior }
 
     /// Non-nil when this Mac can't support the setting at all.
     let unsupported: SystemSupport.Unsupported?
 
-    init() {
-        unsupported = SystemSupport.check()
+    private let service: BootPreferenceService
+
+    init(service: BootPreferenceService = BootPreferenceService(),
+         unsupported: SystemSupport.Unsupported? = SystemSupport.check()) {
+        self.service = service
+        self.unsupported = unsupported
         refresh()
     }
 
     /// Read the live machine state. Cheap and unprivileged, so we can do this
-    /// every time the menu opens and never show a stale toggle.
+    /// whenever the app becomes active and never show a stale toggle.
     func refresh() {
         guard unsupported == nil else { return }
-        switch NVRAMReader.read() {
+        switch service.read() {
         case .known(let value):
             behavior = value
-            unrecognizedByte = nil
+            refusal = nil
         case .unrecognized(let byte):
-            unrecognizedByte = byte
+            refusal = "Something set BootPreference to an unrecognised value (0x\(String(format: "%02X", byte))). LidBoot won't change it."
+        case .unreadable(let reason):
+            refusal = "BootPreference holds a value LidBoot doesn't understand (\(reason)). LidBoot won't change it."
         }
     }
 
-    var isModified: Bool { behavior != .factoryDefault }
+    var isModified: Bool { refusal == nil && behavior != .factoryDefault }
 
     var summary: String {
         if let unsupported { return unsupported.explanation }
-        if let byte = unrecognizedByte {
-            return "Something set BootPreference to an unrecognised value (0x\(String(format: "%02X", byte))). LidBoot won't change it."
-        }
+        if let refusal { return refusal }
         switch (behavior.startsOnLidOpen, behavior.startsOnPowerConnect) {
-        case (true, true): return "Your Mac starts up on its own."
-        case (false, true): return "Opening the lid won't start your Mac."
-        case (true, false): return "Connecting power won't start your Mac."
-        case (false, false): return "Your Mac won't start up on its own."
+        case (true, true): return "Starts up when you open the lid or connect power."
+        case (false, true): return "Won't start up when you open the lid."
+        case (true, false): return "Won't start up when you connect power."
+        case (false, false): return "Won't start up on its own at all."
         }
     }
 
     var lidOpen: Binding<Bool> {
-        Binding(get: { self.behavior.startsOnLidOpen },
-                set: { self.apply(lidOpen: $0) })
+        Binding(get: { self.displayed.startsOnLidOpen },
+                set: { newValue in Task { await self.apply(lidOpen: newValue) } })
     }
 
     var powerConnect: Binding<Bool> {
-        Binding(get: { self.behavior.startsOnPowerConnect },
-                set: { self.apply(powerConnect: $0) })
+        Binding(get: { self.displayed.startsOnPowerConnect },
+                set: { newValue in Task { await self.apply(powerConnect: newValue) } })
     }
 
     var controlsEnabled: Bool {
-        unsupported == nil && unrecognizedByte == nil && !isApplying
+        unsupported == nil && refusal == nil && !isApplying
     }
 
-    private func apply(lidOpen: Bool? = nil, powerConnect: Bool? = nil) {
+    private func apply(lidOpen: Bool? = nil, powerConnect: Bool? = nil) async {
         var desired = behavior
         if let lidOpen { desired.startsOnLidOpen = lidOpen }
         if let powerConnect { desired.startsOnPowerConnect = powerConnect }
-        apply(desired)
+        await apply(desired)
     }
 
-    private func apply(_ desired: BootBehavior) {
+    func apply(_ desired: BootBehavior) async {
         guard controlsEnabled, desired != behavior else { return }
 
         errorMessage = nil
+        pending = desired
         isApplying = true
-        defer { isApplying = false }
+        defer {
+            isApplying = false
+            // Always drop the optimistic value: from here on the toggle follows
+            // `behavior`, which only ever reflects a verified read.
+            pending = nil
+        }
 
         do {
-            try NVRAMWriter.apply(desired)
+            // Suspends here: the auth prompt runs off the main thread, so the
+            // spinner actually paints and the UI stays responsive.
+            try await service.apply(desired)
             behavior = desired
         } catch NVRAMWriteError.cancelled {
             // Not an error: the user changed their mind at the password prompt.
-            // Snap the toggle back to what the machine actually says.
+            // Re-read so the toggle lands on the machine's truth.
             refresh()
         } catch let error as NVRAMWriteError {
             errorMessage = error.userMessage

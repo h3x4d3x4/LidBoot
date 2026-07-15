@@ -48,11 +48,63 @@ extension BootBehavior {
 }
 
 /// What we actually found in NVRAM.
+///
+/// Anything we don't fully understand must land in `unrecognized` or
+/// `unreadable` — never in `known`. Reporting a value we can't parse as
+/// "factory default" would let the app overwrite a state it never understood,
+/// which is exactly backwards for something that can require DFU to recover.
 public enum BootPreferenceState: Equatable, Sendable {
     case known(BootBehavior)
-    /// Something wrote a value Apple doesn't document. We show a warning and
-    /// refuse to interpret it rather than stomping on it blindly.
+    /// A single byte Apple doesn't document (e.g. %03).
     case unrecognized(UInt8)
+    /// Present, but not a single byte at all: wrong type, empty, or multi-byte.
+    /// `reason` is for logs and the UI's explanation, not for parsing.
+    case unreadable(reason: String)
+
+    /// True when LidBoot must not touch the variable.
+    public var isRefused: Bool {
+        switch self {
+        case .known: return false
+        case .unrecognized, .unreadable: return true
+        }
+    }
+
+    /// The behavior, when we actually understand the value.
+    public var behavior: BootBehavior? {
+        guard case .known(let behavior) = self else { return nil }
+        return behavior
+    }
+}
+
+/// Turns a raw IO registry property into a state.
+///
+/// Split out from the IOKit call so every branch is testable without a Mac in a
+/// particular NVRAM state.
+public enum BootPreferenceDecoder {
+    /// - Parameter value: the raw property, or `nil` when the variable is absent.
+    public static func decode(_ value: Any?) -> BootPreferenceState {
+        guard let value else {
+            // Absent is the factory state: starts up on both.
+            return .known(.factoryDefault)
+        }
+
+        guard let data = value as? Data else {
+            return .unreadable(reason: "expected a single byte, found \(type(of: value))")
+        }
+
+        guard !data.isEmpty else {
+            return .unreadable(reason: "value is empty")
+        }
+
+        guard data.count == 1, let byte = data.first else {
+            return .unreadable(reason: "expected 1 byte, found \(data.count)")
+        }
+
+        guard let behavior = BootBehavior(nvramByte: byte) else {
+            return .unrecognized(byte)
+        }
+        return .known(behavior)
+    }
 }
 
 /// The complete set of commands this app is ever allowed to run.

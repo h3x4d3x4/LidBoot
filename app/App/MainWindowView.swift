@@ -6,47 +6,56 @@ import LidBootCore
 struct MainWindowView: View {
     @ObservedObject var model: LidBootModel
     @Binding var mode: AppMode
+    @StateObject private var launchAtLogin = LaunchAtLoginModel()
 
     var body: some View {
         VStack(alignment: .leading, spacing: 18) {
             header
 
-            card {
-                BootToggles(model: model)
-            }
+            BootToggles(model: model)
+                .padding(6)
+                .background {
+                    RoundedRectangle(cornerRadius: 10, style: .continuous)
+                        .fill(.quaternary.opacity(0.5))
+                }
 
             if let errorMessage = model.errorMessage {
                 NoticeRow(symbol: "exclamationmark.triangle.fill", text: errorMessage, tint: .orange)
+                    .transition(.opacity)
             }
 
             KeyboardCaveat()
 
             Divider()
 
-            ModePicker(mode: $mode)
+            VStack(alignment: .leading, spacing: 14) {
+                ModePicker(mode: $mode)
+                LaunchAtLoginToggle(model: launchAtLogin)
+            }
+
+            Divider()
+            footer
         }
         // Extra headroom so the title bar's traffic lights don't sit on the header.
         .padding(.top, 30)
         .padding([.horizontal, .bottom], 20)
         .frame(width: 380)
         .background(.background)
+        .animation(.easeInOut(duration: 0.2), value: model.errorMessage)
         .onAppear { model.refresh() }
-        .onChange(of: mode) { _, newValue in newValue.applyActivationPolicy() }
     }
 
     private var header: some View {
         HStack(spacing: 12) {
-            RoundedRectangle(cornerRadius: 11, style: .continuous)
-                .fill(LinearGradient(
-                    colors: [Color(red: 0.36, green: 0.55, blue: 1.0), Color(red: 0.55, green: 0.40, blue: 1.0)],
-                    startPoint: .topLeading, endPoint: .bottomTrailing))
-                .frame(width: 42, height: 42)
+            IconTile(symbol: "laptopcomputer", tint: Palette.lid, size: 42, corner: 11, glyph: 19)
                 .overlay {
-                    Image(systemName: "laptopcomputer")
-                        .font(.system(size: 19, weight: .medium))
-                        .foregroundStyle(.white)
+                    // Soft glow ring — the one flourish that lifts the header
+                    // out of "system settings pane" territory.
+                    RoundedRectangle(cornerRadius: 11, style: .continuous)
+                        .stroke(Palette.lid[0].opacity(0.35), lineWidth: 3)
+                        .blur(radius: 4)
                 }
-                .shadow(color: Color(red: 0.36, green: 0.55, blue: 1.0).opacity(0.35), radius: 6, y: 2)
+                .shadow(color: Palette.lid[0].opacity(0.35), radius: 8, y: 3)
 
             VStack(alignment: .leading, spacing: 3) {
                 Text("LidBoot")
@@ -55,22 +64,34 @@ struct MainWindowView: View {
                     .font(.system(size: 11.5))
                     .foregroundStyle(.secondary)
                     .fixedSize(horizontal: false, vertical: true)
+                    .contentTransition(.opacity)
+                    .animation(.easeInOut(duration: 0.2), value: model.summary)
             }
 
             Spacer(minLength: 0)
 
             if model.isApplying {
                 ProgressView().controlSize(.small)
+            } else if model.unsupported == nil && model.refusal == nil {
+                StatusDot(isModified: model.isModified)
             }
         }
     }
 
-    private func card<Content: View>(@ViewBuilder _ content: () -> Content) -> some View {
-        content()
-            .padding(6)
-            .background {
-                RoundedRectangle(cornerRadius: 10, style: .continuous)
-                    .fill(Color.primary.opacity(0.045))
-            }
+    private var footer: some View {
+        HStack {
+            Text("Version \(Bundle.appVersion)")
+                .font(.system(size: 10.5))
+                .foregroundStyle(.tertiary)
+            Spacer()
+            Link("How this works", destination: URL(string: "https://support.apple.com/120622")!)
+                .font(.system(size: 10.5))
+        }
+    }
+}
+
+extension Bundle {
+    static var appVersion: String {
+        main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "—"
     }
 }

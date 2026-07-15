@@ -5,7 +5,6 @@ import LidBootCore
 struct MenuView: View {
     @ObservedObject var model: LidBootModel
     @Binding var mode: AppMode
-    @Environment(\.openWindow) private var openWindow
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -32,8 +31,9 @@ struct MenuView: View {
             footer
         }
         .frame(width: 320)
+        // The popover is rebuilt each time it opens, so this keeps it honest
+        // even if NVRAM changed underneath us.
         .onAppear { model.refresh() }
-        .onChange(of: mode) { _, newValue in newValue.applyActivationPolicy() }
     }
 
     private var header: some View {
@@ -49,11 +49,8 @@ struct MenuView: View {
             Spacer(minLength: 0)
             if model.isApplying {
                 ProgressView().controlSize(.small)
-            } else if model.unsupported == nil {
-                Circle()
-                    .fill(model.isModified ? Color.green : Color.secondary.opacity(0.35))
-                    .frame(width: 7, height: 7)
-                    .help(model.isModified ? "Auto start-up is limited" : "Default behaviour")
+            } else if model.unsupported == nil && model.refusal == nil {
+                StatusDot(isModified: model.isModified)
             }
         }
         .padding(.horizontal, 14)
@@ -64,14 +61,14 @@ struct MenuView: View {
     private var footer: some View {
         HStack(spacing: 12) {
             Button {
-                openWindow(id: "main")
-                NSApp.activate(ignoringOtherApps: true)
+                WindowOpener.shared.open()
             } label: {
-                Text("Open LidBoot…")
+                Text("Settings…")
                     .font(.system(size: 11))
                     .foregroundStyle(.secondary)
             }
             .buttonStyle(.plain)
+            .accessibilityHint("Opens the LidBoot window")
 
             Spacer()
 

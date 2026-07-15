@@ -1,5 +1,38 @@
 import Foundation
 
+/// The machine facts LidBoot's support check depends on.
+///
+/// Injectable so the unsupported branches can be tested — otherwise they'd only
+/// ever run on hardware we don't have.
+public struct SystemProbe: Sendable {
+    public var isAppleSilicon: @Sendable () -> Bool
+    public var model: @Sendable () -> String
+    public var isOperatingSystemAtLeast: @Sendable (OperatingSystemVersion) -> Bool
+    public var osVersionString: @Sendable () -> String
+
+    public init(
+        isAppleSilicon: @escaping @Sendable () -> Bool,
+        model: @escaping @Sendable () -> String,
+        isOperatingSystemAtLeast: @escaping @Sendable (OperatingSystemVersion) -> Bool,
+        osVersionString: @escaping @Sendable () -> String
+    ) {
+        self.isAppleSilicon = isAppleSilicon
+        self.model = model
+        self.isOperatingSystemAtLeast = isOperatingSystemAtLeast
+        self.osVersionString = osVersionString
+    }
+
+    public static let live = SystemProbe(
+        isAppleSilicon: { Sysctl.int("hw.optional.arm64") == 1 },
+        model: { Sysctl.string("hw.model") ?? "" },
+        isOperatingSystemAtLeast: { ProcessInfo.processInfo.isOperatingSystemAtLeast($0) },
+        osVersionString: {
+            let version = ProcessInfo.processInfo.operatingSystemVersion
+            return "\(version.majorVersion).\(version.minorVersion).\(version.patchVersion)"
+        }
+    )
+}
+
 /// `BootPreference` only exists on Apple silicon laptops running macOS 15 or
 /// later. On anything else we disable the UI and say why, rather than writing a
 /// variable whose meaning we can't vouch for.
@@ -25,29 +58,26 @@ public enum SystemSupport {
         }
     }
 
-    public static func check() -> Unsupported? {
-        guard sysctlInt("hw.optional.arm64") == 1 else {
+    /// The macOS version that introduced `BootPreference`.
+    static let minimumOS = OperatingSystemVersion(majorVersion: 15, minorVersion: 0, patchVersion: 0)
+
+    public static func check(probe: SystemProbe = .live) -> Unsupported? {
+        guard probe.isAppleSilicon() else {
             return .notAppleSilicon
         }
-
-        let os = ProcessInfo.processInfo.operatingSystemVersion
-        guard ProcessInfo.processInfo.isOperatingSystemAtLeast(
-            OperatingSystemVersion(majorVersion: 15, minorVersion: 0, patchVersion: 0)
-        ) else {
-            return .osTooOld(current: "\(os.majorVersion).\(os.minorVersion).\(os.patchVersion)")
+        guard probe.isOperatingSystemAtLeast(minimumOS) else {
+            return .osTooOld(current: probe.osVersionString())
         }
-
-        let model = sysctlString("hw.model") ?? ""
+        let model = probe.model()
         guard model.hasPrefix("MacBook") else {
             return .notALaptop(model: model.isEmpty ? "desktop Mac" : model)
         }
-
         return nil
     }
+}
 
-    // MARK: - sysctl helpers
-
-    static func sysctlString(_ name: String) -> String? {
+enum Sysctl {
+    static func string(_ name: String) -> String? {
         var size = 0
         guard sysctlbyname(name, nil, &size, nil, 0) == 0, size > 0 else { return nil }
         var buffer = [CChar](repeating: 0, count: size)
@@ -55,7 +85,7 @@ public enum SystemSupport {
         return String(cString: buffer)
     }
 
-    static func sysctlInt(_ name: String) -> Int? {
+    static func int(_ name: String) -> Int? {
         var value: Int32 = 0
         var size = MemoryLayout<Int32>.size
         guard sysctlbyname(name, &value, &size, nil, 0) == 0 else { return nil }

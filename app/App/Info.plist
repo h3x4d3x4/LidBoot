@@ -22,7 +22,14 @@
 	<string>public.app-category.utilities</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
-	<!-- Menu bar only: no Dock icon, no main window. -->
+	<!--
+	  Starts as an accessory (no Dock icon), then AppDelegate promotes to a
+	  regular app at launch when the user's mode includes the Dock. Doing it in
+	  this direction means menu-bar-only users never see a Dock icon flash.
+
+	  Load-bearing: applicationWillFinishLaunching's applyActivationPolicy() call
+	  is the ONLY thing that puts the Dock icon back. Don't remove it.
+	-->
 	<key>LSUIElement</key>
 	<true/>
 	<key>NSHumanReadableCopyright</key>
