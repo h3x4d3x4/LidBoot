@@ -38,21 +38,18 @@
 	<string>Copyright © 2026 Hexadexa. All rights reserved.</string>
 
 	<!--
-	  Sparkle auto-update, same model as Observio.
+	  Sparkle feed. Since the source is open, the appcast and release DMGs live in
+	  this repo — the separate releases repo only existed so a private-source app
+	  could serve a token-free feed.
 
-	  Points straight at the public releases repo — no redirect in front of it.
-	  Trade-off to know: this URL is baked into every build, so the repo name is
-	  effectively permanent. If LidBoot-Releases is ever renamed or removed,
-	  already-shipped builds lose updates and the only fix is handing users a new
-	  DMG. Putting a redirect (e.g. lidboot.hexadexa.io/appcast.xml) in front is
-	  what buys the ability to move the host later; that's the only reason for it.
+	  This URL is baked into every build: the repo name is effectively permanent,
+	  and build-dmg.sh HARD-FAILS if a build carries any other feed URL (a stale
+	  or reverted plist already shipped one wrong build).
 
-	  Integrity is the EdDSA signature below, NOT the transport or repo privacy,
-	  which is why the appcast and DMGs can sit in a public repo while the source
-	  stays private.
+	  Integrity is the EdDSA signature below, not the transport.
 	-->
 	<key>SUFeedURL</key>
-	<string>https://raw.githubusercontent.com/h3x4d3x4/LidBoot-Releases/main/appcast.xml</string>
+	<string>https://raw.githubusercontent.com/h3x4d3x4/LidBoot/main/appcast.xml</string>
 	<key>SUPublicEDKey</key>
 	<string>g1lZN7FLgwSgc3RkOf68sK7MLhSpjwL45aM7NSLs1Ps=</string>
 	<key>SUEnableAutomaticChecks</key>
