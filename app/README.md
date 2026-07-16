@@ -238,7 +238,7 @@ Same split as Grid Push.
 
 Designed and built by [Hexadexa](https://hexadexa.io) ·
 [andrei@hexadexa.dev](mailto:andrei@hexadexa.dev) ·
-[Ko-fi](https://ko-fi.com/hexadexa)
+[Buy me a coffee](https://buymeacoffee.com/hexadexa)
 
 Copyright © 2026 Hexadexa.
 

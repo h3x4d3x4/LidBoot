@@ -42,5 +42,5 @@ enum AppLinks {
     static let site = URL(string: "https://hexadexa.io")!
     /// hexadexa.dev handles mail; hexadexa.io has no MX by design.
     static let email = URL(string: "mailto:andrei@hexadexa.dev?subject=Lid%20Boot")!
-    static let koFi = URL(string: "https://ko-fi.com/hexadexa")!
+    static let buyMeACoffee = URL(string: "https://buymeacoffee.com/hexadexa")!
 }

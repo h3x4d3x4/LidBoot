@@ -121,7 +121,7 @@ struct AboutView: View {
                     Link("andrei@hexadexa.dev", destination: AppLinks.email)
                         .font(.subheadline)
                     dot
-                    Link("Ko-fi", destination: AppLinks.koFi)
+                    Link(String(localized: "Buy me a coffee"), destination: AppLinks.buyMeACoffee)
                         .font(.subheadline)
                 }
             }

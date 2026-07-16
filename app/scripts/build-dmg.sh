@@ -89,6 +89,33 @@ case "${ENTS}" in
     *) echo "  ✓ sandbox off (required for NVRAM access)" ;;
 esac
 
+# ── Notarize and staple the .app itself, BEFORE packaging ───────────────────
+# The DMG gets notarized separately (notarize.sh), but a ticket on the DMG alone
+# means the app inside relies on an online Gatekeeper check — a user whose FIRST
+# launch happens offline hits friction. Stapling must happen before hdiutil:
+# you can't staple inside a read-only image.
+find_profile() {
+    if [[ -n "${NOTARIZE_PROFILE:-}" ]]; then echo "${NOTARIZE_PROFILE}"; return; fi
+    for candidate in hexadexa-notary lidboot-notary observio-notary; do
+        xcrun notarytool history --keychain-profile "${candidate}" >/dev/null 2>&1 \
+            && { echo "${candidate}"; return; }
+    done
+}
+PROFILE="$(find_profile)"
+if [[ -n "${PROFILE}" ]]; then
+    echo "▶ Notarizing the app itself (profile: ${PROFILE})…"
+    APP_ZIP="${BUILD_DIR}/LidBoot-app.zip"
+    rm -f "${APP_ZIP}"
+    ditto -c -k --keepParent "${APP}" "${APP_ZIP}"
+    xcrun notarytool submit "${APP_ZIP}" --keychain-profile "${PROFILE}" --wait --timeout 30m \
+        | grep -E "status:" | tail -1
+    xcrun stapler staple "${APP}" >/dev/null
+    xcrun stapler validate "${APP}" >/dev/null && echo "  ✓ app stapled — offline first launch covered"
+else
+    echo "  ⚠ no notarytool profile found — app NOT stapled; the DMG-level ticket"
+    echo "    still covers online launches. See notarize.sh header to set one up."
+fi
+
 DMG="${DIST_DIR}/LidBoot-${VERSION}.dmg"
 rm -f "${DMG}"
 

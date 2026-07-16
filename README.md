@@ -8,7 +8,7 @@
 
 Stop your MacBook starting up when you open the lid or connect power.
 
-### [↓ Download for macOS](https://github.com/h3x4d3x4/LidBoot-Releases/releases/latest)
+### [↓ Download for macOS](https://github.com/h3x4d3x4/LidBoot/releases/latest)
 
 <sub>Apple silicon · macOS 15+ · free · [lidboot.hexadexa.io](https://lidboot.hexadexa.io)</sub>
 
@@ -95,8 +95,7 @@ Sparkle setup, and [`app/docs/STATUS.md`](app/docs/STATUS.md) for current state.
 
 | | |
 | --- | --- |
-| **LidBoot** (this repo) | App source. Sandbox off, Developer ID only. |
-| [**LidBoot-Releases**](https://github.com/h3x4d3x4/LidBoot-Releases) | Public: signed DMGs and the Sparkle appcast. |
+| **LidBoot** (this repo) | Source, signed release DMGs, and the Sparkle appcast (`appcast.xml`). |
 | **LidBoot-site** | The [lidboot.hexadexa.io](https://lidboot.hexadexa.io) landing page. |
 
 ## Contributing & support
@@ -116,5 +115,5 @@ issue.
 
 ---
 
-Built by [Hexadexa](https://hexadexa.io) · [Ko-fi](https://ko-fi.com/hexadexa) ·
+Built by [Hexadexa](https://hexadexa.io) · [Buy me a coffee](https://buymeacoffee.com/hexadexa) ·
 Not affiliated with Apple Inc.

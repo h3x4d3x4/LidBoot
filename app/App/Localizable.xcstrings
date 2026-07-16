@@ -845,6 +845,17 @@
           }
         }
       }
+    },
+    "Buy me a coffee": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oferece-me um café"
+          }
+        }
+      }
     }
   }
 }

@@ -23,6 +23,8 @@ Verified on hardware (MacBookPro18,1, M1 Pro, macOS 26.5.2), not assumed:
 
 ## Shipped — 0.2.0 is live
 
+*(Superseded 2026-07-16: the source went open and releases consolidated into the main repo — canonical feed is now `https://raw.githubusercontent.com/h3x4d3x4/LidBoot/main/appcast.xml`, DMGs on this repo's Releases. `LidBoot-Releases` was deleted with the user's consent; the only existing install was the user's own, updated by hand. Builds ≤0.3.1 have the dead feed baked in and cannot self-update — reinstall from a current DMG.)*
+
 - **Public releases repo:** `h3x4d3x4/LidBoot-Releases` (created with the user's explicit consent). Holds only the appcast and DMGs; no source.
 - **Release:** https://github.com/h3x4d3x4/LidBoot-Releases/releases/tag/v0.2.0
 - **Feed (baked into the app):** `https://raw.githubusercontent.com/h3x4d3x4/LidBoot-Releases/main/appcast.xml`
@@ -34,7 +36,7 @@ Verified on hardware (MacBookPro18,1, M1 Pro, macOS 26.5.2), not assumed:
 
 1. **The physical test.** Still never run. See above.
 2. **Sparkle signing key.** LidBoot reuses the existing key (`g1lZN7…`, the same one Observio uses) — Sparkle's default of one key per developer. Fine, but a compromise would affect every app signed with it.
-3. **The app inside the DMG isn't stapled** — only the DMG is. Gatekeeper accepts it via an online check, so this only bites a tester whose *first* launch is offline. Fixing it properly means notarizing and stapling the `.app` before packaging, then notarizing the DMG. Worth doing before a wider beta.
+3. ~~The app inside the DMG isn't stapled.~~ **CLOSED in 0.4.0**: `build-dmg.sh` now notarizes and staples the `.app` before packaging; the DMG is notarized separately as before. Offline first launches are covered.
 4. ~~The update path itself is untested.~~ **PROVEN 2026-07-15.** Published 0.3.0 while 0.2.0 was installed; Sparkle fetched the feed, found the update, and showed its "A new version of LidBoot is available!" alert with the changelog rendered from the appcast's `<description>`. Note `raw.githubusercontent.com` caches for ~5 min after a release, so the feed lags briefly — `publish-release.sh` warns about this and it is not a failure.
 
 ## Decisions worth not re-litigating
