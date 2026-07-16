@@ -66,7 +66,15 @@ XML
 build_appcast() {
     # $1 = existing appcast file (may be absent), $2 = output
     local existing="" items=""
-    [[ -f "$1" ]] && items=$(sed -n '/<item>/,/<\/item>/p' "$1" 2>/dev/null || true)
+    # Keep prior items EXCEPT any for the version being published: a republish
+    # must replace its own item, not stack a stale duplicate beside it.
+    [[ -f "$1" ]] && items=$(python3 -c "
+import re, sys
+s = open('$1').read()
+for it in re.findall(r'[ \t]*<item>.*?</item>', s, re.S):
+    if '<sparkle:shortVersionString>${VERSION}<' not in it:
+        print(it)
+" 2>/dev/null || true)
     cat > "$2" <<XML
 <?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle">
