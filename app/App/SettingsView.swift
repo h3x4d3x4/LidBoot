@@ -51,6 +51,7 @@ struct GeneralSettingsView: View {
 struct AboutView: View {
     @ObservedObject var model: LidBootModel
     @Binding var mode: AppMode
+    @Environment(\.openURL) private var openURL
 
     private let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "0.1"
     private let build = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? "1"
@@ -120,10 +121,18 @@ struct AboutView: View {
                     // .dev handles mail — hexadexa.io has no MX by design.
                     Link("andrei@hexadexa.dev", destination: AppLinks.email)
                         .font(.subheadline)
-                    dot
-                    Link(String(localized: "Buy me a coffee"), destination: AppLinks.buyMeACoffee)
-                        .font(.subheadline)
                 }
+
+                // A real button rather than a third text link: it's the one
+                // call-to-action in the About box, and buried in a row of gray
+                // links nobody found it.
+                Button {
+                    openURL(AppLinks.buyMeACoffee)
+                } label: {
+                    Label(String(localized: "Buy me a coffee"), systemImage: "cup.and.saucer.fill")
+                }
+                .buttonStyle(.bordered)
+                .padding(.top, 6)
             }
 
             Spacer().frame(height: 12)
