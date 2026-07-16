@@ -7,6 +7,32 @@
         <language>en</language>
         <item>
             <title>0.4.0</title>
+            <pubDate>Thu, 16 Jul 2026 00:15:09 +0000</pubDate>
+            <sparkle:version>5</sparkle:version>
+            <sparkle:shortVersionString>0.4.0</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>15.0</sparkle:minimumSystemVersion>
+            <description><![CDATA[
+                <p>LidBoot is now open source — and this release moves everything into one place.</p>
+                <p><b>New</b></p>
+                <ul>
+                    <li><b>Open source</b>: the full source is now public at github.com/h3x4d3x4/LidBoot, MIT-licensed. For an app that runs commands as root, you shouldn't have to take the safety claims on faith.</li>
+                    <li>The app icon shown in the window and About box is now the real app icon, not a drawing of it.</li>
+                </ul>
+                <p><b>Changed</b></p>
+                <ul>
+                    <li>One name everywhere: <b>LidBoot</b>, joined.</li>
+                    <li>Updates and downloads now come from the main repository. If you're on 0.3.1 or earlier, this is the last update the old feed will offer — install this one and you're on the new feed automatically.</li>
+                    <li>Support link is now Buy Me a Coffee.</li>
+                </ul>
+                <p><b>Improved</b></p>
+                <ul>
+                    <li>Offline-proof installs: the app itself now carries its notarization ticket, so the very first launch works with no internet connection.</li>
+                </ul>
+            ]]></description>
+            <enclosure url="https://github.com/h3x4d3x4/LidBoot/releases/download/v0.4.0/LidBoot-0.4.0.dmg" sparkle:edSignature="8N9WQhq40wAuv1me123indUhtW0peMvYRtrKGQY7CPhj2Dd4rHDtWGlqcUHOh7hjVdQkwlUqSX8ft/s44n/bCg==" length="1483959" type="application/octet-stream" />
+        </item>
+        <item>
+            <title>0.4.0</title>
             <pubDate>Thu, 16 Jul 2026 00:11:00 +0000</pubDate>
             <sparkle:version>5</sparkle:version>
             <sparkle:shortVersionString>0.4.0</sparkle:shortVersionString>
@@ -31,6 +57,5 @@
             ]]></description>
             <enclosure url="https://github.com/h3x4d3x4/LidBoot/releases/download/v0.4.0/LidBoot-0.4.0.dmg" sparkle:edSignature="jgju07GWOoRh8K3ODv3ti8zPYw3LMU4AuXIuDUpYl0zI6jpLT/d3tTvcUOIE5SZ0R+jPItdLEm6L3YmDbPkEDg==" length="1483988" type="application/octet-stream" />
         </item>
-
     </channel>
 </rss>
