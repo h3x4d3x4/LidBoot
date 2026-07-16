@@ -107,6 +107,15 @@ gh release create "v${VERSION}" "${DMG}" \
     --notes-file "scripts/release-notes/${VERSION}.md" \
     --latest
 
+# The site's Download button is the evergreen releases/latest/download/LidBoot.dmg
+# URL, which needs a stable-named asset on every release. Skipping this step has
+# 404'd the download three releases in a row (0.2.0, 0.3.1, 0.4.0) — it is not
+# optional.
+echo "▶ Uploading stable-named LidBoot.dmg for the evergreen download URL…"
+cp "${DMG}" "${WORK}/LidBoot.dmg"
+gh release upload "v${VERSION}" "${WORK}/LidBoot.dmg" --repo "${REPO}"
+rm -f "${WORK}/LidBoot.dmg"
+
 echo "▶ Committing appcast.xml at the repo root…"
 cp "${WORK}/appcast-new.xml" ../appcast.xml
 git -C .. add appcast.xml
