@@ -61,6 +61,19 @@ xcodebuild -exportArchive \
 APP="${EXPORT_DIR}/LidBoot.app"
 [[ -d "${APP}" ]] || { echo "✗ Export failed: ${APP} missing" >&2; exit 1; }
 
+# The feed URL is baked into every shipped copy; a wrong one bricks that
+# build's updates forever. This already happened once (a stale plist shipped in
+# the first 0.4.0 DMG), so it's a hard gate, not a warning.
+EXPECTED_FEED="https://raw.githubusercontent.com/h3x4d3x4/LidBoot/main/appcast.xml"
+BUILT_FEED=$(/usr/libexec/PlistBuddy -c "Print :SUFeedURL" "${APP}/Contents/Info.plist" 2>/dev/null || echo "MISSING")
+if [[ "${BUILT_FEED}" != "${EXPECTED_FEED}" ]]; then
+    echo "✗ Built app's SUFeedURL is wrong:" >&2
+    echo "    built:    ${BUILT_FEED}" >&2
+    echo "    expected: ${EXPECTED_FEED}" >&2
+    exit 1
+fi
+echo "  ✓ feed URL correct"
+
 echo "▶ Verifying signature and hardened runtime…"
 codesign --verify --deep --strict --verbose=2 "${APP}"
 

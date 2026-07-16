@@ -23,7 +23,7 @@ Verified on hardware (MacBookPro18,1, M1 Pro, macOS 26.5.2), not assumed:
 
 ## Shipped — 0.2.0 is live
 
-*(Superseded 2026-07-16: the source went open and releases consolidated into the main repo — canonical feed is now `https://raw.githubusercontent.com/h3x4d3x4/LidBoot/main/appcast.xml`, DMGs on this repo's Releases. `LidBoot-Releases` was deleted with the user's consent; the only existing install was the user's own, updated by hand. Builds ≤0.3.1 have the dead feed baked in and cannot self-update — reinstall from a current DMG.)*
+*(Superseded 2026-07-16: the source went open and releases consolidated into the main repo — canonical feed is now `https://raw.githubusercontent.com/h3x4d3x4/LidBoot/main/appcast.xml`, DMGs on this repo's Releases. `LidBoot-Releases` is consented for deletion but still exists — the token lacks the `delete_repo` scope; the user deletes it with `gh auth refresh -h github.com -s delete_repo && gh repo delete h3x4d3x4/LidBoot-Releases --yes`. The only existing install was the user's own, updated by hand. Builds ≤0.3.1 have the dead feed baked in and cannot self-update — reinstall from a current DMG.)*
 
 - **Public releases repo:** `h3x4d3x4/LidBoot-Releases` (created with the user's explicit consent). Holds only the appcast and DMGs; no source.
 - **Release:** https://github.com/h3x4d3x4/LidBoot-Releases/releases/tag/v0.2.0
