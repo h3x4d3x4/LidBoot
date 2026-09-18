@@ -12,6 +12,8 @@ Stop your MacBook starting up when you open the lid or connect power.
 
 <sub>Apple silicon · macOS 15+ · free · open source · [lidboot.hexadexa.io](https://lidboot.hexadexa.io)</sub>
 
+<sub>or `brew tap h3x4d3x4/tap && brew install --cask lidboot`</sub>
+
 </div>
 
 ---

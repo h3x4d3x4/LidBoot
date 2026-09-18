@@ -164,7 +164,14 @@ reachable through test fakes. Debug builds only:
 ./scripts/build-dmg.sh                              # archive, sign, verify, package
 ./scripts/notarize.sh dist/LidBoot-<version>.dmg    # notarize + staple
 ./scripts/publish-release.sh <version> <build>      # EdDSA-sign, publish, update appcast
+./scripts/publish-tap.sh                            # Homebrew cask from the DMG GitHub serves
 ```
+
+`publish-tap.sh` hashes the DMG GitHub is *actually serving* — never `dist/` — writes
+`homebrew/lidboot.rb` into the `h3x4d3x4/homebrew-tap` checkout, verifies it with
+`brew fetch`, and pushes. `--check` reports whether the tap is current without
+changing anything. Users: `brew tap h3x4d3x4/tap && brew install --cask lidboot`
+(Homebrew 7 also wants `brew trust --cask h3x4d3x4/tap/lidboot` once).
 
 `build-dmg.sh` refuses to package a build missing the hardened runtime (Apple
 would reject it) or with the sandbox enabled (the app couldn't read NVRAM),
@@ -232,7 +239,8 @@ App/                     SwiftUI. Every user-facing string lives here.
 Sources/LidBootCore/     NVRAM logic. No UI, no user-facing strings, one
                          privileged path behind a protocol.
 Tests/                   35 tests: mapping, decoding, service, errors, gate.
-scripts/                 build-dmg → notarize → publish-release
+scripts/                 build-dmg → notarize → publish-release → publish-tap
+homebrew/lidboot.rb      cask template; version/sha rewritten by publish-tap.sh
 docs/STATUS.md           what's proven, what's open, known gaps — read first
 ```
 
