@@ -6,6 +6,27 @@
         <description>Updates for LidBoot</description>
         <language>en</language>
         <item>
+            <title>0.5.1</title>
+            <pubDate>Fri, 18 Sep 2026 23:44:49 +0000</pubDate>
+            <sparkle:version>7</sparkle:version>
+            <sparkle:shortVersionString>0.5.1</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>15.0</sparkle:minimumSystemVersion>
+            <description><![CDATA[
+                <p><b>Fixed</b></p>
+                <ul>
+                    <li><b>Settings… did nothing in menu-bar-only mode.</b> When LidBoot lives only in the menu bar it's usually not the active app when you click its popover, and in that state macOS's <code>SettingsLink</code> silently fails. Settings now opens — and comes to the front — from the popover, and from <code>lidboot://settings</code>.</li>
+                    <li>Windows opened from the popover or a URL now reliably come to the front instead of appearing behind whatever you were using.</li>
+                    <li>Switching Light/Dark/System now updates the Settings window you're looking at, not just the other windows.</li>
+                </ul>
+                <p><b>New</b></p>
+                <ul>
+                    <li><code>lidboot://settings</code>.</li>
+                    <li>A proper disk image: the download now opens to a LidBoot window with a drag-to-Applications layout, like the other Hexadexa apps.</li>
+                </ul>
+            ]]></description>
+            <enclosure url="https://github.com/h3x4d3x4/LidBoot/releases/download/v0.5.1/LidBoot-0.5.1.dmg" sparkle:edSignature="TJ3nQ5f8ZdRJnHZizp+eHvmyILIC+n0sYw5UhBOvDpzuXFcmboWoVVXs16YdpD3kSZWvW4iaiTJmC5I9Fz6YAw==" length="1815292" type="application/octet-stream" />
+        </item>
+        <item>
             <title>0.5.0</title>
             <pubDate>Fri, 18 Sep 2026 23:09:12 +0000</pubDate>
             <sparkle:version>6</sparkle:version>
