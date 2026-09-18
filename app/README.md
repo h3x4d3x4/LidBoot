@@ -130,6 +130,7 @@ committed.
 
 ```sh
 brew install xcodegen create-dmg     # once
+pip3 install Pillow                  # once; renders the DMG background
 xcodegen generate
 open LidBoot.xcodeproj
 ```
@@ -246,6 +247,7 @@ Sources/LidBootCore/     NVRAM logic. No UI, no user-facing strings, one
                          privileged path behind a protocol.
 Tests/                   35 tests: mapping, decoding, service, errors, gate.
 scripts/                 build-dmg → notarize → publish-release → publish-tap
+design/                  make-dmg-background.py → the DMG window (1x + 2x → TIFF)
 homebrew/lidboot.rb      cask template; version/sha rewritten by publish-tap.sh
 docs/STATUS.md           what's proven, what's open, known gaps — read first
 ```

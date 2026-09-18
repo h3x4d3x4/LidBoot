@@ -10,6 +10,9 @@
 # The DMG is signed but NOT yet notarized — run ./scripts/notarize.sh on the
 # result. Un-notarized builds are effectively undistributable on macOS 15+,
 # which removed the Control-click Gatekeeper bypass.
+#
+# Needs: xcodegen, create-dmg (brew), python3 with Pillow (pip3 install Pillow)
+# for the window background.
 set -euo pipefail
 
 cd "$(dirname "$0")/.."
@@ -132,15 +135,27 @@ fi
 DMG="${DIST_DIR}/LidBoot-${VERSION}.dmg"
 rm -f "${DMG}"
 
+# ── Background ───────────────────────────────────────────────────────────────
+# design/make-dmg-background.py renders 1x and 2x natively; Finder only honours
+# a multi-representation TIFF for Retina, not a sibling @2x file. Window size
+# and icon positions below MUST match the constants in that script.
+echo "▶ Rendering DMG background…"
+python3 design/make-dmg-background.py | sed 's/^/  /'
+BG_TIFF="${BUILD_DIR}/dmg-background.tiff"
+tiffutil -cathidpicheck design/dmg-background.png design/dmg-background@2x.png \
+    -out "${BG_TIFF}" >/dev/null
+
 echo "▶ Building DMG…"
 if command -v create-dmg >/dev/null 2>&1; then
     create-dmg \
         --volname "LidBoot ${VERSION}" \
+        --background "${BG_TIFF}" \
         --window-pos 200 120 \
-        --window-size 520 320 \
+        --window-size 640 420 \
         --icon-size 100 \
-        --icon "LidBoot.app" 130 150 \
-        --app-drop-link 390 150 \
+        --icon "LidBoot.app" 160 196 \
+        --hide-extension "LidBoot.app" \
+        --app-drop-link 480 196 \
         --no-internet-enable \
         "${DMG}" "${APP}" \
     || true   # create-dmg exits non-zero on cosmetic AppleScript hiccups
