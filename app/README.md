@@ -53,9 +53,12 @@ to wipe the keyboard without the Mac coming on: this won't do that.
 - **macOS 15 (Sequoia)** or later — `BootPreference` doesn't exist before this
 
 Intel Macs are deliberately unsupported: they use a different variable
-(`AutoBoot`) with different semantics, and guessing wrong there risks an
-unbootable machine. LidBoot detects unsupported hardware and says so instead of
-pretending.
+(`AutoBoot`) with different semantics (one merged switch), and LidBoot can't
+run write-then-verify on hardware its maintainer doesn't own. The app detects
+this and shows the Terminal commands instead — see
+[`docs/INTEL-HANDOFF.md`](docs/INTEL-HANDOFF.md) for the research and why
+"risks an unbootable machine" was the wrong reason (that's the Apple-silicon
+`auto-boot` story, not Intel's).
 
 Support is decided by asking the hardware whether it has a lid
 (`IOPMrootDomain`'s `AppleClamshellState`), **not** by matching model names.
@@ -106,8 +109,18 @@ deliberately narrow:
   app runs, so it can't drift from what the app actually does.
 - **Copy Diagnostics** — model, macOS version, and the raw `BootPreference`
   value, for bug reports
+- **`lidboot://` URLs** — `lid/off`, `power/on`, `all/off`, `restore`, `open` —
+  for Shortcuts, Raycast and scripts. Same prompt, same enum, same read-back.
+- **Menu bar icon shows the state** — a slash for the lid, a bolt badge for
+  power, so all four states are distinct at a glance
+- **A notification confirms changes made from the popover** (the password
+  prompt dismisses it, so it can't show its own result). Asked for on first
+  use, never at launch; declining is honored.
+- **"Takes effect after you shut down"** — shown until the Mac has actually
+  been shut down once after a change, which is when "it doesn't work" reports
+  come from
 - Automatic updates (Sparkle), signed and verified
-- English and Portuguese (pt-PT)
+- English, Portuguese (pt-PT), Spanish, German and French
 - Full VoiceOver labels
 
 ## Build
@@ -176,7 +189,7 @@ launch it at all.
 Sparkle, on the same model as Observio:
 
 ```
-this repo (private) ──build, sign, notarize locally──► publish-release.sh
+this repo ──────────build, sign, notarize locally──► publish-release.sh
                                                            │
                      ┌─────────────────────────────────────┴───────────┐
                      ▼                                                 ▼
@@ -188,14 +201,17 @@ this repo (private) ──build, sign, notarize locally──► publish-release
                 app downloads here (public, no auth)
 ```
 
-Releases: [LidBoot-Releases](https://github.com/h3x4d3x4/LidBoot-Releases)
+Since 0.4.0 the appcast and DMGs live in this repo
+(`https://raw.githubusercontent.com/h3x4d3x4/LidBoot/main/appcast.xml`); the
+diagram's "public repo" is this one. `LidBoot-Releases` only existed while the
+source was private and is being deleted.
 
 The app needs no token, because integrity comes from the EdDSA signature
 (`SUPublicEDKey` in Info.plist) rather than from the feed being private.
 
-The feed URL is baked into every build, so the releases repo name is effectively
-permanent — renaming or removing it breaks updates for every shipped copy, and
-the only fix is handing users a new DMG. Putting a redirect in front (e.g.
+The feed URL is baked into every build, so this repo's name is effectively
+permanent — renaming it breaks updates for every shipped copy, and the only fix
+is handing users a new DMG. Putting a redirect in front (e.g.
 `lidboot.hexadexa.io/appcast.xml`) is what would buy the ability to move hosts
 later; that's its only purpose.
 
@@ -208,8 +224,11 @@ App/                     SwiftUI. Every user-facing string lives here.
   MainWindowView.swift     the window
   MenuView.swift           the menu bar popover
   SettingsView.swift       General / Updates / About
+  MenuBarIcon.swift        the 4-state status item glyph, composed at runtime
+  SuccessNotification.swift  confirms popover changes; permission asked lazily
+  URLCommand.swift         lidboot:// router
   Localization.swift       all wording, in one place
-  Localizable.xcstrings    en + pt-PT
+  Localizable.xcstrings    en, pt-PT, es, de, fr
 Sources/LidBootCore/     NVRAM logic. No UI, no user-facing strings, one
                          privileged path behind a protocol.
 Tests/                   35 tests: mapping, decoding, service, errors, gate.
@@ -238,7 +257,7 @@ Same split as Grid Push.
 
 Designed and built by [Hexadexa](https://hexadexa.io) ·
 [andrei@hexadexa.dev](mailto:andrei@hexadexa.dev) ·
-[Buy me a coffee](https://buymeacoffee.com/hexadexa)
+[Buy me a coffee](https://ko-fi.com/hexadexa)
 
 Copyright © 2026 Hexadexa.
 

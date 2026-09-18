@@ -34,7 +34,7 @@ struct MainWindowView: View {
 
     @ViewBuilder
     private var controls: some View {
-        BootToggles(model: model)
+        BootToggles(model: model, surface: .window)
             .padding(6)
             .background {
                 RoundedRectangle(cornerRadius: 12, style: .continuous)
@@ -51,6 +51,9 @@ struct MainWindowView: View {
             // Only meaningful once something is actually suppressed.
             if model.isModified {
                 StartupCaveats()
+            }
+            if model.awaitingShutdown {
+                AwaitingShutdownNotice()
             }
             PasswordNotice()
         }

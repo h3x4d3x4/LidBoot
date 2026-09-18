@@ -25,6 +25,11 @@ final class LidBootModel: ObservableObject {
     /// Non-nil when this Mac can't support the setting at all.
     let unsupported: SystemSupport.Unsupported?
 
+    /// One model for the whole process: the scenes observe it, and the URL
+    /// handler (which lives in AppDelegate, outside the SwiftUI graph) drives
+    /// the same instance rather than a second one that reads NVRAM separately.
+    static let shared = LidBootModel()
+
     private let service: BootPreferenceService
 
     init(service: BootPreferenceService = BootPreferenceService(),
@@ -96,14 +101,18 @@ final class LidBootModel: ObservableObject {
         return behavior.summary
     }
 
-    var lidOpen: Binding<Bool> {
+    /// Where a change was asked for. The popover can't show its own result
+    /// (the auth prompt dismisses it), so changes from there get a notification.
+    enum Surface { case window, popover, url }
+
+    func lidOpen(from surface: Surface) -> Binding<Bool> {
         Binding(get: { self.displayed?.startsOnLidOpen ?? false },
-                set: { newValue in Task { await self.apply(lidOpen: newValue) } })
+                set: { newValue in Task { await self.apply(lidOpen: newValue, from: surface) } })
     }
 
-    var powerConnect: Binding<Bool> {
+    func powerConnect(from surface: Surface) -> Binding<Bool> {
         Binding(get: { self.displayed?.startsOnPowerConnect ?? false },
-                set: { newValue in Task { await self.apply(powerConnect: newValue) } })
+                set: { newValue in Task { await self.apply(powerConnect: newValue, from: surface) } })
     }
 
     var controlsEnabled: Bool {
@@ -130,7 +139,7 @@ final class LidBootModel: ObservableObject {
         return "sudo \(NVRAMCommand.command(for: behavior).shellCommand)"
     }
 
-    func restoreDefault() async {
+    func restoreDefault(from surface: Surface = .window) async {
         guard canRestoreDefault else { return }
 
         errorMessage = nil
@@ -145,6 +154,10 @@ final class LidBootModel: ObservableObject {
             // may not have been able to read.
             try await service.clear(prompt: Self.authPrompt)
             refresh()
+            noteChanged()
+            if surface != .window, let behavior {
+                SuccessNotification.shared.post(body: behavior.summary)
+            }
         } catch NVRAMWriteError.cancelled {
             refresh()
         } catch let error as NVRAMWriteError {
@@ -156,14 +169,14 @@ final class LidBootModel: ObservableObject {
         }
     }
 
-    private func apply(lidOpen: Bool? = nil, powerConnect: Bool? = nil) async {
+    private func apply(lidOpen: Bool? = nil, powerConnect: Bool? = nil, from surface: Surface) async {
         guard var desired = behavior else { return }
         if let lidOpen { desired.startsOnLidOpen = lidOpen }
         if let powerConnect { desired.startsOnPowerConnect = powerConnect }
-        await apply(desired)
+        await apply(desired, from: surface)
     }
 
-    func apply(_ desired: BootBehavior) async {
+    func apply(_ desired: BootBehavior, from surface: Surface) async {
         guard controlsEnabled, desired != behavior else { return }
 
         errorMessage = nil
@@ -181,6 +194,10 @@ final class LidBootModel: ObservableObject {
             // spinner actually paints and the UI stays responsive.
             try await service.apply(desired, prompt: Self.authPrompt)
             behavior = desired
+            noteChanged()
+            if surface != .window {
+                SuccessNotification.shared.post(body: desired.summary)
+            }
         } catch NVRAMWriteError.cancelled {
             // Not an error: the user changed their mind at the password prompt.
             // Re-read so the toggle lands on the machine's truth.
@@ -202,10 +219,32 @@ final class LidBootModel: ObservableObject {
 
     /// A Mac we can't help, or a value we can't read, must not look identical to
     /// a healthy Mac sitting at its factory default.
-    var menuBarSymbol: String {
-        if unsupported != nil || isRefusing {
-            return "laptopcomputer.trianglebadge.exclamationmark"
-        }
-        return isModified ? "laptopcomputer.slash" : "laptopcomputer"
+    var menuBarImage: NSImage {
+        MenuBarIcon.image(for: behavior, refusing: unsupported != nil || isRefusing)
+    }
+
+    // MARK: Has it taken effect yet?
+
+    /// When this app last changed the setting. `BootPreference` is consulted at
+    /// power-on, so nothing observable happens until the Mac has been shut down
+    /// once after the change — which is exactly when people file "it doesn't
+    /// work". Stored in defaults so it survives a relaunch of the app (but a
+    /// shutdown in between is precisely what clears the notice).
+    @Published private(set) var lastChange: Date? = UserDefaults.standard.object(forKey: lastChangeKey) as? Date
+    private static let lastChangeKey = "LastSettingChange"
+
+    private func noteChanged() {
+        let now = Date()
+        lastChange = now
+        UserDefaults.standard.set(now, forKey: Self.lastChangeKey)
+    }
+
+    /// True while the setting has been changed but the Mac hasn't been shut
+    /// down since. Only shown for a suppressed state: after a restore, "your
+    /// Mac still starts up until you shut down" is a non-sequitur.
+    var awaitingShutdown: Bool {
+        guard isModified, let lastChange else { return false }
+        let bootedAt = Date(timeIntervalSinceNow: -ProcessInfo.processInfo.systemUptime)
+        return lastChange > bootedAt
     }
 }

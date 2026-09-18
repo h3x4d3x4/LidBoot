@@ -121,6 +121,11 @@ struct AboutView: View {
                     // .dev handles mail — hexadexa.io has no MX by design.
                     Link("andrei@hexadexa.dev", destination: AppLinks.email)
                         .font(.subheadline)
+                    dot
+                    // For an app that runs a command as root, "read it yourself"
+                    // is the strongest trust claim there is — so it gets a link.
+                    Link(String(localized: "Source code"), destination: AppLinks.source)
+                        .font(.subheadline)
                 }
 
                 // A real button rather than a third text link: it's the one

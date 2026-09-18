@@ -42,8 +42,9 @@ public struct SystemProbe: Sendable {
 /// variable whose meaning we can't vouch for.
 ///
 /// Intel Macs are deliberately unsupported: they use a different variable
-/// (`AutoBoot`) with different semantics, and guessing here risks an
-/// unbootable machine.
+/// (`AutoBoot`) with different semantics (no lid/power split), and the
+/// maintainer has no Intel hardware to run write-then-verify on. The app shows
+/// the Terminal commands instead — see docs/INTEL-HANDOFF.md.
 public enum SystemSupport {
     /// Why this Mac can't use the setting. Wording lives in the app layer
     /// (App/Localization.swift) — this module stays presentation-free.

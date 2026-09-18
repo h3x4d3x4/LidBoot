@@ -32,7 +32,7 @@ struct MenuView: View {
 
     @ViewBuilder
     private var controls: some View {
-        BootToggles(model: model)
+        BootToggles(model: model, surface: .popover)
             .padding(.vertical, 8)
             .padding(.horizontal, 8)
 
@@ -48,6 +48,9 @@ struct MenuView: View {
         VStack(alignment: .leading, spacing: 6) {
             if model.isModified {
                 StartupCaveats()
+            }
+            if model.awaitingShutdown {
+                AwaitingShutdownNotice()
             }
             PasswordNotice()
         }

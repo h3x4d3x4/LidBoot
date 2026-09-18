@@ -38,7 +38,12 @@ extension SystemSupport.Unsupported {
     var explanation: String {
         switch self {
         case .notAppleSilicon:
-            return String(localized: "This setting only exists on Apple silicon Macs. Your Mac uses different firmware that LidBoot doesn't support.")
+            // Not "risks an unbootable machine": that's the Apple-silicon
+            // `auto-boot` horror story leaking onto Intel, where the variable is
+            // `AutoBoot`, has years of harmless community use, and is
+            // recoverable with an NVRAM reset. The honest reason is narrower:
+            // we can't test it. See docs/INTEL-HANDOFF.md.
+            return String(localized: "Intel Macs use a different setting (AutoBoot) that LidBoot can't test on real hardware, so it won't change it. You can set it yourself in Terminal:")
         case .osTooOld(let current):
             return String(localized: "This setting needs macOS 15 (Sequoia) or later. You're on \(current).")
         case .notALaptop:

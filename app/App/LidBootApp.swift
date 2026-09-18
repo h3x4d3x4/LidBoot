@@ -4,7 +4,7 @@ import AppKit
 @main
 struct LidBootApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) private var delegate
-    @StateObject private var model = LidBootModel()
+    @StateObject private var model = LidBootModel.shared
     @StateObject private var updater = UpdaterModel()
     @AppStorage(AppMode.defaultsKey) private var mode: AppMode = .both
     @AppStorage(AppAppearance.defaultsKey) private var appearance: AppAppearance = .system
@@ -62,7 +62,7 @@ struct LidBootApp: App {
             // change the popover's own feedback is painted on a view that no
             // longer exists. The tooltip/label is then the only way to answer
             // "which state am I in?" without reopening it.
-            Image(systemName: model.menuBarSymbol)
+            Image(nsImage: model.menuBarImage)
                 .accessibilityLabel(model.summary)
                 .help(model.summary)
                 // Also capture openWindow here, not only from the window's own
@@ -106,6 +106,16 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             AppMode.current.applyActivationPolicy()
             // Before the first frame, or you get a flash of the wrong appearance.
             AppAppearance.current.apply()
+            SuccessNotification.shared.install()
+        }
+    }
+
+    /// `lidboot://` URLs, for Shortcuts, Raycast, scripts. See URLCommand.
+    func application(_ application: NSApplication, open urls: [URL]) {
+        MainActor.assumeIsolated {
+            for url in urls {
+                URLCommand.handle(url)
+            }
         }
     }
 

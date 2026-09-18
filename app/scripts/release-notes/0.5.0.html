@@ -1,0 +1,15 @@
+                <p>Getting ready for a wider audience: the app now tells you more, and can be driven from outside.</p>
+                <p><b>New</b></p>
+                <ul>
+                    <li><b>The menu bar icon shows the state.</b> A slash means the lid won't start your Mac; a bolt badge means plugging in won't. All four states are distinct at a glance.</li>
+                    <li><b>Changes from the menu bar are confirmed.</b> The password prompt closes the popover before it can show you the result, so a notification does it instead. LidBoot asks for notification permission on your first change from the popover — never at launch — and declining is respected.</li>
+                    <li><b>"Takes effect after you shut down."</b> The setting is read at power-on, so nothing changes until your Mac has been shut down once. The app now says so until that's happened.</li>
+                    <li><b><code>lidboot://</code> URLs</b> for Shortcuts, Raycast and scripts: <code>lidboot://lid/off</code>, <code>power/on</code>, <code>all/off</code>, <code>restore</code>, <code>open</code>. Same password prompt, same checks as a click.</li>
+                    <li><b>Spanish, German and French</b>, alongside English and Portuguese.</li>
+                    <li>On an <b>Intel Mac</b>, the "can't help this Mac" screen now gives you the two Terminal commands for Intel's own setting (<code>AutoBoot</code>), copyable, with the caveats. LidBoot still never writes on Intel.</li>
+                    <li>A <b>Source code</b> link in About.</li>
+                </ul>
+                <p><b>Fixed</b></p>
+                <ul>
+                    <li>The Intel explanation claimed a wrong guess "risks an unbootable machine". That's true of a different variable on Apple silicon, not of Intel's; the real reason is that LidBoot can't verify writes on hardware it doesn't have. The copy now says that.</li>
+                </ul>

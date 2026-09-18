@@ -8,10 +8,14 @@ options:
   generateEmptyDirectories: true
   developmentLanguage: en
 
-# en is the source language; pt-PT ships translated (App/Localizable.xcstrings).
+# en is the source language; pt-PT, es, de and fr ship translated
+# (App/Localizable.xcstrings).
 knownRegions:
   - en
   - pt-PT
+  - es
+  - de
+  - fr
   - Base
 
 # ── Local Swift Package ──────────────────────────────────────────────────────
@@ -50,8 +54,8 @@ targets:
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.lidboot.LidBoot
-        MARKETING_VERSION: "0.4.0"
-        CURRENT_PROJECT_VERSION: "5"
+        MARKETING_VERSION: "0.5.0"
+        CURRENT_PROJECT_VERSION: "6"
         SWIFT_VERSION: "6.0"
         MACOSX_DEPLOYMENT_TARGET: "15.0"
         INFOPLIST_FILE: App/Info.plist

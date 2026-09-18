@@ -6,6 +6,7 @@ import LidBootCore
 /// so the two surfaces can never drift apart.
 struct BootToggles: View {
     @ObservedObject var model: LidBootModel
+    let surface: LidBootModel.Surface
 
     var body: some View {
         VStack(spacing: 2) {
@@ -23,7 +24,7 @@ struct BootToggles: View {
                     value: model.displayed?.startsOnLidOpen
                 ),
                 accessibilityLabel: String(localized: "Start up when opening the lid"),
-                isOn: model.lidOpen,
+                isOn: model.lidOpen(from: surface),
                 isKnown: model.displayed != nil,
                 enabled: model.controlsEnabled
             )
@@ -37,7 +38,7 @@ struct BootToggles: View {
                     value: model.displayed?.startsOnPowerConnect
                 ),
                 accessibilityLabel: String(localized: "Start up when connecting power"),
-                isOn: model.powerConnect,
+                isOn: model.powerConnect(from: surface),
                 isKnown: model.displayed != nil,
                 enabled: model.controlsEnabled
             )
@@ -230,6 +231,19 @@ struct StartupCaveats: View {
         NoticeRow(
             symbol: "keyboard",
             text: String(localized: "Your Mac still starts up if you press a key or touch the trackpad."),
+            tint: .secondary
+        )
+    }
+}
+
+/// The "it doesn't work" preempt: the setting is read at power-on, so until the
+/// Mac has actually been shut down once, opening the lid behaves exactly as
+/// before — and that is when people conclude the app is broken.
+struct AwaitingShutdownNotice: View {
+    var body: some View {
+        NoticeRow(
+            symbol: "power",
+            text: String(localized: "Takes effect after you shut down. Until then your Mac behaves as before."),
             tint: .secondary
         )
     }

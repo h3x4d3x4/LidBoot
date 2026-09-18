@@ -1,6 +1,23 @@
 # LidBoot — current status
 
-**v0.3.0 · 2026-07-15.** Read this before `HANDOFF.md` (that's the historical first audit; everything in it is done).
+**v0.5.0 · 2026-09-18.** Read this before `HANDOFF.md` (that's the historical first audit; everything in it is done). Source is public (MIT) at github.com/h3x4d3x4/LidBoot since 0.4.0.
+
+## 0.5.0 — going wider
+
+Done 2026-09-18, ahead of listing the app (Homebrew, r/macapps, Show HN):
+
+- **Intel Tier 1** from `INTEL-HANDOFF.md`: honest copy (no more "risks an unbootable machine"), and the `.notAppleSilicon` screen now shows the two `AutoBoot` commands, copyable. The app still never writes on Intel; `NVRAMCommand` is unchanged and its test still passes.
+- **4-state menu bar icon** (`MenuBarIcon.swift`): slash = lid off, bolt badge = power off. Closes the "two-state icon" gap below.
+- **Success notification** for popover changes (`SuccessNotification.swift`). Closes the "no success feedback" gap. Permission requested on first popover change, not at launch.
+- **"Takes effect after you shut down"** notice while `lastChange > bootTime` and the state is modified.
+- **`lidboot://` URL scheme** (`URLCommand.swift`), for Shortcuts/Raycast/scripts. Window comes to the front before the prompt.
+- **Source code link** in About.
+- **es, de, fr** added to the catalog (90 keys). pt-PT informal register kept; es informal, de "du", fr "vous" — Apple's own conventions per locale.
+- READMEs: dead `buymeacoffee.com` link → Ko-fi (the one the app already used).
+
+**Not done, deliberately:** a "Shut Down Now" button. It needs the Apple Events entitlement plus a "control System Events" TCC prompt, which breaks the entitlements file's "nothing else requested" stance. The shutdown notice above covers the confusion it was meant to fix.
+
+**Still owner-only:** the physical premise test (below), deleting `LidBoot-Releases`, and the Homebrew tap (needs the released DMG's sha256).
 
 ## What works, and what's actually been proven
 
@@ -56,10 +73,10 @@ It survived a code review and a full test suite because the dev machine is an M1
 
 ## Known gaps (deliberate, not forgotten)
 
-- **No "Report a Problem" / Copy Diagnostics.** There's good `os_log` instrumentation (subsystem `com.lidboot.LidBoot`, categories `nvram`/`service`/`updates`/`login`) that no user can reach. A button dumping app version, macOS version, raw `BootPreference` bytes and the last error would turn "it didn't work" into an actionable report. Worth doing before a wider beta.
-- **The menu bar icon is two-state** (`laptopcomputer` / `.slash`, plus a warning badge for refusal/unsupported). It can't distinguish lid-off from power-off from both-off. The tooltip and accessibility label carry the full summary, which is the mitigation.
-- **The popover gives no success feedback**, because the auth prompt takes focus and dismisses it — the toggle, caption and summary are all painted on a view that no longer exists by the time the write lands. The menu bar tooltip is the fallback. A notification on success would fix it properly.
-- **`unsupported`/`refusal` states have never been seen on real hardware** — they're only reachable via injected fakes in tests. They're designed and unit-tested, not visually verified.
+- ~~No "Report a Problem" / Copy Diagnostics.~~ **Closed** — Settings › About › Copy Diagnostics + Email a Problem (`Diagnostics.swift`).
+- ~~The menu bar icon is two-state~~ **Closed in 0.5.0** — see above.
+- ~~The popover gives no success feedback~~ **Closed in 0.5.0** — notification on success for popover- and URL-initiated changes.
+- **`unsupported`/`refusal` states have never been seen on real hardware** — they're only reachable via injected fakes in tests and `-simulateUnsupported`. Designed, unit-tested and screenshotted in Debug, not seen on a real Intel Mac.
 - **No `Cmd-,` in menu-bar-only mode**: the app is an accessory, so there's no app menu. Settings is reachable from the popover instead — this is why that link exists.
 
 ## Layout

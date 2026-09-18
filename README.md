@@ -10,7 +10,7 @@ Stop your MacBook starting up when you open the lid or connect power.
 
 ### [↓ Download for macOS](https://github.com/h3x4d3x4/LidBoot/releases/latest)
 
-<sub>Apple silicon · macOS 15+ · free · [lidboot.hexadexa.io](https://lidboot.hexadexa.io)</sub>
+<sub>Apple silicon · macOS 15+ · free · open source · [lidboot.hexadexa.io](https://lidboot.hexadexa.io)</sub>
 
 </div>
 
@@ -50,10 +50,21 @@ The app says both of these on screen rather than letting you find out.
 
 Apple silicon MacBook (M1 or later), macOS 15 (Sequoia) or later.
 
-Intel Macs are deliberately unsupported: they use a different variable
-(`AutoBoot`) with different semantics, and guessing wrong risks an unbootable
-machine. LidBoot detects unsupported hardware and disables itself with an
-explanation.
+**Intel Macs are unsupported**, deliberately: they use a different variable
+(`AutoBoot`) with different semantics — one merged switch, no lid/power split —
+and LidBoot can't run its write-then-verify check on hardware its maintainer
+doesn't own. On an Intel Mac the app explains this and shows the two Terminal
+commands instead, which you can run yourself:
+
+```sh
+sudo nvram AutoBoot=%00     # don't start up from the lid or from power
+sudo nvram AutoBoot=%03     # restore
+```
+
+Applies to MacBook Pro 2016+, MacBook 12" 2017 and MacBook Air 2018+. A key
+press or trackpad touch still powers a T2 Mac on. If anything goes wrong,
+Option-Command-P-R at start-up resets NVRAM (Apple-documented). Full reasoning
+in [`app/docs/INTEL-HANDOFF.md`](app/docs/INTEL-HANDOFF.md).
 
 ## Safety
 
@@ -70,6 +81,24 @@ deliberately narrow:
 
 Reads need no privileges. Writes ask macOS for a one-shot authorisation, so
 **nothing is installed** — no background helper, no root daemon.
+
+## Automation
+
+The switches are also URLs, for Shortcuts, Raycast, Alfred or a shell:
+
+```sh
+open lidboot://lid/off        # lidboot://lid/on
+open lidboot://power/off      # lidboot://power/on
+open lidboot://all/off        # lidboot://all/on  (same as Restore Default)
+open lidboot://open           # just show the window
+```
+
+A URL can't do anything a click can't: it goes through the same password
+prompt, the same closed enum and the same read-back. The window comes to the
+front first, so the prompt never appears out of nowhere.
+
+Prefer plain `nvram`? **Copy Terminal Command** in the window gives you the exact
+line for your current setting.
 
 ## Build
 
@@ -115,5 +144,5 @@ issue.
 
 ---
 
-Built by [Hexadexa](https://hexadexa.io) · [Buy me a coffee](https://buymeacoffee.com/hexadexa) ·
+Built by [Hexadexa](https://hexadexa.io) · [Buy me a coffee](https://ko-fi.com/hexadexa) ·
 Not affiliated with Apple Inc.

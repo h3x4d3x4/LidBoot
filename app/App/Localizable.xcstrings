@@ -10,6 +10,24 @@
             "state": "translated",
             "value": "Ao abrir a tampa"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Al abrir la tapa"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beim Öffnen des Deckels"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "À l'ouverture de l'écran"
+          }
         }
       }
     },
@@ -20,6 +38,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ao ligar à corrente"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Al conectar la corriente"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beim Anschließen ans Netz"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Au branchement du chargeur"
           }
         }
       }
@@ -32,6 +68,24 @@
             "state": "translated",
             "value": "Ligar a ficha arranca o Mac"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enchufarlo arranca el Mac"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anschließen startet den Mac"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Brancher démarre votre Mac"
+          }
         }
       }
     },
@@ -42,6 +96,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ligar a ficha apenas carrega a bateria"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enchufarlo solo lo carga"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anschließen lädt ihn nur"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Brancher ne fait que le charger"
           }
         }
       }
@@ -54,6 +126,24 @@
             "state": "translated",
             "value": "Arrancar ao abrir a tampa"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Arrancar al abrir la tapa"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beim Öffnen des Deckels starten"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Démarrer à l'ouverture de l'écran"
+          }
         }
       }
     },
@@ -64,6 +154,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Arrancar ao ligar à corrente"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Arrancar al conectar la corriente"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beim Anschließen ans Netz starten"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Démarrer au branchement du chargeur"
           }
         }
       }
@@ -76,6 +184,24 @@
             "state": "translated",
             "value": "Alterar isto pede a tua palavra-passe"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cambiar esto pide tu contraseña"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diese Änderung fragt nach deinem Passwort"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cette modification demande votre mot de passe"
+          }
         }
       }
     },
@@ -86,6 +212,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ligado. %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Activado. %@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein. %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Activé. %@"
           }
         }
       }
@@ -98,6 +242,24 @@
             "state": "translated",
             "value": "Desligado. %@"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desactivado. %@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aus. %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Désactivé. %@"
+          }
         }
       }
     },
@@ -108,6 +270,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Arranque automático limitado"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Arranque automático limitado"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Automatischer Start eingeschränkt"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Démarrage automatique limité"
           }
         }
       }
@@ -120,6 +300,24 @@
             "state": "translated",
             "value": "Comportamento de arranque predefinido"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comportamiento de arranque predeterminado"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Standard-Startverhalten"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comportement de démarrage par défaut"
+          }
         }
       }
     },
@@ -130,6 +328,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "O teu Mac continua a arrancar se carregares numa tecla ou tocares no trackpad."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El Mac sigue arrancando si pulsas una tecla o tocas el trackpad."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dein Mac startet weiterhin, wenn du eine Taste drückst oder das Trackpad berührst."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Votre Mac démarre toujours si vous appuyez sur une touche ou touchez le trackpad."
           }
         }
       }
@@ -142,6 +358,24 @@
             "state": "translated",
             "value": "Arranca ao abrir a tampa ou ao ligar à corrente."
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Arranca al abrir la tapa o al conectar la corriente."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Startet beim Öffnen des Deckels oder Anschließen ans Netz."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Démarre à l'ouverture de l'écran ou au branchement du chargeur."
+          }
         }
       }
     },
@@ -152,6 +386,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Não arranca ao abrir a tampa."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No arranca al abrir la tapa."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Startet nicht beim Öffnen des Deckels."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ne démarre pas à l'ouverture de l'écran."
           }
         }
       }
@@ -164,6 +416,24 @@
             "state": "translated",
             "value": "Não arranca ao ligar à corrente."
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No arranca al conectar la corriente."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Startet nicht beim Anschließen ans Netz."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ne démarre pas au branchement du chargeur."
+          }
         }
       }
     },
@@ -175,12 +445,56 @@
             "state": "translated",
             "value": "Barra de menus"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Barra de menús"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Menüleiste"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Barre des menus"
+          }
         }
       }
     },
     "Dock": {
       "extractionState": "manual",
-      "shouldTranslate": false
+      "shouldTranslate": false,
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dock"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dock"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dock"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dock"
+          }
+        }
+      }
     },
     "Both": {
       "extractionState": "manual",
@@ -189,6 +503,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ambos"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ambos"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beides"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les deux"
           }
         }
       }
@@ -201,6 +533,24 @@
             "state": "translated",
             "value": "Ocultar o ícone da Dock?"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Ocultar el icono del Dock?"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dock-Symbol ausblenden?"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Masquer l'icône du Dock ?"
+          }
         }
       }
     },
@@ -211,6 +561,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Cancelar"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cancelar"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abbrechen"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Annuler"
           }
         }
       }
@@ -223,6 +591,24 @@
             "state": "translated",
             "value": "Usar apenas a barra de menus"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usar solo la barra de menús"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nur Menüleiste verwenden"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Barre des menus uniquement"
+          }
         }
       }
     },
@@ -233,6 +619,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Abrir ao iniciar sessão"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abrir al iniciar sesión"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beim Anmelden öffnen"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouvrir à l'ouverture de session"
           }
         }
       }
@@ -245,6 +649,24 @@
             "state": "translated",
             "value": "Apenas para acesso rápido — a definição mantém-se"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Solo para acceso rápido: el ajuste se mantiene igualmente"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nur für den schnellen Zugriff – die Einstellung bleibt so oder so"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Juste pour un accès rapide : le réglage est conservé de toute façon"
+          }
         }
       }
     },
@@ -255,6 +677,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Precisa de aprovação em Definições do Sistema › Itens de Início de Sessão. Clica para abrir."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Necesita aprobación en Ajustes del Sistema › Ítems de inicio. Haz clic para abrir."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Muss in Systemeinstellungen › Anmeldeobjekte genehmigt werden. Zum Öffnen klicken."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Doit être approuvé dans Réglages Système › Ouverture. Cliquez pour ouvrir."
           }
         }
       }
@@ -267,6 +707,24 @@
             "state": "translated",
             "value": "Não foi possível alterar esta definição."
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo cambiar este ajuste."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diese Einstellung konnte nicht geändert werden."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Impossible de modifier ce réglage."
+          }
         }
       }
     },
@@ -277,6 +735,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Versão %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Versión %@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Version %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Version %@"
           }
         }
       }
@@ -289,6 +765,24 @@
             "state": "translated",
             "value": "Definições…"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ajustes…"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Einstellungen …"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Réglages…"
+          }
         }
       }
     },
@@ -299,6 +793,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sair"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Salir"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beenden"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quitter"
           }
         }
       }
@@ -311,6 +823,24 @@
             "state": "translated",
             "value": "O macOS não conseguiu verificar a tua palavra-passe, por isso nada mudou."
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "macOS no pudo verificar tu contraseña, así que no ha cambiado nada."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "macOS konnte dein Passwort nicht bestätigen, daher wurde nichts geändert."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "macOS n'a pas pu vérifier votre mot de passe, rien n'a donc changé."
+          }
         }
       }
     },
@@ -321,6 +851,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Não foi possível preparar o comando do sistema."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo preparar el comando del sistema."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Systembefehl konnte nicht vorbereitet werden."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Impossible de préparer la commande système."
           }
         }
       }
@@ -333,6 +881,24 @@
             "state": "translated",
             "value": "O sistema recusou a alteração (%lld)."
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El sistema rechazó el cambio (%lld)."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das System hat die Änderung abgelehnt (%lld)."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le système a refusé la modification (%lld)."
+          }
         }
       }
     },
@@ -343,6 +909,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Esta definição precisa do macOS 15 (Sequoia) ou posterior. Estás no %@."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Este ajuste necesita macOS 15 (Sequoia) o posterior. Tienes %@."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diese Einstellung erfordert macOS 15 (Sequoia) oder neuer. Du hast %@."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ce réglage nécessite macOS 15 (Sequoia) ou ultérieur. Vous avez %@."
           }
         }
       }
@@ -355,6 +939,24 @@
             "state": "translated",
             "value": "Repor predefinição"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restaurar valor predeterminado"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Standard wiederherstellen"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rétablir la valeur par défaut"
+          }
         }
       }
     },
@@ -365,6 +967,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Remove a definição, devolvendo o teu Mac ao estado de origem"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elimina el ajuste y devuelve el Mac a su estado original"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entfernt die Einstellung und versetzt den Mac in den Auslieferungszustand"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Supprime le réglage et remet votre Mac dans son état d'origine"
           }
         }
       }
@@ -377,6 +997,24 @@
             "state": "translated",
             "value": "Copiado"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copiado"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kopiert"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copié"
+          }
         }
       }
     },
@@ -387,6 +1025,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Abrir a tampa arranca o Mac"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abrir la tapa arranca el Mac"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Öffnen des Deckels startet den Mac"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouvrir l'écran démarre votre Mac"
           }
         }
       }
@@ -399,6 +1055,24 @@
             "state": "translated",
             "value": "Abrir a tampa não arranca o Mac"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abrir la tapa no arranca el Mac"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Öffnen des Deckels startet den Mac nicht"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouvrir l'écran ne démarre pas votre Mac"
+          }
         }
       }
     },
@@ -409,6 +1083,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Não arranca pela tampa nem pela corrente."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No arranca ni por la tapa ni por la corriente."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Startet weder durch den Deckel noch durchs Netz."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ne démarre ni à l'ouverture ni au branchement."
           }
         }
       }
@@ -421,6 +1113,24 @@
             "state": "translated",
             "value": "Desconhecido"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desconocido"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unbekannt"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inconnu"
+          }
         }
       }
     },
@@ -431,6 +1141,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Alterar qualquer um dos interruptores pede a palavra-passe do Mac."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cambiar cualquiera de los interruptores pide la contraseña del Mac."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das Umlegen eines Schalters fragt nach dem Mac-Passwort."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modifier l'un des interrupteurs demande le mot de passe du Mac."
           }
         }
       }
@@ -443,6 +1171,24 @@
             "state": "translated",
             "value": "Esta definição só se aplica a portáteis Mac com tampa."
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Este ajuste solo se aplica a portátiles Mac con tapa."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diese Einstellung gilt nur für Mac-Laptops mit Deckel."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ce réglage ne s'applique qu'aux Mac portables dotés d'un écran rabattable."
+          }
         }
       }
     },
@@ -453,6 +1199,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Documentação da Apple"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Documentación de Apple"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apple-Dokumentation"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Documentation Apple"
           }
         }
       }
@@ -465,6 +1229,24 @@
             "state": "translated",
             "value": "O macOS não mostrou o pedido de autorização, por isso nada mudou."
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "macOS no mostró la solicitud de autorización, así que no ha cambiado nada."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "macOS hat die Autorisierungsabfrage nicht angezeigt, daher wurde nichts geändert."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "macOS n'a pas affiché la demande d'autorisation, rien n'a donc changé."
+          }
         }
       }
     },
@@ -475,6 +1257,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "O macOS aceitou a alteração, mas a definição é lida de forma diferente. Os interruptores mostram o que o teu Mac realmente reporta."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "macOS aceptó el cambio, pero el ajuste se lee de forma distinta. Los interruptores muestran lo que el Mac realmente indica."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "macOS hat die Änderung akzeptiert, aber die Einstellung liest sich anders zurück. Die Schalter zeigen, was dein Mac tatsächlich meldet."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "macOS a accepté la modification, mais le réglage relu est différent. Les interrupteurs montrent ce que votre Mac indique réellement."
           }
         }
       }
@@ -487,6 +1287,24 @@
             "state": "translated",
             "value": "Geral"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "General"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Allgemein"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Général"
+          }
         }
       }
     },
@@ -497,6 +1315,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Atualizações"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Actualizaciones"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Updates"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mises à jour"
           }
         }
       }
@@ -509,6 +1345,24 @@
             "state": "translated",
             "value": "Acerca"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Acerca de"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Über"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "À propos"
+          }
         }
       }
     },
@@ -519,6 +1373,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Copiar comando do Terminal"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copiar comando de Terminal"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Terminal-Befehl kopieren"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copier la commande Terminal"
           }
         }
       }
@@ -531,6 +1403,24 @@
             "state": "translated",
             "value": "Procurar atualizações automaticamente"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buscar actualizaciones automáticamente"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Automatisch nach Updates suchen"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rechercher les mises à jour automatiquement"
+          }
         }
       }
     },
@@ -541,6 +1431,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Procurar agora"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buscar ahora"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jetzt suchen"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rechercher"
           }
         }
       }
@@ -553,6 +1461,24 @@
             "state": "translated",
             "value": "Procurar atualizações…"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buscar actualizaciones…"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nach Updates suchen …"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rechercher les mises à jour…"
+          }
         }
       }
     },
@@ -563,6 +1489,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "As atualizações são assinadas e verificadas antes de instalar."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Las actualizaciones se firman y verifican antes de instalarse."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Updates werden vor der Installation signiert und geprüft."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les mises à jour sont signées et vérifiées avant l'installation."
           }
         }
       }
@@ -575,6 +1519,24 @@
             "state": "translated",
             "value": "Última verificação %@"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Última comprobación %@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zuletzt geprüft %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dernière vérification %@"
+          }
         }
       }
     },
@@ -585,6 +1547,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Controlo de arranque para MacBooks"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Control de arranque para MacBooks"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Startkontrolle für MacBooks"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Contrôle du démarrage pour MacBook"
           }
         }
       }
@@ -597,6 +1577,24 @@
             "state": "translated",
             "value": "Concebido e criado pela Hexadexa"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diseñado y creado por Hexadexa"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entworfen und entwickelt von Hexadexa"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conçu et développé par Hexadexa"
+          }
         }
       }
     },
@@ -607,6 +1605,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Agradecimentos"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Agradecimientos"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Danksagungen"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remerciements"
           }
         }
       }
@@ -619,6 +1635,24 @@
             "state": "translated",
             "value": "Copyright © 2026 Hexadexa. Todos os direitos reservados."
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copyright © 2026 Hexadexa. Todos los derechos reservados."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copyright © 2026 Hexadexa. Alle Rechte vorbehalten."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copyright © 2026 Hexadexa. Tous droits réservés."
+          }
         }
       }
     },
@@ -629,6 +1663,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Aspeto"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aspecto"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erscheinungsbild"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apparence"
           }
         }
       }
@@ -641,6 +1693,24 @@
             "state": "translated",
             "value": "Sistema"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sistema"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "System"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Système"
+          }
         }
       }
     },
@@ -651,6 +1721,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Claro"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claro"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hell"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Clair"
           }
         }
       }
@@ -663,6 +1751,24 @@
             "state": "translated",
             "value": "Escuro"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oscuro"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dunkel"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sombre"
+          }
         }
       }
     },
@@ -673,6 +1779,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Como funciona"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cómo funciona"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "So funktioniert es"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comment ça marche"
           }
         }
       }
@@ -685,6 +1809,24 @@
             "state": "translated",
             "value": "Mais opções"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Más opciones"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Weitere Optionen"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Plus d'options"
+          }
         }
       }
     },
@@ -695,6 +1837,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Mantém-se após reinícios e atualizações. Repor predefinição remove-a por completo, deixando o teu Mac exatamente como veio de origem."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sobrevive a reinicios y actualizaciones. Restaurar valor predeterminado lo elimina por completo, dejando el Mac exactamente como venía de fábrica."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sie überlebt Neustarts und Updates. „Standard wiederherstellen“ entfernt sie vollständig und lässt den Mac genau so zurück, wie er ausgeliefert wurde."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il survit aux redémarrages et aux mises à jour. « Rétablir la valeur par défaut » le supprime complètement, laissant votre Mac exactement comme à sa sortie d'usine."
           }
         }
       }
@@ -707,12 +1867,56 @@
             "state": "translated",
             "value": "Só se aplica a partir de um encerramento completo. Acordar o Mac do modo de repouso nunca é afetado."
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Solo se aplica tras un apagado completo. Despertar el Mac del reposo nunca se ve afectado."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sie gilt nur nach einem vollständigen Ausschalten. Das Aufwecken aus dem Ruhezustand ist nie betroffen."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il ne s'applique qu'après un arrêt complet. La sortie de veille de votre Mac n'est jamais affectée."
+          }
         }
       }
     },
     "LidBoot": {
       "extractionState": "manual",
-      "shouldTranslate": false
+      "shouldTranslate": false,
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "LidBoot"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "LidBoot"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "LidBoot"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "LidBoot"
+          }
+        }
+      }
     },
     "Show LidBoot in": {
       "extractionState": "manual",
@@ -721,6 +1925,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Mostrar o LidBoot em"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar LidBoot en"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "LidBoot anzeigen in"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Afficher LidBoot dans"
           }
         }
       }
@@ -733,6 +1955,24 @@
             "state": "translated",
             "value": "O LidBoot só ficará acessível pelo ícone na barra de menus. Se a tua barra de menus estiver cheia, o macOS pode não ter espaço para o mostrar — o que é comum em Macs com notch.\n\nSe não encontrares o ícone, abre o LidBoot outra vez a partir do Finder ou do Launchpad e esta janela reaparece."
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "LidBoot solo será accesible desde su icono de la barra de menús. Si la barra de menús está llena, puede que macOS no tenga espacio para mostrarlo; es habitual en Macs con notch.\n\nSi no encuentras el icono, abre LidBoot de nuevo desde el Finder o Launchpad y esta ventana volverá a aparecer."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "LidBoot ist dann nur noch über sein Menüleistensymbol erreichbar. Ist deine Menüleiste voll, hat macOS womöglich keinen Platz dafür – das ist bei Macs mit Notch üblich.\n\nFindest du das Symbol nicht, öffne LidBoot erneut über den Finder oder das Launchpad, und dieses Fenster erscheint wieder."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "LidBoot ne sera accessible que depuis son icône dans la barre des menus. Si votre barre des menus est pleine, macOS peut manquer de place pour l'afficher ; c'est courant sur les Mac avec encoche.\n\nSi vous ne trouvez pas l'icône, rouvrez LidBoot depuis le Finder ou le Launchpad et cette fenêtre réapparaîtra."
+          }
         }
       }
     },
@@ -743,6 +1983,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "O LidBoot precisa da tua palavra-passe para alterar a definição de arranque do Mac."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "LidBoot necesita tu contraseña para cambiar el ajuste de arranque del Mac."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "LidBoot benötigt dein Passwort, um die Starteinstellung des Mac zu ändern."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "LidBoot a besoin de votre mot de passe pour modifier le réglage de démarrage du Mac."
           }
         }
       }
@@ -755,6 +2013,24 @@
             "state": "translated",
             "value": "O BootPreference tem um valor que o LidBoot não consegue ler, por isso não o vai alterar."
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "BootPreference contiene un valor que LidBoot no puede leer, así que no lo cambiará."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "BootPreference enthält einen Wert, den LidBoot nicht lesen kann, daher wird er nicht geändert."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "BootPreference contient une valeur que LidBoot ne peut pas lire ; il ne la modifiera donc pas."
+          }
         }
       }
     },
@@ -765,6 +2041,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Esta definição só existe em Macs com Apple silicon. O teu Mac usa firmware diferente que o LidBoot não suporta."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Este ajuste solo existe en Macs con Apple silicon. Tu Mac usa un firmware distinto que LidBoot no admite."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diese Einstellung gibt es nur auf Macs mit Apple Silicon. Dein Mac verwendet eine andere Firmware, die LidBoot nicht unterstützt."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ce réglage n'existe que sur les Mac à puce Apple. Votre Mac utilise un autre firmware que LidBoot ne prend pas en charge."
           }
         }
       }
@@ -777,6 +2071,24 @@
             "state": "translated",
             "value": "O LidBoot não pode ajudar este Mac"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "LidBoot no puede ayudar a este Mac"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "LidBoot kann diesem Mac nicht helfen"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "LidBoot ne peut rien pour ce Mac"
+          }
         }
       }
     },
@@ -787,6 +2099,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Abrir o LidBoot…"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abrir LidBoot…"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "LidBoot öffnen …"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouvrir LidBoot…"
           }
         }
       }
@@ -799,6 +2129,24 @@
             "state": "translated",
             "value": "Sair do LidBoot"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Salir de LidBoot"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "LidBoot beenden"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quitter LidBoot"
+          }
         }
       }
     },
@@ -809,6 +2157,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ajuda do LidBoot"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ayuda de LidBoot"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "LidBoot-Hilfe"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aide LidBoot"
           }
         }
       }
@@ -821,6 +2187,24 @@
             "state": "translated",
             "value": "Abre a janela do LidBoot"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abre la ventana de LidBoot"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Öffnet das LidBoot-Fenster"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouvre la fenêtre LidBoot"
+          }
         }
       }
     },
@@ -831,6 +2215,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "O BootPreference está definido para um valor que o LidBoot não reconhece (0x%@), por isso não o vai alterar."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "BootPreference tiene un valor que LidBoot no reconoce (0x%@), así que no lo cambiará."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "BootPreference ist auf einen Wert gesetzt, den LidBoot nicht kennt (0x%@), daher wird er nicht geändert."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "BootPreference contient une valeur que LidBoot ne reconnaît pas (0x%@) ; il ne la modifiera donc pas."
           }
         }
       }
@@ -843,6 +2245,24 @@
             "state": "translated",
             "value": "O LidBoot altera o BootPreference, uma definição de arranque no firmware do teu Mac que a Apple documenta."
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "LidBoot cambia BootPreference, un ajuste de arranque del firmware del Mac que Apple documenta."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "LidBoot ändert BootPreference, eine von Apple dokumentierte Starteinstellung in der Firmware deines Mac."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "LidBoot modifie BootPreference, un réglage de démarrage du firmware de votre Mac documenté par Apple."
+          }
         }
       }
     },
@@ -853,6 +2273,343 @@
           "stringUnit": {
             "state": "translated",
             "value": "Oferece-me um café"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Invítame a un café"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spendier mir einen Kaffee"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Offrez-moi un café"
+          }
+        }
+      }
+    },
+    "Copy": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copiar"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copiar"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kopieren"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copier"
+          }
+        }
+      }
+    },
+    "Copy %@": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copiar %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copiar %@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ kopieren"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copier %@"
+          }
+        }
+      }
+    },
+    "Restore": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Repor"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restaurar"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wiederherstellen"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rétablir"
+          }
+        }
+      }
+    },
+    "Source code": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Código-fonte"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Código fuente"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quellcode"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Code source"
+          }
+        }
+      }
+    },
+    "Email a Problem": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reportar um problema"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Informar de un problema"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Problem melden"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Signaler un problème"
+          }
+        }
+      }
+    },
+    "Diagnostics include your Mac model, macOS version and the current setting. Nothing personal.": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O diagnóstico inclui o modelo do Mac, a versão do macOS e a definição atual. Nada pessoal."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El diagnóstico incluye el modelo del Mac, la versión de macOS y el ajuste actual. Nada personal."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Diagnose enthält dein Mac-Modell, die macOS-Version und die aktuelle Einstellung. Nichts Persönliches."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le diagnostic inclut le modèle de votre Mac, la version de macOS et le réglage actuel. Rien de personnel."
+          }
+        }
+      }
+    },
+    "Don't start up from the lid or from power": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não arrancar pela tampa nem pela corrente"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No arrancar ni por la tapa ni por la corriente"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Weder durch Deckel noch Netz starten"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ne démarrer ni à l'ouverture ni au branchement"
+          }
+        }
+      }
+    },
+    "Intel Macs use a different setting (AutoBoot) that LidBoot can't test on real hardware, so it won't change it. You can set it yourself in Terminal:": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Os Macs Intel usam uma definição diferente (AutoBoot) que o LidBoot não consegue testar em hardware real, por isso não a altera. Podes defini-la no Terminal:"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los Macs Intel usan un ajuste distinto (AutoBoot) que LidBoot no puede probar en hardware real, así que no lo cambia. Puedes definirlo en Terminal:"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Intel-Macs verwenden eine andere Einstellung (AutoBoot), die LidBoot nicht auf echter Hardware testen kann, daher ändert es sie nicht. Du kannst sie selbst im Terminal setzen:"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les Mac Intel utilisent un autre réglage (AutoBoot) que LidBoot ne peut pas tester sur du vrai matériel ; il ne le modifie donc pas. Vous pouvez le définir vous-même dans le Terminal :"
+          }
+        }
+      }
+    },
+    "Intel has one switch, not two. A key press still starts the Mac. To undo everything, reset NVRAM: hold Option-Command-P-R at start-up.": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nos Intel há um interruptor, não dois. Uma tecla continua a arrancar o Mac. Para anular tudo, repõe a NVRAM: mantém Opção-Comando-P-R no arranque."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En Intel hay un interruptor, no dos. Una tecla sigue arrancando el Mac. Para deshacerlo todo, restablece la NVRAM: mantén Opción-Comando-P-R al arrancar."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Intel hat einen Schalter, nicht zwei. Ein Tastendruck startet den Mac weiterhin. Um alles rückgängig zu machen, NVRAM zurücksetzen: beim Start Wahl-Befehl-P-R gedrückt halten."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sur Intel il n'y a qu'un interrupteur, pas deux. Une touche démarre toujours le Mac. Pour tout annuler, réinitialisez la NVRAM : maintenez Option-Commande-P-R au démarrage."
+          }
+        }
+      }
+    },
+    "Takes effect after you shut down. Until then your Mac behaves as before.": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Só tem efeito depois de encerrares. Até lá, o Mac comporta-se como antes."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Surte efecto después de apagar. Hasta entonces el Mac se comporta como antes."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wird nach dem Ausschalten wirksam. Bis dahin verhält sich der Mac wie zuvor."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prend effet après l'arrêt. En attendant, votre Mac se comporte comme avant."
+          }
+        }
+      }
+    },
+    "Version %@ (%@)": {
+      "extractionState": "manual",
+      "localizations": {
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Versão %@ (%@)"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Versión %@ (%@)"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Version %@ (%@)"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Version %@ (%@)"
           }
         }
       }
