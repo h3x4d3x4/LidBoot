@@ -119,11 +119,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
 
-    // NB: there is no programmatic way to open the Settings scene here.
-    // `NSApp.sendAction(Selector(("showSettingsWindow:")))` — and the older
-    // `showPreferencesWindow:` — both no-op against a SwiftUI `Settings` scene
-    // (tried, measured, deleted). `SettingsLink` is the only reliable route,
-    // which is exactly why the popover's gear menu uses one.
+    // NB: `NSApp.sendAction(Selector(("showSettingsWindow:")))` and the older
+    // `showPreferencesWindow:` both no-op against a SwiftUI `Settings` scene
+    // (tried, measured, deleted). The route that works from AppKit is the
+    // `openSettings` environment action, captured into WindowOpener by a live
+    // view — see WindowOpener.openSettings.
 
     /// Clicking the Dock icon, or relaunching from Finder, must always surface
     /// something. In menu-bar-only mode there may be no visible status item at

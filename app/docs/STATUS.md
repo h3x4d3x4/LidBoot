@@ -1,6 +1,6 @@
 # LidBoot — current status
 
-**v0.5.0 · 2026-09-18.** Read this before `HANDOFF.md` (that's the historical first audit; everything in it is done). Source is public (MIT) at github.com/h3x4d3x4/LidBoot since 0.4.0.
+**v0.5.1 · 2026-09-19.** Read this before `HANDOFF.md` (that's the historical first audit; everything in it is done). Source is public (MIT) at github.com/h3x4d3x4/LidBoot since 0.4.0.
 
 ## 0.5.0 — going wider
 
@@ -77,7 +77,8 @@ It survived a code review and a full test suite because the dev machine is an M1
 - ~~The menu bar icon is two-state~~ **Closed in 0.5.0** — see above.
 - ~~The popover gives no success feedback~~ **Closed in 0.5.0** — notification on success for popover- and URL-initiated changes.
 - **`unsupported`/`refusal` states have never been seen on real hardware** — they're only reachable via injected fakes in tests and `-simulateUnsupported`. Designed, unit-tested and screenshotted in Debug, not seen on a real Intel Mac.
-- **No `Cmd-,` in menu-bar-only mode**: the app is an accessory, so there's no app menu. Settings is reachable from the popover instead — this is why that link exists.
+- **No `Cmd-,` in menu-bar-only mode**: the app is an accessory, so there's no app menu. Settings is reachable from the popover instead — this is why that link exists. **0.5.1:** that link was a `SettingsLink`, which silently no-ops when the accessory app isn't active — i.e. exactly when you click a popover. Found by the owner on 0.5.0, the first day in menu-bar-only mode. Now `openSettings` via `WindowOpener.openSettings()`, which activates and brings the window front. `-simulateState` (Debug) exists so the modified states get looked at too.
+- **Two instances at once** is not an app bug: same bundle id at two paths (e.g. `/Applications` and `build/release/export`) and LaunchServices may hand a `lidboot://` URL to the other copy. Keep one copy registered on the dev machine (`lsregister -u` the rest).
 
 ## Layout
 

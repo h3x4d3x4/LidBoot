@@ -93,6 +93,7 @@ open lidboot://lid/off        # lidboot://lid/on
 open lidboot://power/off      # lidboot://power/on
 open lidboot://all/off        # lidboot://all/on  (same as Restore Default)
 open lidboot://open           # just show the window
+open lidboot://settings
 ```
 
 A URL can't do anything a click can't: it goes through the same password

@@ -109,7 +109,7 @@ deliberately narrow:
   app runs, so it can't drift from what the app actually does.
 - **Copy Diagnostics** — model, macOS version, and the raw `BootPreference`
   value, for bug reports
-- **`lidboot://` URLs** — `lid/off`, `power/on`, `all/off`, `restore`, `open` —
+- **`lidboot://` URLs** — `lid/off`, `power/on`, `all/off`, `restore`, `open`, `settings` —
   for Shortcuts, Raycast and scripts. Same prompt, same enum, same read-back.
 - **Menu bar icon shows the state** — a slash for the lid, a bolt badge for
   power, so all four states are distinct at a glance
@@ -156,7 +156,13 @@ reachable through test fakes. Debug builds only:
 ```sh
 ./build/.../LidBoot.app/Contents/MacOS/LidBoot -simulateUnsupported notALaptop
 #                                                                  notAppleSilicon | osTooOld
+./build/.../LidBoot.app/Contents/MacOS/LidBoot -simulateState 00   # 01 | 02 | removed
 ```
+
+`-simulateState` backs the app with an in-memory `BootPreference` so the
+modified states, and the notices that only appear in them, can be reviewed and
+screenshotted without a password prompt or a firmware write. Neither flag is
+compiled into Release builds.
 
 ## Release
 

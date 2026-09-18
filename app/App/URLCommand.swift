@@ -9,7 +9,7 @@ import os
 ///     lidboot://power/off    lidboot://power/on
 ///     lidboot://all/off      lidboot://all/on   (= Restore Default)
 ///     lidboot://restore
-///     lidboot://open
+///     lidboot://open         lidboot://settings
 ///
 /// Every change still goes through the same auth prompt, the same closed enum
 /// and the same read-back verification as a click — a URL can't do anything a
@@ -26,9 +26,13 @@ enum URLCommand {
         let verb = url.host?.lowercased() ?? ""
         let argument = url.pathComponents.dropFirst().first?.lowercased()
 
+        if verb == "settings" {
+            WindowOpener.shared.openSettings()
+            return
+        }
+
         // Context first, prompt second.
         WindowOpener.shared.open()
-        NSApplication.shared.activate()
 
         guard let current = model.behavior else {
             // Unsupported, unreadable, or refused: the window now explains why.

@@ -28,7 +28,16 @@ final class LidBootModel: ObservableObject {
     /// One model for the whole process: the scenes observe it, and the URL
     /// handler (which lives in AppDelegate, outside the SwiftUI graph) drives
     /// the same instance rather than a second one that reads NVRAM separately.
-    static let shared = LidBootModel()
+    static let shared = LidBootModel(service: LidBootModel.simulatedService ?? BootPreferenceService())
+
+    /// Debug builds only — see SimulatedNVRAM.
+    private static var simulatedService: BootPreferenceService? {
+        #if DEBUG
+        SimulatedNVRAM.fromArguments
+        #else
+        nil
+        #endif
+    }
 
     private let service: BootPreferenceService
 

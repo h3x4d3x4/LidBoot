@@ -100,9 +100,13 @@ struct MenuView: View {
             Spacer()
 
             Menu {
-                // SettingsLink rather than a Button: it's the only thing that
-                // reliably opens the Settings scene from an accessory app.
-                SettingsLink { Label("Settings…", systemImage: "gearshape") }
+                // Not SettingsLink: from an inactive accessory app it does
+                // nothing at all. See WindowOpener.openSettings.
+                Button {
+                    WindowOpener.shared.openSettings()
+                } label: {
+                    Label("Settings…", systemImage: "gearshape")
+                }
                 Button {
                     updater.checkForUpdates()
                 } label: {

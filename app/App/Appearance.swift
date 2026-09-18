@@ -63,6 +63,14 @@ enum AppAppearance: String, CaseIterable, Identifiable {
         // Setting this on NSApp covers every surface at once — window, popover
         // and Settings — so they can't disagree with each other.
         NSApp.appearance = nsAppearance
+        // And each window that already exists. `preferredColorScheme` on the
+        // Settings scene is only honoured when its window is created, so the
+        // Settings window — the one you're looking at while you change this —
+        // otherwise keeps the old appearance until reopened. Per-window
+        // appearance is applied live by the hosting view.
+        for window in NSApp.windows {
+            window.appearance = nsAppearance
+        }
         Self.log.info("applied appearance=\(self.rawValue, privacy: .public)")
     }
 }
